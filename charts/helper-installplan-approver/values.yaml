@@ -1,0 +1,3 @@
+sleep: 20
+image: 730335292448.dkr.ecr.ap-southeast-2.amazonaws.com/cpaas-codefresh-image:latest
+namespace: nothing

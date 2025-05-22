@@ -1,0 +1,78 @@
+{{- with .Values }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: installplan-approver
+  namespace: {{ .namespace }}
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "1"
+spec:
+  activeDeadlineSeconds: 240
+  template:
+    spec:
+      containers:
+        - image: {{ .image }}
+          command:
+            - /bin/bash
+            - -c
+            - |
+              SUBS="$NAMESPACE"
+
+              echo sleeping for $SLEEP
+              sleep $SLEEP
+
+              for i in $SUBS
+                do
+
+                  count=0
+                  while true
+                  do
+                    sleep $SLEEP
+                    COUNTIP=$(oc get sub -n $i -o jsonpath='{.items[0].status.installplan.name}' | awk -F- '{print $1}')
+                    if [ $COUNTIP == "install" ]
+                       then
+                         echo "Install plan is ready"
+                         break
+                    fi
+
+                    ((count++))
+                    if [ "$count" == '10' ]
+                      then
+                        echo ""
+                        echo "Exiting as installplan is not ready."
+                        exit 1
+                      fi
+                    echo "Wating for installplan to be created: $count"
+                    sleep $SLEEP
+
+                  done
+
+                  IP=$(oc get sub -n $i -o jsonpath='{.items[0].status.installplan.name}')
+
+                  MANUAL=$(oc get installplan $IP  -n $i -o jsonpath='{.spec.approval}')
+                  APPROVED=$(oc get installplan $IP  -n $i -o jsonpath='{.spec.approved}')
+                  if [ $MANUAL == "Manual" ] && [ $APPROVED == "false" ]
+                    then
+                      echo "Install plan $IP is ready to be patched which will install the operator $NAMESPACE"
+                      oc patch installplan $IP -n $i --type='merge' -p '{"spec": {"approved": true}}'
+
+                  fi
+              done
+
+          imagePullPolicy: Always
+          name: installplan-approver
+          env:
+            - name: SLEEP
+              value: {{ .sleep | quote }}
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+      dnsPolicy: ClusterFirst
+      restartPolicy: OnFailure
+      serviceAccount: installplan-approver-job
+      serviceAccountName: installplan-approver-job
+      terminationGracePeriodSeconds: 30
+{{- end }}

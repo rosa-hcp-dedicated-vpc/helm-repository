@@ -1,0 +1,18 @@
+{{- with .Values }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: installplan-approvers
+  namespace: {{ .namespace }}
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-4"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: installplan-approver
+subjects:
+  - kind: ServiceAccount
+    name: installplan-approver-job
+{{- end }}
