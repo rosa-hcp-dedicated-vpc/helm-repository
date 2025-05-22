@@ -1,6 +1,15 @@
 apiVersion: v1
 entries:
   application-certificates: null
+  application-gitops:
+  - apiVersion: v1
+    created: "2025-05-22T02:40:15.975258891Z"
+    description: Chart to generate argocd apps
+    digest: d30375f4169af02b783ea0fa0bcc1fb2801158fd803c1409c046038b5515610a
+    name: application-gitops
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/application-gitops-1.3.8/application-gitops-1.3.8.tgz
+    version: 1.3.8
   helper-installplan-approver:
   - apiVersion: v2
     created: "2025-05-22T02:38:32.510002333Z"
@@ -12,4 +21,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.5/helper-installplan-approver-0.0.5.tgz
     version: 0.0.5
-generated: "2025-05-22T02:38:32.510010539Z"
+generated: "2025-05-22T02:40:15.975267237Z"
