@@ -1,0 +1,29 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  annotations:
+    argocds.argoproj.io/name: {{ .Values.name }}
+    argocds.argoproj.io/namespace: {{ .Values.gitopsNamespace }}
+  labels:
+    app.kubernetes.io/managed-by: openshift-gitops
+    app.kubernetes.io/name: argocd-application-controller
+    app.kubernetes.io/part-of: argocd
+  name: "openshift-gitops-argocd-application-controller-{{ .Values.name }}-custom"
+rules:
+- apiGroups:
+  - '*'
+  resources:
+  - '*'
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+  - create
+  - patch
+  - delete
+- nonResourceURLs:
+  - '*'
+  verbs:
+  - get
+  - list
