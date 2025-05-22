@@ -2,4 +2,4 @@ apiVersion: v2
 name: helper-installplan-approver
 description: dependant chart to automatically approve operator installs via a job
 type: application
-version: 0.0.4
+version: 0.0.5
