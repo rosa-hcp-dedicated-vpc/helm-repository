@@ -1,5 +1,0 @@
-name: application-gitops
-gitopsNamespace: application-gitops
-domain: <placeholder_domain>
-argocd:
-  initialRepositories:
