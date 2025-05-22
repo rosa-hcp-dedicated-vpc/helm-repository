@@ -1,0 +1,26 @@
+---
+{{ range $applications := .Values.argocd.applications -}}
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+    helm.sh/hook: post-install
+    argocd.argoproj.io/sync-wave: '3'
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  name: "{{ $applications.name }}-project"
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "{{ $applications.name }} users project"
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: '*'
+      server: '*'
+---
+{{ end }}

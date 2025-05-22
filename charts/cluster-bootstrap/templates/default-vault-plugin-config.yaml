@@ -1,0 +1,25 @@
+{{ $plugin := .Values.argocd.plugin -}}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+  name: argocd-vault-configuration
+  namespace: openshift-gitops
+stringData:
+  AVP_TYPE: {{ $plugin.AVP_TYPE }}
+  AWS_REGION: {{ $plugin.AWS_REGION }}
+type: Opaque
+---
+apiVersion: v1
+kind: ServiceAccount
+imagePullSecrets:
+metadata:
+  annotations:
+    helm.sh/hook: post-install
+    eks.amazonaws.com/role-arn: arn:aws:iam::{{ $plugin.aws_account }}:role/{{ .Values.clusterName }}-rosa-cpaas-secretsmanager-role-iam
+  name: vplugin
+  namespace: openshift-gitops
+---
+
