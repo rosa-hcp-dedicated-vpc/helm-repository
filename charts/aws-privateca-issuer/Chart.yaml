@@ -1,0 +1,10 @@
+dependencies:
+  - name: helper-installplan-approver
+    version: 0.0.6
+    repository: <helper-installer-repo>
+apiVersion: v2
+appVersion: v1.4.2
+description: An addon for cert-manager to sign certificates using AWS PCA
+name: aws-privateca-issuer
+type: application
+version: 1.5.0

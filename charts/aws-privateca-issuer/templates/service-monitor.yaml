@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Values.serviceMonitor.name }}
+  namespace: {{ .Values.nameSpace }}
+  annotations:
+    helm.sh/hook: pre-install
+    helm.sh/hook-weight: "-1"
+  labels:
+    {{- include "aws-privateca-issuer.labels" . | nindent 4 }}
+    {{- with .Values.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+    - interval: {{ .Values.serviceMonitor.interval }}
+      path: /metrics
+      scheme: http
+      targetPort: {{ .Values.serviceMonitor.targetPort }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Values.nameSpace }}
+  selector:
+    matchLabels:
+      app: cert-manager

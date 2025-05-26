@@ -1,0 +1,11 @@
+apiVersion: awspca.cert-manager.io/v1beta1
+kind: AWSPCAClusterIssuer
+metadata:
+  name: {{ .Values.awsPcaIssuer }}
+  namespace: cert-manager
+  annotations:
+    helm.sh/hook: post-install
+    helm.sh/hook-weight: "1"
+spec:
+  arn: {{ .Values.awsAcmPcaArn }}
+  region: {{ .Values.region }}

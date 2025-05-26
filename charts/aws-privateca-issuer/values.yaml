@@ -1,0 +1,156 @@
+# dependant variables from https://pages.github.service.anz/ics/cluster-alerting/
+# These objects get pulled in and applied duing install of aws-privateca-issuer
+domain: np.au2.aws.anz.com
+cluster-alerting:
+  namespace: cert-manager
+
+helper-installplan-approver:
+  namespace: cert-manager-operator
+
+# Number of replicas to run of the issuer
+replicaCount: 1
+
+nameSpace: cert-manager
+
+image:
+  # Image repository
+  repository: 730335292448.dkr.ecr.ap-southeast-4.amazonaws.com/cert-manager-aws-privateca-issuer
+  # Image pull policy
+  pullPolicy: IfNotPresent
+  # Image tag
+  tag: v1.4.0
+
+# both certManagerRole, awsAcmPcaArn & csv are passed in at bootstrap
+certManagerRole: ""
+awsAcmPcaArn: ""
+region: ap-southeast-4
+csv: ""
+
+# Disable waiting for CertificateRequests to be Approved before signing
+disableApprovedCheck: false
+
+# Disables Kubernetes client-side rate limiting (only use if API Priority & Fairness is enabled on the cluster).
+disableClientSideRateLimiting: false
+
+# Optional secrets used for pulling the container image
+#
+# For example:
+#  imagePullSecrets:
+#  - name: secret-name
+imagePullSecrets: []
+
+# Override the name of the objects created by this chart
+nameOverride: ""
+
+# Override the name of the objects created by this chart
+fullnameOverride: ""
+
+# Number deployment revisions to keep
+revisionHistoryLimit: 10
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: cert-manager
+
+rbac:
+  # Specifies whether RBAC should be created
+  create: true
+
+service:
+  # Type of service to create
+  type: ClusterIP
+  # Port the service should listen on
+  port: 8080
+
+# Annotations to add to the issuer Pod
+podAnnotations: {}
+
+# Pod security context 
+# +docs:property
+podSecurityContext: {}
+
+# Container security context 
+# +docs:property
+securityContext:
+  allowPrivilegeEscalation: false
+
+# Kubernetes pod resources requests/limits
+#
+# For example:
+#  resources:
+#    limits:
+#      cpu: 100m
+#      memory: 128Mi
+#    requests:
+#      cpu: 100m
+#      memory: 128Mi
+resources: {}
+
+# Kubernetes node selector: node labels for pod assignment
+nodeSelector: {}
+
+# Kubernetes pod tolerations for cert-manager-csi-driver
+#
+# For example:
+#  tolerations:
+#  - operator: "Exists"
+tolerations: []
+
+# A Kubernetes Affinity, if required; see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#affinity-v1-core
+#
+# For example:
+#   affinity:
+#     nodeAffinity:
+#      requiredDuringSchedulingIgnoredDuringExecution:
+#        nodeSelectorTerms:
+#        - matchExpressions:
+#          - key: foo.bar.com/role
+#            operator: In
+#            values:
+#            - master
+affinity: {}
+
+# List of Kubernetes TopologySpreadConstraints; see https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core
+#
+# For example:
+#   topologySpreadConstraints:
+#   - maxSkew: 1
+#     topologyKey: topology.kubernetes.io/zone
+#     whenUnsatisfiable: ScheduleAnyway
+#     labelSelector:
+#       matchLabels:
+#         app.kubernetes.io/name: aws-privateca-issuer
+topologySpreadConstraints: []
+
+# Additional environment variables to set in the Pod
+# +docs:type=object
+env:
+
+# Additional labels to add to the Pod
+podLabels: {}
+
+# Additional volumes on the operator container.
+volumes: []
+
+# Additional VolumeMounts on the operator container.
+volumeMounts: []
+
+approverRole:
+  # Create the ClusterRole to allow the issuer to approve certificate requests
+  enabled: true
+  # Service account give approval permission
+  serviceAccountName: cert-manager
+  # Namespace the service account resides in
+  namespace: cert-manager
+
+# +docs:section=Monitoring
+
+serviceMonitor:
+  name: cert-manager
+  targetPort: 9402
+  interval: 30s
