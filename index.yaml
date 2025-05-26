@@ -13,6 +13,20 @@ entries:
   aws-privateca-issuer:
   - apiVersion: v2
     appVersion: v1.4.2
+    created: "2025-05-26T07:21:56.218149381Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.0.7
+    description: An addon for cert-manager to sign certificates using AWS PCA
+    digest: 00010fbdbddf5717391016f47f628c75652d97c19254b6611c926536fe8c565f
+    name: aws-privateca-issuer
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/aws-privateca-issuer-1.5.4/aws-privateca-issuer-1.5.4.tgz
+    version: 1.5.4
+  - apiVersion: v2
+    appVersion: v1.4.2
     created: "2025-05-26T06:47:10.803999696Z"
     dependencies:
     - name: helper-installplan-approver
@@ -54,6 +68,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/aws-privateca-issuer-1.5.0/aws-privateca-issuer-1.5.0.tgz
     version: 1.5.0
   cluster-bootstrap:
+  - apiVersion: v2
+    created: "2025-05-26T07:21:57.915698045Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.0.7
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: 10c942bb1e02d5dd0c761fd650db4d9c8da9b7eaf2e5d26e28785d1263ba9f15
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.2.2/cluster-bootstrap-0.2.2.tgz
+    version: 0.2.2
   - apiVersion: v2
     created: "2025-05-26T06:47:10.939664624Z"
     dependencies:
@@ -116,6 +145,16 @@ entries:
     version: 0.1.8
   helper-installplan-approver:
   - apiVersion: v2
+    created: "2025-05-26T07:21:58.989890654Z"
+    description: dependant chart to automatically approve operator installs via a
+      job
+    digest: 93fdfbad1a3de764ebf69dd5306acca697172b6b2aa61cbcc0375ef857f07fb1
+    name: helper-installplan-approver
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.9/helper-installplan-approver-0.0.9.tgz
+    version: 0.0.9
+  - apiVersion: v2
     created: "2025-05-26T07:11:04.139471448Z"
     description: dependant chart to automatically approve operator installs via a
       job
@@ -155,4 +194,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.5/helper-installplan-approver-0.0.5.tgz
     version: 0.0.5
-generated: "2025-05-26T07:11:04.139501675Z"
+generated: "2025-05-26T07:21:58.989940999Z"
