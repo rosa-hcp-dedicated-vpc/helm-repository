@@ -14,11 +14,11 @@ nameSpace: cert-manager
 
 image:
   # Image repository
-  repository: 730335292448.dkr.ecr.ap-southeast-4.amazonaws.com/cert-manager-aws-privateca-issuer
+  repository: registry.redhat.io/ubi9/ubi
   # Image pull policy
   pullPolicy: IfNotPresent
   # Image tag
-  tag: v1.4.0
+  tag: latest
 
 # both certManagerRole, awsAcmPcaArn & csv are passed in at bootstrap
 certManagerRole: ""
