@@ -116,6 +116,16 @@ entries:
     version: 0.1.8
   helper-installplan-approver:
   - apiVersion: v2
+    created: "2025-05-26T07:11:04.139471448Z"
+    description: dependant chart to automatically approve operator installs via a
+      job
+    digest: 38543553ee84719702b7da0328be4b765278dd0c7bf9ee52ee22015334668bdb
+    name: helper-installplan-approver
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.8/helper-installplan-approver-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     created: "2025-05-26T06:45:05.401422333Z"
     description: dependant chart to automatically approve operator installs via a
       job
@@ -145,4 +155,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.5/helper-installplan-approver-0.0.5.tgz
     version: 0.0.5
-generated: "2025-05-26T06:47:10.939706943Z"
+generated: "2025-05-26T07:11:04.139501675Z"
