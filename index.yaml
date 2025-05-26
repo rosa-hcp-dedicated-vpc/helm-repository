@@ -13,6 +13,20 @@ entries:
   aws-privateca-issuer:
   - apiVersion: v2
     appVersion: v1.4.2
+    created: "2025-05-26T05:02:14.5965831Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.0.6
+    description: An addon for cert-manager to sign certificates using AWS PCA
+    digest: 10a2d13cafb31f11493782f1fee1aaca507598196da84ec0bf4975464e5d89f5
+    name: aws-privateca-issuer
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/aws-privateca-issuer-1.5.2/aws-privateca-issuer-1.5.2.tgz
+    version: 1.5.2
+  - apiVersion: v2
+    appVersion: v1.4.2
     created: "2025-05-26T04:57:52.948224226Z"
     dependencies:
     - name: helper-installplan-approver
@@ -92,4 +106,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.5/helper-installplan-approver-0.0.5.tgz
     version: 0.0.5
-generated: "2025-05-26T04:57:52.948238032Z"
+generated: "2025-05-26T05:02:14.596605041Z"
