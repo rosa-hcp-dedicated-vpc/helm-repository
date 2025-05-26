@@ -74,7 +74,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: operator-install-job-hook
-          image: registry.access.redhat.com/ubi9/ubi
+          image: registry.redhat.io/openshift4/ose-cli:latest
           imagePullPolicy: IfNotPresent
           env:
           - name: SLEEP
