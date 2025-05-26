@@ -12,6 +12,21 @@ entries:
     version: 1.3.8
   cluster-bootstrap:
   - apiVersion: v2
+    created: "2025-05-26T02:39:59.604349852Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.0.5
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: 2cbdcca0f4a44910cab6e16761c7ccfde8357e71cffee0d9f510dd23319c611f
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.1.9/cluster-bootstrap-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
     created: "2025-05-22T02:43:10.94308666Z"
     dependencies:
     - name: helper-installplan-approver
@@ -28,6 +43,16 @@ entries:
     version: 0.1.8
   helper-installplan-approver:
   - apiVersion: v2
+    created: "2025-05-26T02:39:59.996960608Z"
+    description: dependant chart to automatically approve operator installs via a
+      job
+    digest: 0f89b7c803bbdb7f13f8f692ec76822aa0816df4af7e69597e524af188886e3d
+    name: helper-installplan-approver
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.6/helper-installplan-approver-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
     created: "2025-05-22T02:38:32.510002333Z"
     description: dependant chart to automatically approve operator installs via a
       job
@@ -37,4 +62,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.5/helper-installplan-approver-0.0.5.tgz
     version: 0.0.5
-generated: "2025-05-22T02:43:10.943112508Z"
+generated: "2025-05-26T02:39:59.996972871Z"
