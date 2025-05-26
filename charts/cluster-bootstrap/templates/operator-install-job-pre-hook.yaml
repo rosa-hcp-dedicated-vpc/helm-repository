@@ -74,7 +74,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: operator-install-job-hook
-          image: 730335292448.dkr.ecr.ap-southeast-2.amazonaws.com/cpaas-codefresh-image:v1.9.4
+          image: registry.access.redhat.com/ubi9/ubi
           imagePullPolicy: IfNotPresent
           env:
           - name: SLEEP

@@ -71,12 +71,12 @@ spec:
   repo:
     initContainers:
     - args:
-      - export HOME=/tmp && cp /usr/local/bin/argocd-vault-plugin_1.18.1_linux_amd64 /custom-tools/argocd-vault-plugin
+      - curl -Lo /custom-tools/argocd-vault-plugin https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v{{ .Values.argocd.plugin.version }}/argocd-vault-plugin_{{ .Values.argocd.plugin.version }}_linux_amd64
         && chmod +x /custom-tools/argocd-vault-plugin
       command:
       - /bin/bash
       - -c
-      image: 730335292448.dkr.ecr.ap-southeast-2.amazonaws.com/cpaas-codefresh-image:v1.9.4
+      image: registry.redhat.io/ubi9/ubi:latest
       name: download-tools
       resources: {}
       volumeMounts:
@@ -96,8 +96,8 @@ spec:
       - /var/run/argocd/argocd-cmp-server
       envFrom:
       - secretRef:
-          name: argocd-vault-configuration
-      image: 730335292448.dkr.ecr.ap-southeast-2.amazonaws.com/cpaas-codefresh-image:v1.9.4
+          name: vault-configuration
+      image: quay.io/gnunn/tools:latest
       name: avp
       resources: {}
       securityContext:
