@@ -172,6 +172,15 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.1.8/cluster-bootstrap-0.1.8.tgz
     version: 0.1.8
+  cluster-ingress:
+  - apiVersion: v2
+    created: "2025-05-27T23:38:00.354042742Z"
+    description: Chart to establish additional ingress on cluster
+    digest: 6c42f51c23b1d1d25970981759d92e9845a77048028f8f6236c45d3d9dc1a736
+    name: cluster-ingress
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-ingress-0.0.7/cluster-ingress-0.0.7.tgz
+    version: 0.0.7
   helper-installplan-approver:
   - apiVersion: v2
     created: "2025-05-26T07:21:58.989890654Z"
@@ -223,4 +232,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.5/helper-installplan-approver-0.0.5.tgz
     version: 0.0.5
-generated: "2025-05-26T07:23:55.188519236Z"
+generated: "2025-05-27T23:38:00.354080864Z"
