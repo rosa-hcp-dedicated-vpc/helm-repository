@@ -1,0 +1,22 @@
+kind: Certificate
+apiVersion: cert-manager.io/v1
+metadata:
+  name: {{ .Values.ingressSubdomain }}.{{ .Values.baseDomain }}
+  namespace: openshift-ingress
+spec:
+  dnsNames:
+  - "*.{{ .Values.ingressSubdomain }}.{{ .Values.baseDomain }}"
+  duration: 1h0m0s
+  issuerRef:
+    group: awspca.cert-manager.io
+    kind: AWSPCAClusterIssuer
+    name: "{{ .Values.issuerRef }}"
+  renewBefore: 55m0s
+  secretName: {{ .Values.ingressSubdomain }}.{{ .Values.baseDomain }}
+  usages:
+    - "server auth"
+    - "client auth"
+  privateKey:
+    algorithm: "RSA"
+    size: 2048
+ 

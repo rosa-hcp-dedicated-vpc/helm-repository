@@ -1,0 +1,4 @@
+name: cluster-ingress
+description: Chart to establish additional ingress on cluster
+version: 0.0.7
+apiVersion: v2
