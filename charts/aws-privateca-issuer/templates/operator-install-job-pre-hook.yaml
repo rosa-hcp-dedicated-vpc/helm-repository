@@ -74,7 +74,8 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: operator-install-job-hook-aws-pca
-          image: registry.redhat.io/openshift4/ose-cli:latest
+          # image: "{{ $.Values.ecr_account }}.dkr.ecr.{{ $.Values.aws_region }}.amazonaws.com/platform_image"
+          image: "{{ .Values.defaultImage }}"
           imagePullPolicy: IfNotPresent
           env:
           - name: SLEEP

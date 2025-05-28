@@ -76,7 +76,8 @@ spec:
       command:
       - /bin/bash
       - -c
-      image: registry.redhat.io/ubi9/ubi:latest
+      # image: "{{ $.Values.ecr_account }}.dkr.ecr.{{ $.Values.aws_region }}.amazonaws.com/platform_image"
+      image: "{{ .Values.defaultImage }}"
       name: download-tools
       resources: {}
       volumeMounts:
@@ -97,7 +98,8 @@ spec:
       envFrom:
       - secretRef:
           name: vault-configuration
-      image: quay.io/gnunn/tools:latest
+      # image: "{{ $.Values.ecr_account }}.dkr.ecr.{{ $.Values.aws_region }}.amazonaws.com/platform_image"
+      image: "{{ .Values.defaultImage }}"
       name: avp
       resources: {}
       securityContext:

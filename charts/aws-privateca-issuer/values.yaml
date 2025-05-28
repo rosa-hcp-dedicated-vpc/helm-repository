@@ -1,6 +1,15 @@
-# dependant variables from https://pages.github.service.anz/ics/cluster-alerting/
+defaultImage: quay.io/gnunn/tools:latest
+ecr_account: <ecr_account>
+aws_region: <region>
+image:
+  # Image repository
+  repository: registry.redhat.io/ubi9/ubi
+  # Image pull policy
+  pullPolicy: IfNotPresent
+  # Image tag
+  tag: latest
 # These objects get pulled in and applied duing install of aws-privateca-issuer
-domain: np.au2.aws.anz.com
+domain: <domain>
 cluster-alerting:
   namespace: cert-manager
 
@@ -11,14 +20,6 @@ helper-installplan-approver:
 replicaCount: 1
 
 nameSpace: cert-manager
-
-image:
-  # Image repository
-  repository: registry.redhat.io/ubi9/ubi
-  # Image pull policy
-  pullPolicy: IfNotPresent
-  # Image tag
-  tag: latest
 
 # both certManagerRole, awsAcmPcaArn & csv are passed in at bootstrap
 certManagerRole: ""

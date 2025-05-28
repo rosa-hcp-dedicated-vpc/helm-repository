@@ -1,11 +1,12 @@
 # Using sub-chart helper-installplan-approver
+defaultImage: quay.io/gnunn/tools:latest
 helper-installplan-approver:
   namespace: openshift-gitops-operator
 nameOverride: ""
 fullnameOverride: ""
-region: <region>
+aws_region: <region>
 aws_account: <account-id>
-domain:
+domain: <domain>
 namespaces:
   - name: openshift-gitops
   - name: openshift-gitops-operator

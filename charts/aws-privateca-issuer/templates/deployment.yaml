@@ -36,7 +36,8 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          # image: "{{ $.Values.ecr_account }}.dkr.ecr.{{ $.Values.aws_region }}.amazonaws.com/platform_image"
+          image: "{{ .Values.defaultImage }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /manager
