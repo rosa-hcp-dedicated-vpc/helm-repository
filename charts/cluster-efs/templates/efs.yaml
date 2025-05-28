@@ -1,0 +1,56 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+ name: aws-efs-cloud-credentials
+ namespace: openshift-cluster-csi-drivers
+stringData:
+  credentials: |-
+    [default]
+    role_arn = {{ .Values.roleArn }}
+    web_identity_token_file = /var/run/secrets/openshift/serviceaccount/token
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  namespace: openshift-cluster-csi-drivers
+  name: openshift-cluster-csi-drivers
+spec:
+  targetNamespaces:
+  upgradeStrategy: Default
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  labels:
+    operators.coreos.com/aws-efs-csi-driver-operator.openshift-cluster-csi-drivers: ""
+  name: aws-efs-csi-driver-operator
+  namespace: openshift-cluster-csi-drivers
+spec:
+  channel: stable
+  installPlanApproval: Manual
+  name: aws-efs-csi-driver-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+  startingCSV: {{ .Values.csv }}
+---
+apiVersion: operator.openshift.io/v1
+kind: ClusterCSIDriver
+metadata:
+    name: efs.csi.aws.com
+spec:
+  managementState: Managed
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+allowVolumeExpansion: true
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: {{ .Values.fileSystemId }}
+  directoryPerms: "700"
+  gidRangeStart: "1000"
+  gidRangeEnd: "2000"
+  basePath: "/dynamic_provisioning"
