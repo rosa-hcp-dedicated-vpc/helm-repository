@@ -1,0 +1,4 @@
+name: gitops-linker-app
+description: Chart to generate argocd apps for each team and gitops set up
+version: 1.4.2
+apiVersion: v2

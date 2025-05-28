@@ -1,0 +1,30 @@
+# #################################################################
+# # teamName used for argocd applicaiton names and namespace names.
+# #################################################################
+# teamName: payments-team
+# #################################################################
+# # default Values for gitops-payload helm chart
+# #################################################################
+# defaults:
+#   # argcod application defaults
+#   finalizers: resources-finalizer.argocd.argoproj.io
+#   gitopsNamespace: openshift-gitops
+#   # Helm defaults
+#   helmRepoUrl: https://github/ics/helm-charts
+#   path: charts
+#   chart: gitops-namespaces-payload
+#   targetRevision: 0.1.0
+# #################################################################
+# # INFRASTRUCTURE Charts to be deployed.
+# ################################################################# 
+# applications:
+#   - apmnum: apm0015510
+#     appserviceNumber: "1261763782"
+#     gitopsCreate: true
+#     gitRepoUrl: https://github/ics/crosa-day-1.git
+#     gitPath: Cluster/non-prod/high-trust/namespaces/1261763782.yaml
+#     appProject:
+#       adGroup: PFAUTHAD
+#       repos:
+#       - 'https://pages.github/ics/helm-charts'
+#       - 'https://github/ics/rosa-day-1.git'

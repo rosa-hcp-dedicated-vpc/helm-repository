@@ -1,0 +1,17 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    {{- include "namespaces.labels" . | nindent 4 }}
+  annotations:
+    argocd.argoproj.io/sync-options: Validate=false
+  name: admin
+  namespace: {{ .Values.project.name }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: customer-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: {{ .Values.groupname.admin_group }}

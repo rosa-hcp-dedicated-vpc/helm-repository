@@ -1,0 +1,4 @@
+apiVersion: v1
+description: Chart to generate namespaces apps.
+name: gitops-namespaces-payload
+version: 0.1.8

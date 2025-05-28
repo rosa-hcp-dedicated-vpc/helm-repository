@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  annotations:
+    app.kubernetes.io/managed-by: argo-git
+  labels:
+    {{- include "namespaces.labels" . | nindent 4 }}
+  name: {{ .Values.project.name }}-resourcequota
+  namespace: {{ .Values.project.name }}
+spec:
+  hard:
+    limits.cpu: {{ .Values.resourceQuota.limits_cpu | quote }}
+    limits.memory: {{ .Values.resourceQuota.limits_memory | quote }}
+    requests.cpu: {{ .Values.resourceQuota.requests_cpu | quote }}
+    requests.memory: {{ .Values.resourceQuota.requests_memory | quote }}
+    persistentvolumeclaims: {{ .Values.resourceQuota.persistentvolumeclaims | quote }}
+    limits.ephemeral-storage: {{  .Values.resourceQuota.limits_ephemeral_storage | quote }}
+    pods: {{ .Values.resourceQuota.pods | quote }}

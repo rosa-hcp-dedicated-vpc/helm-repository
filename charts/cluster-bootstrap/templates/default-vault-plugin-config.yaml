@@ -9,7 +9,7 @@ metadata:
   namespace: openshift-gitops
 stringData:
   AVP_TYPE: {{ $plugin.AVP_TYPE }}
-  AWS_REGION: {{ $plugin.AWS_REGION }}
+  AWS_REGION: {{ $.Values.region }}
 type: Opaque
 ---
 apiVersion: v1

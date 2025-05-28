@@ -1,0 +1,18 @@
+apiVersion: k8s.ovn.org/v1
+kind: EgressIP
+metadata:
+  #Change this to the Resource name e.g : app-name-resourcename
+  name: {{ .Values.project.name }}-egressip
+  annotations:
+    app.kubernetes.io/managed-by: argo-git
+  labels:
+    {{- include "namespaces.labels" . | nindent 4 }}
+spec:
+  egressIPs:
+  #Change this the Egress IP to be used for the namespace
+  - {{ .Values.project.labels.egressip }}
+  namespaceSelector:
+    matchLabels:
+      #Change this to the Namespace Name. Make sure this is added
+      #As a label in the Namespace manifest
+      egress.cpaas.test/namespace: {{ .Values.project.name }}

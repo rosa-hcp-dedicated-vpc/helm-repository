@@ -1,0 +1,576 @@
+{{ if .Values.project.ecrUpdateRole }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    eks.amazonaws.com/role-arn: {{ .Values.project.ecrUpdateRole }}
+  name: ecr-update-secrets
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  annotations:
+  name: ecr-update-secrets-infra-read-{{ .Values.project.name }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ecr-read-infra
+subjects:
+- kind: ServiceAccount
+  name: ecr-update-secrets
+  namespace: {{ .Values.project.name }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+  name: ecr-update-secrets
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name:  ecr-update-secrets
+subjects:
+- kind: ServiceAccount
+  name: ecr-update-secrets
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: null
+  name: ecr-update-secrets
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - create
+  - update
+  - delete
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ecr-cred-updater-cronjob
+spec:
+  schedule: "0 */4 * * *"
+  timeZone: Etc/UTC
+  concurrencyPolicy: "Replace"
+  startingDeadlineSeconds: 200
+  suspend: false
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            parent: "ecr-cred-updater-cronjob"
+        spec:
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+          - name: updater
+            resources:
+              requests:
+                cpu: 200m
+                memory: 256Mi
+              limits:
+                memory: "256Mi"
+                cpu: "200m"
+            image: 730335292448.dkr.ecr.ap-southeast-2.amazonaws.com/cpaas-codefresh-image:v1.9.4
+            command:
+              - /opt/scripts/update-ecr-pull-secret.sh
+            env:
+              - name: TZ
+                value: Australia/Melbourne
+              - name: HOME
+                value: /tmp
+            volumeMounts:
+            - name: scripts-vol
+              mountPath: /opt/scripts
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: [ALL]
+          restartPolicy: OnFailure
+          serviceAccount: ecr-update-secrets
+          serviceAccountName: ecr-update-secrets
+          volumes:
+          - name: scripts-vol
+            configMap:
+              name: ecr-cred-updater-scripts
+              defaultMode: 0554
+---
+apiVersion: v1
+data:
+  update-ecr-pull-secret.sh: |
+    #!/usr/bin/env bash
+
+    set -euo pipefail
+
+    VERSION="20250128-1"
+
+    usage() {
+      cat <<EOF
+      usage: ${0##*/} [ OPTIONS ]
+      Options
+      -p, --pull-secret-name <value>  Use this name of the OpenShift secret to write the ECR auth token to.
+                                      Defaults to 'ecr-pull-secret'.
+      -r, --aws-region <value>        AWS region to use when calls are made to the AWS API via the CLI.
+                                      If specified the the ECR proxyEndpoint is set to this region.
+                                      If not specified the AWS CLI determines the region based on it's configuration.
+      -t, --timezone <value>          Set the local timezone for log messages.
+      -v, --version                   Display the script and cli tool versions.
+      -h, --help                      Show this message and exit.
+      -x  --debug                     Set bash debug flag. *** Warning *** this will output send sensitive data
+                                      including auth tokens. Use with caution.
+    
+      The OpenShift namespace of the pod executing this script is determined using the Downward API.  The pull secret
+      is written to this namespace.
+
+      Environment Variables
+      ECR_PULL_SECRET Sets the name of the OpenShift secret to write the ECR auth token to.
+                      The -p, --pull-secret-name command line option takes precedence.
+
+      TZ              If this variable is set log messages that contain timestamps will include them formatted in UTC and local time.
+                      f this variable is not set those messages will only contain a single timestamp formatted in UTC.
+                      The -t, --timezone command line option takes precedence.
+
+      All environment variables that control the behaviour of the AWS CLI are passed as is, with the exception of AWS_REGION.
+      AWS_REGION will be overridden if the -r, --aws-region command line option is set.
+    EOF
+    }
+
+
+    # SYNTAX:
+    # catch STDOUT_VARIABLE STDERR_VARIABLE COMMAND [ARG1[ ARG2[ ...[ ARGN]]]]
+    # see - https://stackoverflow.com/a/59592881
+    catch() {
+      local _rc_ _xtrace_restore_=
+      # the xtrace option (set -x) will cause debug output to be captured into the stdout & stderr variables
+      # so we temporarily disable it if enabled
+      case $- in *x*) _xtrace_restore_='set -x'; set +x ;; esac
+      {
+        IFS=$'\n' read -r -d '' "${1}";
+        IFS=$'\n' read -r -d '' "${2}";
+        IFS=$'\n' read -r -d '' _rc_;
+        eval "${_xtrace_restore_}";
+        return ${_rc_}
+      } < <( (printf '\0%s\0%d\0' "$( ( ( ( { shift 2; "${@}"; echo "${?}" 1>&3-; } | tr -d '\0' 1>&4-) 4>&2- 2>&1- | tr -d '\0' 1>&4-) 3>&1- | exit "$(cat)") 4>&1-)" "${?}" 1>&2) 2>&1)
+    }
+
+    build_log_header() {
+      local line_no="$1"
+      printf '%-27s%d %s:%d]' "$(date -u '+%m%d %H:%M:%S.%6N')" $$ "${0##*/}" $line_no
+
+    }
+
+
+    log_error() {
+      local line_no="$1"; local msg="$2"
+      local log_line=
+
+      printf -v log_line 'E%s %s' "$(build_log_header $line_no)" "$msg"
+      printf '%s\n' "$log_line" >&2
+    }
+
+
+    log_info() {
+      local line_no="$1"; local msg="$2"
+      local log_line=
+
+      printf -v log_line 'I%s %s' "$(build_log_header $line_no)" "$msg"
+      printf '%s\n' "$log_line"
+    }
+
+
+    log_warn() {
+      local line_no="$1"; local msg="$2"
+      local log_line=
+
+      printf -v log_line 'W%s %s' "$(build_log_header $line_no)" "$msg"
+      printf '%s\n' "$log_line"
+    }
+
+    begins_with() {
+      case "$2" in "$1"*) true;; *) false;; esac;
+    }
+
+    # pads a base64 encoded string with '='' characters until it is divisible by 4 with no remainder
+    base64pad() {
+      local input="${1:-$(cat)}"
+      while [[ $(( ${#input} % 4 )) -ne 0 ]]; do input="${input}="; done
+      echo $input
+    }
+
+
+    err_exit() {
+      log_error "$@"
+      exit 1
+    }
+
+
+    abort_exit() {
+      local line_no=$1; local -i exit_val=${2:-1}
+      local -a msg=($line_no  "Aborting due to previous error")
+      log_error "${msg[@]}"
+      exit $exit_val
+    }
+
+
+    err_val_missing() {
+      local line_no opt
+      read line_no opt <<< "$@"
+      err_exit $line_no "Option $opt requires value, aborting.";
+    }
+
+
+    check_arg_val() {
+      local line_no opt val
+      read line_no opt val <<< "$@"
+
+      # check the value exists and does not start with -
+      if [[ -z $val ]] || begins_with '-' "$val"; then
+        err_exit $line_no "Option $opt requires value, aborting.";
+      fi
+    }
+
+    check_bins() {
+      for bin in aws oc; do
+        if ! type $bin >/dev/null 2>&1; then
+          err_exit $LINENO "No $bin executable found on path"
+        fi
+      done
+    }
+
+    yaml_to_assoc_array() {
+      local -n arr="$1"
+
+      while read -r line; do
+        arr[${line%%:*}]="$(echo ${line#*:} | xargs)"
+      done <<< "$2"
+    }
+
+    format_log_date() {
+      local input="${1:-$(</dev/stdin)}"
+      local formatted_date utc_date="$(date -u -d "$input")"
+
+      if [[ -n "$timezone" ]]; then
+        formatted_date="$utc_date ($(TZ="$timezone" date --date "$input"))"
+      else
+        formatted_date="$utc_date"
+      fi
+
+      echo "$formatted_date"
+    }
+
+    get_aws_auth() {
+      local -n res="$1"; local aws_region="${2:-}"
+      local stdout stderr rc; local -a cmd args
+
+      if [[ -n "$aws_region" ]]; then
+        args=(--region "$aws_region")
+      fi
+
+      # check we can access the AWS API
+      cmd=(aws sts get-caller-identity); args+=(--output yaml)
+      catch stdout stderr "${cmd[@]}" "${args[@]}"
+      rc=$?
+      if (( rc == 0 )); then
+        yaml_to_assoc_array res "$stdout"
+        log_info ${LINENO} "Connected to AWS as IAM user ${res[Arn]}"
+        return 0
+      else
+        log_error $LINENO "Unable to retrieve AWS IAM identity"
+        log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+        return $rc
+      fi
+    }
+
+    get_oc_auth(){
+      local -n res="$1"
+      local oc_server_url oc_user stderr cmd rc
+
+      # check we can access the OpenShft API
+      #local cmd=(oc config view --minify --output jsonpath='{.clusters[*].cluster.server}')
+      cmd=(oc whoami --show-server)
+      catch oc_server_url stderr "${cmd[@]}"
+      rc=$?
+      if (( rc != 0 )); then
+        log_error $LINENO "Unable to determine the OpenShift API server URL"
+        log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+        return $rc
+      fi
+
+      cmd=(oc whoami)
+      catch oc_user stderr "${cmd[@]}"
+      rc=$?
+      if (( rc == 0 )); then
+        log_info ${LINENO} "Connected to OpenShift API server $oc_server_url as $oc_user"
+        res[server_url]="$oc_server_url"
+        res[user]="$oc_user"
+        return 0
+      else
+        log_error $LINENO "Unable to retrieve OpenShift API identity"
+        log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+        return $rc
+      fi
+    }
+
+    get_oc_infra() {
+      local -n res="$1"
+      local stdout stderr cmd args rc
+
+      # Get the cluster name
+      cmd=(oc get infrastructure cluster); args=(-o=jsonpath='{"infra_name:"}{.status.infrastructureName}{"\n"}{"region:"}{.status.platformStatus.aws.region}')
+      catch stdout stderr "${cmd[@]}" "${args[@]}"
+      rc=$?
+      if (( rc == 0 )); then
+        yaml_to_assoc_array res "$stdout"
+        #for k in "${!res[@]}"; do printf "[%s]=%s\n" "$k" "${res[$k]}" ; done
+        res[cluster_name]="${res[infra_name]%-*}" #extract cluster name from infra name & push to front of res array.
+        log_info ${LINENO} "OpenShift cluster name is ${res[cluster_name]}"
+        return 0
+      else
+        log_error $LINENO "Unable to determine the OpenShift cluster infrastructure name"
+        log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+        return $rc
+      fi
+    }
+
+    get_ecr_auth_token(){
+      local -n res="$1"; local aws_region="${2:-}"
+      local stdout stderr rc; local -a cmd args
+
+      if [[ -n "$aws_region" ]]; then
+        args=(--region "$aws_region")
+      fi
+      cmd=(aws ecr get-authorization-token); args+=(--query 'authorizationData[0]' --output yaml)
+      catch stdout stderr "${cmd[@]}" "${args[@]}"
+      rc=$?
+      #echo $stdout
+      if (( rc == 0 )); then
+        yaml_to_assoc_array res "$stdout"
+        return 0
+      else
+        log_error $LINENO "Unable to retrieve AWS ECR authorization token"
+        log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+        return $rc
+      fi
+    }
+
+    check_pull_secret() {
+      local secret_name="$1"
+      local stdout stderr rc; local -a cmd
+
+      cmd=(oc get secret $secret_name)
+      catch stdout stderr "${cmd[@]}"
+      rc=$?
+
+      if (( rc != 0 )); then
+        case "$stderr" in
+          *NotFound* )
+            return 1
+            ;;
+          * )
+            log_error $LINENO "Error retrieving OpenShift secret $secret_name"
+            log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+            return 2
+            ;;
+        esac
+      fi
+      return 0
+    }
+
+
+    write_pull_secret() {
+      local secret_name="$1" ecr_endpoint="$2" auth_token="$3"
+      local auth_payload docker_cfg action stdout stderr rc
+
+      local -a cmd args
+    
+      #auth_payload=$(printf '{ \\"%s\\": { \\"auth\\": \\"%s\\" }}' "$ecr_endpoint" "$auth_token")
+      #cmd=(oc create secret docker-registry ecr-pull-secret --dry-run=client --output=yaml)
+      #args=('--from-file=.dockercfg=<(echo' \""$auth_payload"\"')')
+
+    
+      # check if the secret already exists
+      check_pull_secret $secret_name && rc=$? || rc=$?
+      # rc: 0 => yes, 1 => no, 2 => oc cli error
+
+      case $rc in
+        0)
+          log_info $LINENO "OpenShift pull secret $secret_name exists, secret will be updated"
+          action="update"
+        ;;
+        1)
+          log_info $LINENO "OpenShift pull secret $secret_name not found, secret will be created"
+          action="create"
+        ;;
+        *)
+          abort_exit $LINENO $rc
+      esac
+
+      # generate the updated pull secret as a yaml document
+      auth_payload=$(printf '{ \"%s\": { \"auth\": \"%s\" }}' "$ecr_endpoint" "$auth_token")
+      cmd=(oc create secret generic --type=kubernetes.io/dockercfg $secret_name -o yaml --dry-run=client)
+      args=(--from-literal=.dockercfg="$auth_payload")
+      catch stdout stderr "${cmd[@]}" "${args[@]}"
+      rc=$?
+
+      if (( rc != 0 )); then
+        log_error $LINENO "Unable to create pull secret yaml document"
+        log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+        return $rc
+      fi
+      docker_cfg="$stdout"
+
+      # use oc apply to create or update the pull secret
+      cmd=(oc apply -f);
+      args=('<(echo' \""$docker_cfg"\" ')')
+
+      catch stdout stderr "eval" "${cmd[@]}" "${args[@]}"
+      rc=$?
+
+      if (( rc == 0 )); then
+        log_info $LINENO "Successfully ${action}d OpenShift pull secret $secret_name"
+        return 0
+      else
+        log_error $LINENO "Unable to $action OpenShift pull secret"
+        log_error $LINENO "\`${cmd[*]}\` returned: $stderr"
+        return $rc
+      fi
+    }
+
+
+    version() {
+      local release=
+      printf "\nScript:\n%s\n\n" "${0##*/}: $VERSION"
+      if [[ -e /etc/redhat-release ]]; then
+        printf "Base Image:\n%s\n\n" "$(</etc/redhat-release)"
+      fi
+      printf "Shell:\n%s\n\n" "$(bash --version | head -1)"
+      check_bins || exit $?
+      printf "OpenShift Client:\n%s\n\n" "$(oc version)"
+      printf "AWS Client:\n%s\n\n" "$(aws --version)"
+      return 0
+    }
+
+
+    init() {
+      # global variables
+      declare -g aws_account_id= aws_region= namespace=
+    
+      # initialize the pull secret name.
+      # assignment sequence is -p option => var ECR_PULL_SECRET => hardcoded 'ecr-pull-secret'
+      declare -g secret_name="${ECR_PULL_SECRET:-ecr-pull-secret}"
+
+      # initialize the local timezone
+      # assignment sequence is -t option => var TZ => unset
+      declare -g timezone="${TZ:-}"
+
+      # local variables
+      local opt
+
+      while (( $# )); do
+        case $1 in
+          -p | --pull-secret-name )       opt="$1"; shift
+                                          check_arg_val "$LINENO" "$opt" "${1:-}"
+                                          secret_name="$1"
+                                          ;;
+          -r | --aws-region )             opt="$1"; shift
+                                          check_arg_val "$LINENO" "$opt" "${1:-}"
+                                          aws_region="$1"
+                                          ;;
+          -t | --timezone )               opt="$1"; shift
+                                          check_arg_val "$LINENO" "$opt" "${1:-}"
+                                          timezone="$1"
+                                          ;;
+          -v | --version  )               version
+                                          exit 0
+                                          ;;
+          -x | --debug )                  set -x
+                                          ;;
+          -h | --help )                   usage
+                                          exit 0
+                                          ;;
+          -* ) echo "Unexpected option $1"
+              usage
+              exit 1
+              ;;
+          * )
+            log_error $LINENO "Expected zero arguments. Got ${#@}."
+            usage
+            exit 1
+            ;;
+        esac
+        shift
+      done
+
+      # we can only log the startup time after timezone has been initialized.
+      log_info $LINENO "${0##*/} Started at $(date --rfc-3339=seconds | format_log_date)"
+
+      # check required binaries are available.
+      check_bins || exit $?
+
+      # check we are authenticated to the AWS APIs
+      declare -A aws_auth; get_aws_auth aws_auth || exit $?
+      if [[ -z  "$aws_account_id" ]]; then
+        aws_account_id="${aws_auth[Account]}"
+        log_info $LINENO "Using AWS Account ID $aws_account_id"
+      else
+        log_info $LINENO "Using supplied AWS Account ID $aws_account_id"
+      fi
+
+      # check we are authenticated to the OpenShift API
+      declare -A oc_auth; get_oc_auth oc_auth || exit $?
+
+      # OpenShift cluster details
+      declare -A oc_infra; get_oc_infra oc_infra || exit $?
+
+      # get the pod's namespace
+      #namespace=$(echo "${oc_auth[user]}" | cut -f3 -d: -)
+      ns_file="/var/run/secrets/kubernetes.io/serviceaccount/namespace"
+      if [[ -e  "$ns_file" && -r "$ns_file" ]]; then
+        namespace="$(<$ns_file)"
+      else
+        log_error $LINENO "Unable to determine the OpenShift namespace. Check $ns_file is mounted via the Downward API"
+        abort_exit $LINENO 2
+      fi
+    
+      log_info $LINENO "Running in OpenShift namespace $namespace"
+    }
+
+
+    main() {
+      local rc
+    
+      init "$@"
+
+      # get the token
+      declare -A ecr_auth; get_ecr_auth_token ecr_auth && rc=$? || rc=$?
+      (( rc > 0 )) && abort_exit $LINENO $rc
+
+      expiry_date="$(format_log_date ${ecr_auth[expiresAt]})"
+      log_info $LINENO "Retrieved authorization token from ECR. Token will expire $expiry_date"
+
+      write_pull_secret "$secret_name" "${ecr_auth[proxyEndpoint]##*://}" "${ecr_auth[authorizationToken]}" && rc=$? || rc=$?
+      (( rc > 0 )) && abort_exit $LINENO $rc
+
+      log_info $LINENO "${0##*/} Completed at $(date --rfc-3339=seconds | format_log_date)"
+    }
+
+    main "$@"
+    exit 0  
+kind: ConfigMap
+metadata:
+  annotations:
+  name: ecr-cred-updater-scripts
+---
+{{- end }}
