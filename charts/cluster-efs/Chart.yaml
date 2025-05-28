@@ -1,6 +1,6 @@
 dependencies:
   - name: helper-installplan-approver
-    version: 0.0.1
+    version: 0.0.7
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
 
 name: cluster-efs
