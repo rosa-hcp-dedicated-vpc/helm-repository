@@ -13,6 +13,20 @@ entries:
   aws-privateca-issuer:
   - apiVersion: v2
     appVersion: v1.4.2
+    created: "2025-05-28T06:24:08.850211298Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    description: An addon for cert-manager to sign certificates using AWS PCA
+    digest: e75beab7292c187086d77c646930523223886fe72c30e1481129c1b0df36b64c
+    name: aws-privateca-issuer
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/aws-privateca-issuer-1.5.7/aws-privateca-issuer-1.5.7.tgz
+    version: 1.5.7
+  - apiVersion: v2
+    appVersion: v1.4.2
     created: "2025-05-28T05:58:35.15344818Z"
     dependencies:
     - name: helper-installplan-approver
@@ -96,6 +110,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/aws-privateca-issuer-1.5.0/aws-privateca-issuer-1.5.0.tgz
     version: 1.5.0
   cluster-bootstrap:
+  - apiVersion: v2
+    created: "2025-05-28T06:24:09.040629308Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: bc0d7b4e1b376bf3aac20f7931f572f1897c4af0e8328b97cfe7088f194be656
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.2.6/cluster-bootstrap-0.2.6.tgz
+    version: 0.2.6
   - apiVersion: v2
     created: "2025-05-28T05:58:35.379065864Z"
     dependencies:
@@ -218,6 +247,18 @@ entries:
     version: 0.1.8
   cluster-efs:
   - apiVersion: v2
+    created: "2025-05-28T06:24:09.218080505Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    description: Chart to deploy the efs operator and supporting componenets
+    digest: 8fad0bba256b5befb6260bf39625664dfa81a7940d2b4835ef3ef4e92f132100
+    name: cluster-efs
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-efs-0.1.0/cluster-efs-0.1.0.tgz
+    version: 0.1.0
+  - apiVersion: v2
     created: "2025-05-28T05:58:35.620074848Z"
     dependencies:
     - name: helper-installplan-approver
@@ -335,4 +376,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/namespaces-1.4.8/namespaces-1.4.8.tgz
     version: 1.4.8
-generated: "2025-05-28T05:58:35.905361831Z"
+generated: "2025-05-28T06:24:09.218177115Z"
