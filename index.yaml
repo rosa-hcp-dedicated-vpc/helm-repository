@@ -83,6 +83,21 @@ entries:
     version: 1.5.0
   cluster-bootstrap:
   - apiVersion: v2
+    created: "2025-05-28T01:59:19.034091732Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.0.9
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: de0dba7832470ace17bfad8627c3306d00371ea55890bd1b29716d0c9d67afa0
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.2.4/cluster-bootstrap-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
     created: "2025-05-26T07:23:55.188455206Z"
     dependencies:
     - name: helper-installplan-approver
@@ -181,6 +196,33 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-ingress-0.0.7/cluster-ingress-0.0.7.tgz
     version: 0.0.7
+  gitops-linker-app:
+  - apiVersion: v2
+    created: "2025-05-28T01:59:19.195721165Z"
+    description: Chart to generate argocd apps for each team and gitops set up
+    digest: 1eb9f75dce68f797bcbb7b55cd8137ef85d1495b35b9a162c2fc6d77346fef5a
+    name: gitops-linker-app
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/gitops-linker-app-1.4.2/gitops-linker-app-1.4.2.tgz
+    version: 1.4.2
+  gitops-namespaces-payload:
+  - apiVersion: v1
+    created: "2025-05-28T01:59:19.359348744Z"
+    description: Chart to generate namespaces apps.
+    digest: 259ffe6ad4e7456b0a15fc80ec031063c05ae02326c8f18be3e4f5367cd2f13e
+    name: gitops-namespaces-payload
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/gitops-namespaces-payload-0.1.8/gitops-namespaces-payload-0.1.8.tgz
+    version: 0.1.8
+  gitops-payload:
+  - apiVersion: v1
+    created: "2025-05-28T01:59:19.519684469Z"
+    description: Chart to generate argocd apps
+    digest: 5b447e7443974a9d6ca933bdf60a5d68b52760a78286f4efcac3b25656c4adc4
+    name: gitops-payload
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/gitops-payload-0.0.4/gitops-payload-0.0.4.tgz
+    version: 0.0.4
   helper-installplan-approver:
   - apiVersion: v2
     created: "2025-05-26T07:21:58.989890654Z"
@@ -232,4 +274,13 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-installplan-approver-0.0.5/helper-installplan-approver-0.0.5.tgz
     version: 0.0.5
-generated: "2025-05-27T23:38:00.354080864Z"
+  namespaces:
+  - apiVersion: v2
+    created: "2025-05-28T01:59:19.69985777Z"
+    description: Chart to generate argocd apps
+    digest: c0a0e2ec1c309de9366e08f1c61f8d67917499763eee9b4de1db002027a8b5b3
+    name: namespaces
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/namespaces-1.4.8/namespaces-1.4.8.tgz
+    version: 1.4.8
+generated: "2025-05-28T01:59:19.699908905Z"
