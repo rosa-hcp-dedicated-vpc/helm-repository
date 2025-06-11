@@ -1,7 +1,22 @@
 # Using sub-chart helper-installplan-approver
 helper-status-checker:
   approver: true
-
+  enabled: true
+helper-operator:
+  enabled: true
+  operators:
+    aws-efs-csi-driver-operator:
+      enabled: true
+      namespace:
+        name: openshift-cluster-csi-drivers
+      subscription:
+        channel: stable 
+        approval: Manual
+        operatorName: aws-efs-csi-driver-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
 # roleArn, fileSystemId, csv is pulled in via the Cluster/non-prod/high-trust/<clster_name>/infrastructure.yaml
 roleArn: 
 fileSystemId: 

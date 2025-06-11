@@ -3,6 +3,6 @@ dependencies:
     version: 4.0.9
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
 name: cluster-efs
-version: 0.1.1
+version: 0.1.2
 apiVersion: v2
 description: Chart to deploy the efs operator and supporting componenets
