@@ -1,9 +1,8 @@
 dependencies:
-  - name: helper-installplan-approver
-    version: 0.1.0
+  - name: helper-status-checker
+    version: 4.0.9
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
-
 name: cluster-efs
-version: 0.1.0
+version: 0.1.1
 apiVersion: v2
 description: Chart to deploy the efs operator and supporting componenets

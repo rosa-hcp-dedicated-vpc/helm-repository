@@ -1,8 +1,9 @@
 # Using sub-chart helper-installplan-approver
-helper-installplan-approver:
-  namespace: openshift-cluster-csi-drivers
+helper-status-checker:
+  approver: true
 
 # roleArn, fileSystemId, csv is pulled in via the Cluster/non-prod/high-trust/<clster_name>/infrastructure.yaml
 roleArn: 
 fileSystemId: 
 csv:
+
