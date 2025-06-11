@@ -19,7 +19,7 @@ rules:
     resources:
       - clusterserviceversions
       - installplans
-      - subscription
+      - subscriptions
     verbs:
       - get
       - list
