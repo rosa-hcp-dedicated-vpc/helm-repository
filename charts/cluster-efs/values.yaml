@@ -24,6 +24,7 @@ helper-operator:
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
+        notownnamespace: false
 # roleArn, fileSystemId, csv is pulled in via the Cluster/non-prod/high-trust/<clster_name>/infrastructure.yaml
 roleArn: 
 fileSystemId: 
