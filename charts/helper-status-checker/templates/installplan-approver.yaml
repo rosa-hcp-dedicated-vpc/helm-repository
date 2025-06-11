@@ -41,7 +41,7 @@ spec:
 
               printf "\n\nProcessing subscription '$subscription'\n"
 
-              installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlan.name}')
+              installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
 
               printf "\nCheck installplan approved status\n"
 

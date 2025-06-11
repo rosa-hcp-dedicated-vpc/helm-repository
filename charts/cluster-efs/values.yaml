@@ -3,8 +3,8 @@ helper-status-checker:
   approver: true
   enabled: true
   checks:
-    - operatorName: openshift-cluster-csi-drivers
-      subscriptionName: openshift-cluster-csi-drivers
+    - operatorName: aws-efs-csi-driver-operator
+      subscriptionName: aws-efs-csi-driver-operator
       namespace:
           name: openshift-cluster-csi-drivers
       serviceAccount:
