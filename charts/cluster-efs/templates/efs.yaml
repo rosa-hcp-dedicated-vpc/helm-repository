@@ -5,9 +5,8 @@ metadata:
   name: aws-efs-cloud-credentials
   namespace: openshift-cluster-csi-drivers
   annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 0 | quote }}
+    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 stringData:
   credentials: |-
     [default]
@@ -19,9 +18,8 @@ kind: ClusterCSIDriver
 metadata:
   name: efs.csi.aws.com
   annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 0 | quote }}
+    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   managementState: Managed
 ---
@@ -30,9 +28,8 @@ kind: StorageClass
 metadata:
   name: efs-sc
   annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 0 | quote }}
+    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 allowVolumeExpansion: true
 provisioner: efs.csi.aws.com
 parameters:
