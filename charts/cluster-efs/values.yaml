@@ -2,6 +2,13 @@
 helper-status-checker:
   approver: true
   enabled: true
+  checks:
+    - operatorName: openshift-cluster-csi-drivers
+      subscriptionName: openshift-cluster-csi-drivers
+      namespace:
+          name: openshift-cluster-csi-drivers
+      serviceAccount:
+        name: "status-checker"
 helper-operator:
   enabled: true
   operators:
