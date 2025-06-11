@@ -97,7 +97,7 @@ spec:
       - /var/run/argocd/argocd-cmp-server
       envFrom:
       - secretRef:
-          name: vault-configuration
+          name: argocd-vault-configuration
       # image: "{{ $.Values.ecr_account }}.dkr.ecr.{{ $.Values.aws_region }}.amazonaws.com/platform_image"
       image: "{{ .Values.defaultImage }}"
       name: avp
