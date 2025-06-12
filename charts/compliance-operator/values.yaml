@@ -1,0 +1,100 @@
+---
+# Using sub-chart helper-installplan-approver
+helper-installplan-approver:
+  namespace: openshift-compliance
+
+# Using sub-chart helper-operator
+helper-operator:
+  operators:
+    compliance-operator:
+      # -- Enabled yes/no
+      # @default -- false
+      enabled: true
+      # -- Syncwave for the operator deployment
+      # @default -- 0
+      syncwave: '0'
+      namespace:
+        # -- The Namespace the Operator should be installed in.
+        # The compliance operator should be deployed into **openshift-compliance** Namepsace
+        # that must be created.
+        name: openshift-compliance
+        # -- Description of the namespace.
+        # @default -- ""
+        create: true
+      subscription:
+        # -- Channel of the Subscription
+        # @default -- stable
+        channel: stable
+        # -- Update behavior of the Operator. Manual/Automatic
+        # @default -- Automatic
+        approval: Manual
+        # -- Name of the Operator
+        # The name for the compliance operator is **compliance-operator**
+        # @default -- "empty"
+
+        # csv is pulled in via the Cluster/non-prod/high-trust/<clster_name>/infrastructure.yaml
+        # csv: compliance-operator.v1.6.1
+        csv: ""
+
+        operatorName: compliance-operator
+        # -- Source of the Operator
+        # @default -- redhat-operators
+        source: redhat-operators
+        # -- Namespace of the source
+        # @default -- openshift-marketplace
+        sourceNamespace: openshift-marketplace
+        config:
+          nodeSelector:
+            key: node-role.kubernetes.io/worker
+            value: ""
+      operatorgroup:
+        # -- Create an Operatorgroup object
+        # @default -- false
+        create: true
+        # -- Monitor own Namespace. For some Operators no `targetNamespaces` must be defined
+        # @default -- false
+        notownnamespace: true
+
+# Using sub-chart helper-status-checker
+helper-status-checker:
+  # -- Enable status checker
+  # @default -- false
+  enabled: true
+
+  checks:
+
+      # -- Define the name of the operator that shall be verified.
+      # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+      # For the compliance operator the name should be "**compliance-operator**"
+      # @default -- ""
+    - operatorName: compliance-operator
+      # -- Define where the operator is installed
+      # For the compliance operator this should be "**openshift-compliance**"
+      # @default -- ""
+      namespace:
+        name: openshift-compliance
+      syncwave: 3
+
+      # -- Set the values of the ServiceAccount that will execute the status checker Job.
+      serviceAccount:
+        name: "sa-compliance"
+
+compliance:
+  # -- Settings for namespace where compliance operator will be installed.
+  namespace:
+    # -- Namespace of the operator
+    name: openshift-compliance
+
+  # -- Settings for the ScanSettings
+  # Here ScanSettingBinding and TailoredProfile can be configured
+  scansetting:
+    schedule: "*/5 * * * *"
+    pvcSize: 2Gi
+
+  scansettingbinding:
+    scansetting: default
+    enabled: true
+    syncwave: '3'
+    profiles:
+      - name: ocp4-cis-node
+        kind: Profile

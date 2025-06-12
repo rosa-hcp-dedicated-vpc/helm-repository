@@ -1,0 +1,27 @@
+apiVersion: compliance.openshift.io/v1alpha1
+kind: ScanSetting
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.compliance.scansettingbinding.syncwave | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  name: default
+  namespace: {{ .Values.compliance.namespace.name | default "openshift-compliance" }}
+autoApplyRemediations: false
+debug: true
+maxRetryOnTimeout: 3
+rawResultStorage:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  pvAccessModes:
+  - ReadWriteOnce
+  rotation: 10
+  size: {{ .Values.compliance.scansetting.pvcSize }} 
+roles:
+- worker
+scanTolerations:
+- operator: Exists
+schedule: {{ .Values.compliance.scansetting.schedule | quote }}
+showNotApplicable: false
+strictNodeScan: false
+suspend: false
+timeout: 30m

@@ -1,0 +1,32 @@
+nameOverride: ""
+fullnameOverride: ""
+RoleArn: placeholder
+rosaClusterName: placeholder
+region: placeholder
+# dependency chart helper-operator
+helper-operator:
+  operators:
+    cluster-logging:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-logging
+        create: false
+      subscription:
+        channel: stable
+        approval: Automatic
+        operatorName: cluster-logging
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+# dependency chart helper-status-checker
+helper-status-checker:
+  enabled: true
+  checks:
+    - operatorName: cluster-logging
+      namespace:
+        name: openshift-logging
+      syncwave: 3
+      serviceAccount:
+        name: "openshift-operators-install-check"

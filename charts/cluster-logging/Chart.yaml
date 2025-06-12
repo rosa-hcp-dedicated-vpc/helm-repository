@@ -1,0 +1,11 @@
+name: cluster-logging
+version: 0.1.6
+apiVersion: v2
+dependencies:
+  - name: helper-operator
+    version: ~1.0.28
+    repository: placehlder_helper-operator
+  - name: helper-status-checker
+    version: ~4.0.9
+    repository: placehlder_helper-checker
+    condition: helper-status-checker.enabled
