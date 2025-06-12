@@ -834,6 +834,15 @@ entries:
     version: 1.4.8
   overprovisioning:
   - apiVersion: v2
+    created: "2025-06-12T05:57:07.221506477Z"
+    description: overprovisioning pods
+    digest: 8f05626f508811d5e696511f7dc64252a711104bff3698bc27a112d07dc6314d
+    name: overprovisioning
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.5/overprovisioning-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
     created: "2025-06-12T05:42:18.68373989Z"
     description: overprovisioning pods
     digest: 5b6c5b311c75a45c004a715d28955b5ba291f362f091e9ee568f0fe5216d821e
@@ -842,4 +851,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
-generated: "2025-06-12T05:42:18.683845178Z"
+generated: "2025-06-12T05:57:07.221591436Z"
