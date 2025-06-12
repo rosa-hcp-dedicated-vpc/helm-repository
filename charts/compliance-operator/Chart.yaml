@@ -7,10 +7,10 @@ icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-o
 dependencies:
   - name: helper-operator
     version: 1.0.28
-    repository: https://pages.github.service.anz/ics/cpaas-helm-charts/
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
   - name: helper-status-checker
     version: 4.1.2
-    repository: https://pages.github.service.anz/ics/cpaas-helm-charts/
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     condition: helper-status-checker.enabled
 maintainers:
   - name: tjungbauer
