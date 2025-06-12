@@ -9,12 +9,9 @@ dependencies:
     version: 1.0.28
     repository: https://pages.github.service.anz/ics/cpaas-helm-charts/
   - name: helper-status-checker
-    version: 4.0.9
+    version: 4.1.2
     repository: https://pages.github.service.anz/ics/cpaas-helm-charts/
     condition: helper-status-checker.enabled
-  - name: helper-installplan-approver
-    version: 0.0.1
-    repository: https://pages.github.service.anz/ics/cpaas-helm-charts/
 maintainers:
   - name: tjungbauer
     email: tjungbau@redhat.com

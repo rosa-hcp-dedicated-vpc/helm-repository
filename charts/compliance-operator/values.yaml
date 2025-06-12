@@ -1,8 +1,4 @@
 ---
-# Using sub-chart helper-installplan-approver
-helper-installplan-approver:
-  namespace: openshift-compliance
-
 # Using sub-chart helper-operator
 helper-operator:
   operators:
@@ -60,7 +56,7 @@ helper-status-checker:
   # -- Enable status checker
   # @default -- false
   enabled: true
-
+  approver: true 
   checks:
 
       # -- Define the name of the operator that shall be verified.
