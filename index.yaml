@@ -498,6 +498,64 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-ingress-0.0.7/cluster-ingress-0.0.7.tgz
     version: 0.0.7
+  cluster-logging:
+  - apiVersion: v2
+    created: "2025-06-12T05:42:18.308853079Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.0.28
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    digest: 28a39830076a5e1a433a64eb8dbc3c9d18d631377aca07f933175007188b3004
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.1.6/cluster-logging-0.1.6.tgz
+    version: 0.1.6
+  compliance-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: README.md
+        - kind: added
+          description: updated to helper-status-checker v4
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-06-12T05:42:18.489082965Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.28
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: 619c92536354dfeecefd769ba7534b829e462c27ac8293a6025e6c4520e2d5c5
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    keywords:
+    - security
+    - compliance
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: compliance-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/compliance-operator-1.0.42/compliance-operator-1.0.42.tgz
+    version: 1.0.42
   gitops-linker-app:
   - apiVersion: v2
     created: "2025-05-28T01:59:19.195721165Z"
@@ -774,4 +832,14 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/namespaces-1.4.8/namespaces-1.4.8.tgz
     version: 1.4.8
-generated: "2025-06-12T05:15:42.215705851Z"
+  overprovisioning:
+  - apiVersion: v2
+    created: "2025-06-12T05:42:18.68373989Z"
+    description: overprovisioning pods
+    digest: 5b6c5b311c75a45c004a715d28955b5ba291f362f091e9ee568f0fe5216d821e
+    name: overprovisioning
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
+    version: 0.0.4
+generated: "2025-06-12T05:42:18.683845178Z"
