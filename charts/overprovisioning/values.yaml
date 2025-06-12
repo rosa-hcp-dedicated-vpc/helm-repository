@@ -6,5 +6,5 @@ resources:
   requests:
     cpu: 500m
     memory: 500Mi
-image: <pipeline-image>
+image: quay.io/gnunn/tools
 tag: latest
