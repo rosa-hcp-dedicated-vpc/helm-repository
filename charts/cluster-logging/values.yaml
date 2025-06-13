@@ -23,6 +23,7 @@ helper-operator:
 # dependency chart helper-status-checker
 helper-status-checker:
   enabled: true
+  approver: true
   checks:
     - operatorName: cluster-logging
       namespace:
