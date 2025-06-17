@@ -1,12 +1,12 @@
 apiVersion: v2
 name: compliance-operator
 description: Master chart to deploy and configure the Compliance Operator
-version: 1.0.42
+version: 1.0.43
 home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
 icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
 dependencies:
   - name: helper-operator
-    version: 1.0.28
+    version: 1.0.29
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
   - name: helper-status-checker
     version: 4.1.2
