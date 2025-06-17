@@ -20,6 +20,7 @@ helper-operator:
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
+        notownnamespace: true
 # dependency chart helper-status-checker
 helper-status-checker:
   enabled: true
