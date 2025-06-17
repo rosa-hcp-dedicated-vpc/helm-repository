@@ -6,7 +6,7 @@ helper-status-checker:
     - operatorName: aws-efs-csi-driver-operator
       subscriptionName: aws-efs-csi-driver-operator
       namespace:
-          name: openshift-cluster-csi-drivers
+        name: openshift-cluster-csi-drivers
       serviceAccount:
         name: "status-checker"
 helper-operator:

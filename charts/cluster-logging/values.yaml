@@ -26,6 +26,7 @@ helper-status-checker:
   approver: true
   checks:
     - operatorName: cluster-logging
+      subscriptionName: cluster-logging
       namespace:
         name: openshift-logging
       syncwave: 3
