@@ -14,7 +14,7 @@ helper-operator:
         create: false
       subscription:
         channel: stable
-        approval: Automatic
+        approval: Manual
         operatorName: cluster-logging
         source: redhat-operators
         sourceNamespace: openshift-marketplace
