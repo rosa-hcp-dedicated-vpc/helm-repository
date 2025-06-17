@@ -515,6 +515,21 @@ entries:
     version: 0.0.7
   cluster-logging:
   - apiVersion: v2
+    created: "2025-06-17T07:35:35.889951409Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.0.28
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    digest: bb5b8b0c057265da0bc82e8927366e882f0c1002b2dd5e59b31505c8cf889d83
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.2.5/cluster-logging-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     created: "2025-06-17T07:23:42.238360516Z"
     dependencies:
     - name: helper-operator
@@ -986,4 +1001,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
-generated: "2025-06-17T07:23:42.238497291Z"
+generated: "2025-06-17T07:35:35.890084377Z"
