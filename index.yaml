@@ -262,6 +262,21 @@ entries:
     version: 0.1.8
   cluster-efs:
   - apiVersion: v2
+    created: "2025-06-17T01:28:33.922755306Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.28
+    description: Chart to deploy the efs operator and supporting componenets
+    digest: bdb36c6cd01904c66c9eccc52359e26c9c00e1a21b3035b1fac9d4c1bca07e7f
+    name: cluster-efs
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-efs-0.2.5/cluster-efs-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     created: "2025-06-12T05:15:42.215577611Z"
     dependencies:
     - name: helper-status-checker
@@ -499,6 +514,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-ingress-0.0.7/cluster-ingress-0.0.7.tgz
     version: 0.0.7
   cluster-logging:
+  - apiVersion: v2
+    created: "2025-06-17T01:28:34.179932013Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.0.28
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    digest: c9cc86c369eda168e3ac38021ce6247febaee0314b85ad07bb16cbc8d5821aef
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.1.9/cluster-logging-0.1.9.tgz
+    version: 0.1.9
   - apiVersion: v2
     created: "2025-06-17T00:24:11.153851122Z"
     dependencies:
@@ -881,4 +911,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
-generated: "2025-06-17T00:24:11.15394107Z"
+generated: "2025-06-17T01:28:34.180113021Z"
