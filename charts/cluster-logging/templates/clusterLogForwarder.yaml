@@ -1,0 +1,32 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: cloudwatch
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  outputs:
+    - cloudwatch:
+        authentication:
+          iamRole:
+            roleARN:
+              key: role_arn
+              secretName: cloudwatch-credentials
+            token:
+              from: serviceAccount
+          type: iamRole
+        groupName: rosa-1234567
+        region: {{ .Values.region }}
+      name: cloudwatch
+      type: cloudwatch
+  pipelines:
+    - inputRefs:
+        - application
+        - infrastructure
+        - audit
+      name: cloudwatch
+      outputRefs:
+        - cloudwatch
+  serviceAccount:
+    name: logging-collector
+
