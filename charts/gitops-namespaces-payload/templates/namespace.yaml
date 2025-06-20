@@ -36,7 +36,6 @@ spec:
         value: |
           project:
           name: "{{ $ns.name }}"
-          number: {{ $number }}
           appNumber: {{ $appNumber }}
             ecrUpdateRole: {{ $ns.ecrUpdateRole | default $defaults.ecrUpdateRole }}
             annotations:
@@ -69,7 +68,6 @@ spec:
       values: |
         project:
           name: "{{ $ns.name }}"
-          number: {{ $number }}
           appNumber: {{ $appNumber }}
           ecrUpdateRole: {{ $ns.ecrUpdateRole | default $defaults.ecrUpdateRole }}
           annotations:

@@ -1,93 +1,73 @@
-# apmnum: apm0015510
-# appserviceNumber: 787234829347
-# # #################################################################
-# # # default Values for gitops-payload helm chart
-# # #################################################################
-# defaults:
-#   # argcod application defaults
-#   finalizers: resources-finalizer.argocd.argoproj.io
-#   gitopsNamespace: openshift-gitops
-#   # Helm defaults
-#   helmRepoUrl: https://pages.github.service.anz/ics/cpaas-helm-charts
-#   path: charts
-#   # Vault plugin defaults.
-#   plugin: false
-#   AWS_REGION: "ap-southeast-2"
-#   AVP_TYPE: "awssecretsmanager"
-#   # namespaces chart defaults
-#   chart: namespaces
-#   targetRevision: 1.4.4
-#   # Must set annoataions even if you do not have anything undermneath it. These apply to the project
-#   annotations:
-#     comments: "This is the Template for New Namespace"
-#     description: "Please Edit Each field in this file to apply to the namespace"
-#     display_name: "CPaaS Namespace Boilerplate Template"
-#     node_selector: "NA"
-#     techconnect: "IaaS - Enterprise Compute - Containers"
-#     edit_group_dn: "CN=AU OpenShift CPaaS Admin,OU=OpenShift,OU=Role Groups,OU=Security,OU=AU,DC=globaltest,DC=anz,DC=com"
-#     admin_group_dn: "CN=AU OpenShift CPaaS Admin,OU=OpenShift,OU=Role Groups,OU=Security,OU=AU,DC=globaltest,DC=anz,DC=com"
-#     view_group_dn: "CN=AU OpenShift CPaaS View,OU=Common,OU=Groups,OU=AU,DC=globaltest,DC=anz,DC=com"
-#   # Must set labels even if you do not have anything undermneath it. These apply to the project
-#   labels:
-#     egress.cpaas.test/namespace: cpaas-ns-template
-#     BSBCC: "XXXXXX"
-#     PPMID: "XXXXX"
-#     domain: "Infrastruture_and_Cloud"
-#     techarea: "Enterprise_Compute"
-#     primary_owner: "Nathan.Kroenert_anz.com"
-#     secondary_owner: "Kiran.TL_anz.com"
-#     teamdl: "IaaSECCPaaS_anz.com"
-#     quota: "cpaas-ns-template-resourcequota"
-#     region: "NoNodeSelector"
-#     CU: "0"
-#     zone: "MW"
-#     newrelic: "false"
-#     dynatrace: "false"
-#     poc: "false"
-#     opacontrolled: "true"
-#     drrating: "3"
-#     techconnectreq: "REQXXXXXX"
-#     ingress: customer-ingress
-#     egressip: "10.204.249.1"
-#   # Must set groupname even if you do not have anything undermneath it.
-#   groupname:
-#     admin_group: pai_admins
-#     edit_group: pai_editors
-#     view_group: pai_viewers
-#   # Must set resourceQuota even if you do not have anything undermneath it.
-#   resourceQuota:
-#   serviceAccount:
-#     create: true
-#     automount: true
-#     name: "cpaas-ns-template"
+apmnum: "abcd"
+# #################################################################
+# # default Values for gitops-payload helm chart
+# #################################################################
+defaults:
+  # argcod application defaults
+  finalizers: resources-finalizer.argocd.argoproj.io
+  gitopsNamespace: openshift-gitops
+  # Helm defaults
+  helmRepoUrl: https://pages.github/helm-charts
+  path: charts
+  # Vault plugin defaults.
+  plugin: false
+  AWS_REGION: "ap-southeast-2"
+  AVP_TYPE: "awssecretsmanager"
+  # namespaces chart defaults
+  chart: namespaces
+  targetRevision: 1.4.8
+  # ecr role
+  ecrUpdateRole: arn:aws:iam:::role/rosa-ecr-access-role
+  # Must set annoataions even if you do not have anything undermneath it. These apply to the project
+  annotations:
+    comments: "acounting teams namespaces dev only"
+    description: "accounting namespaces"
+    display_name: "accounting template"
+  # Must set labels even if you do not have anything undermneath it. These apply to the project
+  labels:
+    domain: "Infrastruture_and_Cloud"
+    primary_owner: "Paul.foster@redhat.com"
+    quota: "resourcequota"
+    region: "NoNodeSelector"
+    ingress: customer-ingress
+    egressip: "0.0.0.1"
+  # Must set groupname even if you do not have anything undermneath it.
+  groupname:
+    admin_group: pa_admins
+  # Must set resourceQuota even if you do not have anything undermneath it.
+  resourceQuota:
+  serviceAccount:
+    create: true
+    automount: true
+    name: "pipeline"
 
-# # #################################################################
-# # # NAMESPACE CREATION 
-# # #################################################################
-# namespaces:
-# - name: cpaas-ns-dev
-#   annotations:
-#   labels:
-#     dynatrace: true
-#   groupname:
-#   resourceQuota:
-#     limits_cpu: "0m"
-#     limits_memory: "0Gi"
-#     requests_cpu: "0m"
-#     requests_memory: "0Gi"
-#     persistentvolumeclaims: "0"
-#     limits_ephemeral_storage: "4Gi"
-#     pods: "50"
-# - name: cpaas-ns-test
-#   annotations:
-#   labels:
-#     dynatrace: true
-#   groupname:
-#   resourceQuota:
-#     limits_cpu: "0m"
-#     limits_memory: "0Gi"
-#     requests_cpu: "0m"
-#     requests_memory: "0Gi"
-#     persistentvolumeclaims: "0"
-#     limits_ephemeral_storage: "4Gi"
-#     pods: "50"
+# #################################################################
+# # NAMESPACE CREATION 
+# #################################################################
+namespaces:
+- name: accounting-ns-dev
+  annotations:
+  labels:
+    dynatrace: true
+  groupname:
+  resourceQuota:
+    limits_cpu: "250m"
+    limits_memory: "1Gi"
+    requests_cpu: "200m"
+    requests_memory: "500Mi"
+    persistentvolumeclaims: "5"
+    limits_ephemeral_storage: "4Gi"
+    pods: "50"
+- name: accounting-ns-test
+  annotations:
+  labels:
+    dynatrace: true
+  groupname:
+  resourceQuota:
+    limits_cpu: "250m"
+    limits_memory: "1Gi"
+    requests_cpu: "200m"
+    requests_memory: "500Mi"
+    persistentvolumeclaims: "5"
+    limits_ephemeral_storage: "4Gi"
+    pods: "50"
