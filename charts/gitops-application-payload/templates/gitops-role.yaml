@@ -1,6 +1,5 @@
-{{ range $applications := .Values.applications -}}
----
-{{- if $applications.gitopsCreate }}
+{{ range $applications := .Values.applications }}
+{{ if $applications.gitopsCreate }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding

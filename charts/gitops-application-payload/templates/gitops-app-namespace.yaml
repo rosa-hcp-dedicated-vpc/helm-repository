@@ -1,6 +1,5 @@
-{{ range $applications := .Values.applications -}}
----
-{{- if $applications.gitopsCreate }}
+{{ range $applications := .Values.applications }}
+{{ if $applications.gitopsCreate }}
 ---
 apiVersion: v1
 kind: Namespace

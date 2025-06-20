@@ -1,8 +1,6 @@
-{{ $defaults := .Values.defaults -}}
----
-{{ range $applications := .Values.applications -}}
----
-{{- if $applications.gitopsCreate }}
+{{ $defaults := .Values.defaults }}
+{{ range $applications := .Values.applications }}
+{{ if $applications.gitopsCreate }}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject

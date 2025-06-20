@@ -1,4 +1,4 @@
 name: gitops-application-payload
 description: Chart to generate argocd apps for each team and gitops set up
-version: 1.4.2
+version: 1.4.3
 apiVersion: v2
