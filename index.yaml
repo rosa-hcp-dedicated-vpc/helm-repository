@@ -807,6 +807,15 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/compliance-operator-1.0.42/compliance-operator-1.0.42.tgz
     version: 1.0.42
+  gitops-application-payload:
+  - apiVersion: v2
+    created: "2025-06-20T02:45:07.32205217Z"
+    description: Chart to generate argocd apps for each team and gitops set up
+    digest: 63e5e0a5d1c6f53ef46cc6e378e8a9ddaceaf7203df0f5b58fcec9e87c587708
+    name: gitops-application-payload
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/gitops-application-payload-1.4.2/gitops-application-payload-1.4.2.tgz
+    version: 1.4.2
   gitops-linker-app:
   - apiVersion: v2
     created: "2025-05-28T01:59:19.195721165Z"
@@ -1139,4 +1148,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
-generated: "2025-06-19T01:30:40.120287812Z"
+generated: "2025-06-20T02:45:07.322200757Z"
