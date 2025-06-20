@@ -809,6 +809,14 @@ entries:
     version: 1.0.42
   gitops-application-payload:
   - apiVersion: v2
+    created: "2025-06-20T03:17:23.279292948Z"
+    description: Chart to generate argocd apps for each team and gitops set up
+    digest: 43ffc0fca9593c3d2e576dffdba14c11b0a56734dc8f2d5aa5c4609dabdcfc99
+    name: gitops-application-payload
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/gitops-application-payload-1.4.3/gitops-application-payload-1.4.3.tgz
+    version: 1.4.3
+  - apiVersion: v2
     created: "2025-06-20T02:45:07.32205217Z"
     description: Chart to generate argocd apps for each team and gitops set up
     digest: 63e5e0a5d1c6f53ef46cc6e378e8a9ddaceaf7203df0f5b58fcec9e87c587708
@@ -1148,4 +1156,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
-generated: "2025-06-20T02:45:07.322200757Z"
+generated: "2025-06-20T03:17:23.279388497Z"
