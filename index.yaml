@@ -843,6 +843,14 @@ entries:
     version: 1.4.2
   gitops-namespaces-payload:
   - apiVersion: v1
+    created: "2025-06-23T23:19:15.549384567Z"
+    description: Chart to generate namespaces apps.
+    digest: de0645bf9052c8649cfedcf0d91233b8bdd47ff61256decbf06a058b54f388b7
+    name: gitops-namespaces-payload
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/gitops-namespaces-payload-0.2.1/gitops-namespaces-payload-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v1
     created: "2025-06-20T05:00:49.259677559Z"
     description: Chart to generate namespaces apps.
     digest: e18ac536d41bc6b22726b5fee707ffe0caa0af5355770349bbef828b584bcacf
@@ -1180,4 +1188,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
-generated: "2025-06-20T05:00:49.259832178Z"
+generated: "2025-06-23T23:19:15.549533996Z"
