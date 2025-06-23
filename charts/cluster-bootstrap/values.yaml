@@ -59,9 +59,9 @@ argocd:
   - name: application-ns
     annotations:
     helmRepoUrl: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
-    chart: gitops-linker-team
+    chart: gitops-application-payload
     project: application-ns-project
-    targetRevision: 1.4.2
+    targetRevision: 1.4.4
     gitRepoUrl: https://github.com/rosa-hcp-dedicated-vpc/cluster-config.git
     adGroup: PFAUTHAD
     gitPathFile: /applications-ns.yaml
