@@ -16,8 +16,6 @@ kind: ClusterCSIDriver
 metadata:
   name: efs.csi.aws.com
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   managementState: Managed
 ---
@@ -26,8 +24,6 @@ kind: StorageClass
 metadata:
   name: efs-sc
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 allowVolumeExpansion: true
 provisioner: efs.csi.aws.com
 parameters:

@@ -28,5 +28,4 @@ helper-operator:
 # roleArn, fileSystemId, csv is pulled in via the Cluster/non-prod/high-trust/<clster_name>/infrastructure.yaml
 roleArn: 
 fileSystemId: 
-csv:
 
