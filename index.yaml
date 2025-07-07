@@ -1324,6 +1324,21 @@ entries:
     version: 0.0.4
   rhacs-operator:
   - apiVersion: v2
+    created: "2025-07-07T04:20:31.983812577Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.29
+    description: Chart to deploy the central acs operator and supporting components
+    digest: 1f02a3a89fbbb98e8c88505026ae77c4af85a218ea56471dd0efb1bb989e627f
+    name: rhacs-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.0.2/rhacs-operator-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2025-07-07T03:41:10.090835686Z"
     dependencies:
     - name: helper-status-checker
@@ -1338,4 +1353,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.0.1/rhacs-operator-0.0.1.tgz
     version: 0.0.1
-generated: "2025-07-07T03:41:10.09111071Z"
+generated: "2025-07-07T04:20:31.98394766Z"
