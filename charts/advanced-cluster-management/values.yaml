@@ -13,11 +13,10 @@ helper-status-checker:
 helper-operator:
   enabled: true
   operators:
-    open-cluster-management:
+    advanced-cluster-management:
       operatorgroup:
         create: true
         notownnamespace: false
-    advanced-cluster-management:
       enabled: true
       namespace:
         name: open-cluster-management
