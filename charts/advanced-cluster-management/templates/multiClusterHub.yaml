@@ -6,7 +6,6 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-  generation: 2
   name: multiclusterhub
   namespace: open-cluster-management
 spec:
