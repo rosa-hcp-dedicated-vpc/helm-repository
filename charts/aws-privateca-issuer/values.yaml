@@ -1,4 +1,4 @@
-defaultImage: quay.io/gnunn/tools:latest
+defaultImage: registry.access.redhat.com/ubi9/ubi:latest
 ecr_account: <ecr_account>
 aws_region: <region>
 image:
