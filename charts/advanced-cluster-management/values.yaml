@@ -13,7 +13,7 @@ helper-status-checker:
 helper-operator:
   enabled: true
   operators:
-    advanced-cluster-management:
+    open-cluster-management:
       enabled: true
       namespace:
         name: open-cluster-management
@@ -25,7 +25,7 @@ helper-operator:
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
-        notownnamespace: true
+        notownnamespace: false
 
 # apiVersion: operators.coreos.com/v1alpha1
 # kind: Subscription
