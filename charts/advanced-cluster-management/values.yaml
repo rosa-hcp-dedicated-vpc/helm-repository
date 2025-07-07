@@ -14,6 +14,10 @@ helper-operator:
   enabled: true
   operators:
     open-cluster-management:
+      operatorgroup:
+        create: true
+        notownnamespace: false
+    advanced-cluster-management:
       enabled: true
       namespace:
         name: open-cluster-management
@@ -23,9 +27,7 @@ helper-operator:
         operatorName: advanced-cluster-management
         source: redhat-operators
         sourceNamespace: openshift-marketplace
-      operatorgroup:
-        create: true
-        notownnamespace: false
+
 
 # apiVersion: operators.coreos.com/v1alpha1
 # kind: Subscription
