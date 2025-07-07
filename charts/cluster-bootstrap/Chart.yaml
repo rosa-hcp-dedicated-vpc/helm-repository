@@ -7,5 +7,5 @@ dependencies:
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
 name: cluster-bootstrap
 description: Chart to kick off gitops installation and bootstrapping of blue print
-version: 0.3.2
+version: 0.3.3
 apiVersion: v2
