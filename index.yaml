@@ -1,5 +1,21 @@
 apiVersion: v1
 entries:
+  advanced-cluster-management:
+  - apiVersion: v2
+    created: "2025-07-07T03:41:09.619612912Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.29
+    description: Chart to deploy the efs operator and supporting components
+    digest: f97f96280e972ec80aef71c5bf4f2aec0ea2084b2ee33e7a878d17b0eca1f2de
+    name: advanced-cluster-management
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/advanced-cluster-management-0.0.1/advanced-cluster-management-0.0.1.tgz
+    version: 0.0.1
   application-certificates: null
   application-gitops:
   - apiVersion: v1
@@ -138,6 +154,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/aws-privateca-issuer-1.5.0/aws-privateca-issuer-1.5.0.tgz
     version: 1.5.0
   cluster-bootstrap:
+  - apiVersion: v2
+    created: "2025-07-07T03:41:09.865670543Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.29
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: 0e631a8333bd681b01b5d326639850d162af9c736fabea359f1a75195bc99c25
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.3.3/cluster-bootstrap-0.3.3.tgz
+    version: 0.3.3
   - apiVersion: v2
     created: "2025-07-02T00:12:30.082885339Z"
     dependencies:
@@ -1291,4 +1322,20 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
-generated: "2025-07-07T02:05:35.984682024Z"
+  rhacs-operator:
+  - apiVersion: v2
+    created: "2025-07-07T03:41:10.090835686Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.29
+    description: Chart to deploy the central acs operator and supporting components
+    digest: c2ccebbd0cdb3a9095c0f4acd6e6ee05d821f1c287d592490832fb1bc4416247
+    name: rhacs-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.0.1/rhacs-operator-0.0.1.tgz
+    version: 0.0.1
+generated: "2025-07-07T03:41:10.09111071Z"
