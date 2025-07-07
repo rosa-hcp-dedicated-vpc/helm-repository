@@ -1,0 +1,47 @@
+# Using sub-chart helper-installplan-approver
+helper-status-checker:
+  approver: true
+  enabled: true
+  checks:
+    - operatorName: advanced-cluster-management
+      subscriptionName: advanced-cluster-management
+      namespace:
+        name: open-cluster-management
+      serviceAccount:
+        name: "status-checker"
+# advanced-cluster-management.v2.13.3
+helper-operator:
+  enabled: true
+  operators:
+    advanced-cluster-management:
+      enabled: true
+      namespace:
+        name: open-cluster-management
+      subscription:
+        channel: release-2.13
+        approval: Manual
+        operatorName: advanced-cluster-management
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: false
+
+# apiVersion: operators.coreos.com/v1alpha1
+# kind: Subscription
+# metadata:
+#   creationTimestamp: "2025-07-07T02:50:39Z"
+#   generation: 1
+#   labels:
+#     operators.coreos.com/advanced-cluster-management.open-cluster-management: ""
+#   name: advanced-cluster-management
+#   namespace: open-cluster-management
+#   resourceVersion: "56857"
+#   uid: 76c0ed13-9110-44fc-9b93-8359f0d00a63
+# spec:
+#   channel: release-2.13
+#   installPlanApproval: Automatic
+#   name: advanced-cluster-management
+#   source: redhat-operators
+#   sourceNamespace: openshift-marketplace
+#   startingCSV: advanced-cluster-management.v2.13.3

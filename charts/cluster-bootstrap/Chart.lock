@@ -1,0 +1,9 @@
+dependencies:
+- name: helper-installplan-approver
+  repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+  version: 0.1.0
+- name: application-gitops
+  repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+  version: 1.3.8
+digest: sha256:26ab944b58834654cf4caa86073b53063a645cc9977f6267cf0d8e066f150007
+generated: "2025-07-02T09:47:07.027177+10:00"
