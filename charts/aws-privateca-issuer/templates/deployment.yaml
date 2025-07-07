@@ -37,7 +37,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           # image: "{{ $.Values.ecr_account }}.dkr.ecr.{{ $.Values.aws_region }}.amazonaws.com/platform_image"
-          image: "{{ .Values.defaultImage }}"
+          image: "{{ .Values.defaultAWSPCAImage }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /manager
