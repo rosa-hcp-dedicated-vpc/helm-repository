@@ -1,9 +1,9 @@
 dependencies:
-  - name: helper-installplan-approver
-    version: 0.1.0
+  - name: helper-status-checker
+    version: 4.1.2
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
-  - name: application-gitops
-    version: 1.3.8
+  - name: helper-operator
+    version: 1.0.29
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
 name: cluster-bootstrap
 description: Chart to kick off gitops installation and bootstrapping of blue print
