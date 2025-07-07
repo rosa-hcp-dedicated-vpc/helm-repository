@@ -25,7 +25,7 @@ helper-operator:
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
-        notownnamespace: false
+        notownnamespace: true
 
 # apiVersion: operators.coreos.com/v1alpha1
 # kind: Subscription
