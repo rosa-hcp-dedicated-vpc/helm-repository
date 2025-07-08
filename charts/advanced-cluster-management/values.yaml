@@ -26,7 +26,8 @@ helper-operator:
         operatorName: advanced-cluster-management
         source: redhat-operators
         sourceNamespace: openshift-marketplace
-
+namespaces:
+  - name: open-cluster-management
 
 # apiVersion: operators.coreos.com/v1alpha1
 # kind: Subscription
