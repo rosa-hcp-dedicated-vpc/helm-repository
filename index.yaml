@@ -2,6 +2,21 @@ apiVersion: v1
 entries:
   advanced-cluster-management:
   - apiVersion: v2
+    created: "2025-07-08T21:55:20.738860115Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.29
+    description: Chart to deploy the efs operator and supporting components
+    digest: 337b393dcaa8f5f83d5c6bf70442f5462f3d82d0658b256468c800906eb1a6b1
+    name: advanced-cluster-management
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/advanced-cluster-management-0.0.8/advanced-cluster-management-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     created: "2025-07-07T06:29:51.592723011Z"
     dependencies:
     - name: helper-status-checker
@@ -1428,4 +1443,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.0.1/rhacs-operator-0.0.1.tgz
     version: 0.0.1
-generated: "2025-07-07T06:29:51.592913749Z"
+generated: "2025-07-08T21:55:20.739086279Z"
