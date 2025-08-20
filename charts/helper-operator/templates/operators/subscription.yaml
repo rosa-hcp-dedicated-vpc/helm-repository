@@ -64,7 +64,9 @@ spec:
     {{- end }}
   {{- end }}
 {{- if $value.subscription.csv }}
-  startingCSV: {{ $value.subscription.csv | default $.Values.startingCSV quote }}
+  startingCSV: {{ $value.subscription.csv | quote }}
+{{- else if $.Values.startingCSV }}
+  startingCSV: {{ $.Values.startingCSV | quote }}
 {{- end }}
 {{- end }}
 {{- end }}
