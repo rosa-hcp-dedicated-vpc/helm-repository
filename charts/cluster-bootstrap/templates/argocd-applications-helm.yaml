@@ -1,9 +1,9 @@
 ---
 {{ range $applications := .Values.argocd.applications -}}
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: {{ .name }}
+  name: {{ $applications.name }}-applicationset
   namespace: openshift-gitops
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
@@ -14,28 +14,46 @@ metadata:
     {{ $key }}: {{ $value | quote }}
   {{- end }}
 spec:
-  destination:
-    namespace: openshift-gitops
-    server: https://kubernetes.default.svc
-  project: {{ $applications.project | default "default" }}
-  sources:
-    - repoURL: {{ $applications.helmRepoUrl }}
-      chart: {{ $applications.chart }}
-      targetRevision: {{ $applications.targetRevision }}
-      path: /charts
-      helm:
-        valueFiles:
-        - $values/{{ $.Values.gitPath }}{{ $applications.gitPathFile }}
-        values: |
-          appTeam: {{ $applications.name }}
-    - repoURL: {{ $applications.gitRepoUrl }}
-      targetRevision: HEAD
-      ref: values
-  syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
-    syncOptions:
-    - ApplyOutOfSyncOnly=true
+  generators:
+  - list:
+      elements:
+      - name: {{ $applications.name }}
+        project: {{ $applications.project | default "default" }}
+        helmRepoUrl: {{ $applications.helmRepoUrl }}
+        gitRepoUrl: {{ $applications.gitRepoUrl }}
+        chart: {{ $applications.chart }}
+        targetRevision: {{ $applications.targetRevision }}
+        gitPathFile: {{ $applications.gitPathFile }}
+  template:
+    metadata:
+      name: '{{`{{name}}`}}'
+      namespace: openshift-gitops
+      annotations:
+        argocd.argoproj.io/compare-options: IgnoreExtraneous
+    spec:
+      destination:
+        namespace: openshift-gitops
+        server: https://kubernetes.default.svc
+      project: '{{`{{project}}`}}'
+      sources:
+        - repoURL: '{{`{{helmRepoUrl}}`}}'
+          chart: '{{`{{chart}}`}}'
+          targetRevision: '{{`{{targetRevision}}`}}'
+          path: /charts
+          helm:
+            valueFiles:
+            - $values/{{ $.Values.gitPath }}{{`{{gitPathFile}}`}}
+            values: |
+              appTeam: {{`{{name}}`}}
+        - repoURL: '{{`{{gitRepoUrl}}`}}'
+          targetRevision: HEAD
+          ref: values
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+        - ApplyOutOfSyncOnly=true
+        - CreateNamespace=true
 ---
 {{ end }}
