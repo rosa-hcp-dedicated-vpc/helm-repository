@@ -3,6 +3,7 @@ kind: ScanSetting
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ .Values.compliance.scansettingbinding.syncwave | quote }}
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
   name: default
   namespace: {{ .Values.compliance.namespace.name | default "openshift-compliance" }}
