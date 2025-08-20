@@ -84,7 +84,7 @@ openshiftAI:
   # These settings are for future use and custom resources
   datasciencecluster:
     # -- Enable Data Science Cluster creation
-    enabled: false
+    enabled: true
     # -- Syncwave for Data Science Cluster
     syncwave: '5'
     # -- Data Science Cluster configuration
