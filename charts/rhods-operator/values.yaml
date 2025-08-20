@@ -1,0 +1,107 @@
+---
+# Using sub-chart helper-operator
+helper-operator:
+  operators:
+    rhods-operator:
+      # -- Enabled yes/no
+      # @default -- false
+      enabled: true
+      # -- Syncwave for the operator deployment
+      # @default -- 0
+      syncwave: '3'
+      namespace:
+        # -- The Namespace the Operator should be installed in.
+        # The OpenShift AI operator should be deployed into **redhat-ods-operator** Namespace
+        # that must be created.
+        name: redhat-ods-operator
+        # -- Description of the namespace.
+        # @default -- ""
+        create: true
+      subscription:
+        # -- Channel of the Subscription
+        # @default -- stable
+        channel: stable
+        # -- Update behavior of the Operator. Manual/Automatic
+        # @default -- Automatic
+        approval: Manual
+        # -- Name of the Operator
+        # The name for the OpenShift AI operator is **rhods-operator**
+        # @default -- "empty"
+
+        # csv is pulled in via the Cluster/non-prod/high-trust/<cluster_name>/infrastructure.yaml
+        # csv: rhods-operator.v2.15.0
+
+        operatorName: rhods-operator
+        # -- Source of the Operator
+        # @default -- redhat-operators
+        source: redhat-operators
+        # -- Namespace of the source
+        # @default -- openshift-marketplace
+        sourceNamespace: openshift-marketplace
+        config:
+          nodeSelector:
+            key: node-role.kubernetes.io/worker
+            value: ""
+      operatorgroup:
+        # -- Create an Operatorgroup object
+        # @default -- false
+        create: true
+        # -- Monitor own Namespace. For some Operators no `targetNamespaces` must be defined
+        # @default -- false
+        notownnamespace: true
+
+# Using sub-chart helper-status-checker
+helper-status-checker:
+  # -- Enable status checker
+  # @default -- false
+  enabled: true
+  approver: true 
+  checks:
+
+      # -- Define the name of the operator that shall be verified.
+      # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
+      # For the OpenShift AI operator the name should be "**rhods-operator**"
+      # @default -- ""
+    - operatorName: rhods-operator
+      # -- Define where the operator is installed
+      # For the OpenShift AI operator this should be "**redhat-ods-operator**"
+      # @default -- ""
+      namespace:
+        name: redhat-ods-operator
+      syncwave: 3
+
+      # -- Set the values of the ServiceAccount that will execute the status checker Job.
+      serviceAccount:
+        name: "sa-openshift-ai"
+
+openshiftAI:
+  # -- Settings for namespace where OpenShift AI operator will be installed.
+  namespace:
+    # -- Namespace of the operator
+    name: redhat-ods-operator
+
+  # -- Additional configuration for OpenShift AI
+  # These settings are for future use and custom resources
+  datasciencecluster:
+    # -- Enable Data Science Cluster creation
+    enabled: false
+    # -- Syncwave for Data Science Cluster
+    syncwave: '5'
+    # -- Data Science Cluster configuration
+    name: default-dsc
+    spec:
+      components:
+        codeflare:
+          managementState: Managed
+        dashboard:
+          managementState: Managed
+        datasciencepipelines:
+          managementState: Managed
+        kserve:
+          managementState: Managed
+        modelmeshserving:
+          managementState: Managed
+        ray:
+          managementState: Managed
+        workbenches:
+          managementState: Managed

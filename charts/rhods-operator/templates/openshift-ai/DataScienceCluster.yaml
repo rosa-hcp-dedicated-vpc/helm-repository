@@ -1,0 +1,34 @@
+{{- if .Values.openshiftAI.datasciencecluster.enabled -}}
+---
+apiVersion: datasciencecluster.opendatahub.io/v1
+kind: DataScienceCluster
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: {{ .Values.openshiftAI.datasciencecluster.syncwave | quote }}
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  name: {{ .Values.openshiftAI.datasciencecluster.name }}
+  namespace: {{ .Values.openshiftAI.namespace.name | default "redhat-ods-operator" }}
+spec:
+  components:
+    codeflare:
+      managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.codeflare.managementState | default "Managed" }}
+    dashboard:
+      managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.dashboard.managementState | default "Managed" }}
+    datasciencepipelines:
+      managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.datasciencepipelines.managementState | default "Managed" }}
+    kserve:
+      managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.kserve.managementState | default "Managed" }}
+      serving:
+        ingressGateway:
+          certificate:
+            type: SelfSigned
+        managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.kserve.managementState | default "Managed" }}
+        name: knative-serving
+    modelmeshserving:
+      managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.modelmeshserving.managementState | default "Managed" }}
+    ray:
+      managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.ray.managementState | default "Managed" }}
+    workbenches:
+      managementState: {{ .Values.openshiftAI.datasciencecluster.spec.components.workbenches.managementState | default "Managed" }}
+{{- end }}
