@@ -42,7 +42,7 @@ spec:
           path: /charts
           helm:
             valueFiles:
-            - $values/{{ $.Values.gitPath }}{{`{{gitPathFile}}`}}
+            - $values{{`{{gitPathFile}}`}}
             values: |
               appTeam: {{`{{name}}`}}
         - repoURL: '{{`{{gitRepoUrl}}`}}'
