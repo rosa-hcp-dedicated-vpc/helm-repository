@@ -15,18 +15,10 @@ metadata:
   {{- end }}
 spec:
   generators:
-  - list:
-      elements:
-      - name: {{ $applications.name }}
-        project: {{ $applications.project | default "default" }}
-        helmRepoUrl: {{ $applications.helmRepoUrl }}
-        gitRepoUrl: {{ $applications.gitRepoUrl }}
-        chart: {{ $applications.chart }}
-        targetRevision: {{ $applications.targetRevision }}
-        gitPathFile: {{ $applications.gitPathFile }}
+  - clusters: {}
   template:
     metadata:
-      name: '{{`{{name}}`}}'
+      name: {{ $applications.name }}
       namespace: openshift-gitops
       annotations:
         argocd.argoproj.io/compare-options: IgnoreExtraneous
@@ -34,18 +26,18 @@ spec:
       destination:
         namespace: openshift-gitops
         server: https://kubernetes.default.svc
-      project: '{{`{{project}}`}}'
+      project: {{ $applications.project | default "default" }}
       sources:
-        - repoURL: '{{`{{helmRepoUrl}}`}}'
-          chart: '{{`{{chart}}`}}'
-          targetRevision: '{{`{{targetRevision}}`}}'
+        - repoURL: {{ $applications.helmRepoUrl }}
+          chart: {{ $applications.chart }}
+          targetRevision: {{ $applications.targetRevision }}
           path: /charts
           helm:
             valueFiles:
-            - $values{{`{{gitPathFile}}`}}
+            - $values{{ $applications.gitPathFile }}
             values: |
-              appTeam: {{`{{name}}`}}
-        - repoURL: '{{`{{gitRepoUrl}}`}}'
+              appTeam: {{ $applications.name }}
+        - repoURL: {{ $applications.gitRepoUrl }}
           targetRevision: HEAD
           ref: values
       syncPolicy:
