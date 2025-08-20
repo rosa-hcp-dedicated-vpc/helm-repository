@@ -260,6 +260,21 @@ entries:
     version: 1.5.0
   cluster-bootstrap:
   - apiVersion: v2
+    created: "2025-08-20T02:06:18.145200173Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.0.29
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: d5ee49c8266d8cd6c09bd21b25f20c17ed17c6a9ae2ff7cf42a9b5041e01e721
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.3.5/cluster-bootstrap-0.3.5.tgz
+    version: 0.3.5
+  - apiVersion: v2
     created: "2025-08-20T01:48:37.005005047Z"
     dependencies:
     - name: helper-status-checker
@@ -1473,4 +1488,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.0.1/rhacs-operator-0.0.1.tgz
     version: 0.0.1
-generated: "2025-08-20T01:48:37.005520221Z"
+generated: "2025-08-20T02:06:18.145686392Z"
