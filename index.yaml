@@ -841,6 +841,21 @@ entries:
     version: 0.0.7
   cluster-logging:
   - apiVersion: v2
+    created: "2025-08-20T07:53:57.099419253Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.0.29
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    digest: 469ecc94c7daef14773a30a99810cc755946072be1b1dde05fca2c9a898db49c
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.2.9/cluster-logging-0.2.9.tgz
+    version: 0.2.9
+  - apiVersion: v2
     created: "2025-06-19T01:30:40.12010433Z"
     dependencies:
     - name: helper-operator
@@ -1571,4 +1586,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.0.1/rhacs-operator-0.0.1.tgz
     version: 0.0.1
-generated: "2025-08-20T07:42:22.04997027Z"
+generated: "2025-08-20T07:53:57.099699991Z"
