@@ -178,7 +178,6 @@ resource "shell_script" "cluster_bootstrap" {
 ```
 
 
-
 #### Terraform Values Template
 
 ```yaml
@@ -275,7 +274,7 @@ spec:
                 region: "{{ .region }}"
 ```
 
-### Direct Helm Installation (Not Recommended)
+### Direct Helm Installation
 
 ```bash
 # Add the repository
