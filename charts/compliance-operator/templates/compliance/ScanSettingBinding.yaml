@@ -6,8 +6,9 @@ metadata:
   name: cis-compliance
   annotations:
     argocd.argoproj.io/sync-wave: {{ .Values.compliance.scansettingbinding.syncwave | quote }}
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
   namespace: {{ .Values.compliance.namespace.name | default "openshift-compliance" }}
   labels:
     {{- include "compliance.labels" $ | nindent 4 }}
