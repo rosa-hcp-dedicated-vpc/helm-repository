@@ -1,0 +1,76 @@
+# Using sub-chart helper-installplan-approver
+defaultImage: quay.io/gnunn/tools:latest
+helper-installplan-approver:
+  namespace: openshift-gitops-operator
+nameOverride: ""
+fullnameOverride: ""
+aws_region: <region>
+aws_account: <account-id>
+domain: <domain>
+namespaces:
+  - name: openshift-gitops
+  - name: openshift-gitops-operator
+subscriptions:
+  - name: openshift-gitops-operator
+    namespace: openshift-gitops-operator
+    channel: latest
+    config:
+      env:
+      - name: DISABLE_DEFAULT_ARGOCD_INSTANCE
+        value: "true"
+      - name: ARGOCD_CLUSTER_CONFIG_NAMESPACES
+        value: application-gitops,openshift-gitops
+    installPlanApproval: Manual
+    # csv is injected via the helm install in bootstrap.tftpl
+    csv:
+    source: redhat-operators
+    sourceNamespace: openshift-marketplace
+operatorGroups:
+- name: openshift-gitops-operator
+  namespace: openshift-gitops-operator
+catalogSources: []
+argocd:
+  plugin:
+    version: "1.18.1"
+    AVP_TYPE: awssecretsmanager
+  initialRepositories: |
+    - name: cluster-config
+      type: git
+      project: default
+      url: https://github.com/rosa-hcp-dedicated-vpc/cluster-config.git
+      insecure: true
+    - name: helm-repo
+      type: helm
+      project: default
+      url: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+  applications:
+  - name: cluster-config
+    annotations:
+    helmRepoUrl: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    chart: gitops-payload
+    project: cluster-config-project
+    targetRevision: 0.0.4
+    gitRepoUrl: https://github.com/rosa-hcp-dedicated-vpc/cluster-config.git
+    adGroup: PFAUTHAD
+    gitPathFile: /infrastructure.yaml
+    repositories:
+    - https://github.com/rosa-hcp-dedicated-vpc/cluster-config.git
+    - https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+  - name: application-ns
+    annotations:
+    helmRepoUrl: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    chart: gitops-application-payload
+    project: application-ns-project
+    targetRevision: 1.4.4
+    gitRepoUrl: https://github.com/rosa-hcp-dedicated-vpc/cluster-config.git
+    adGroup: PFAUTHAD
+    gitPathFile: /applications-ns.yaml
+    repositories:
+    - https://github.com/rosa-hcp-dedicated-vpc/cluster-config.git
+    - https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+application-gitops:
+  name: application-gitops
+  gitopsNamespace: application-gitops
+  domain: <domain>
+  argocd:
+    initialRepositories:
