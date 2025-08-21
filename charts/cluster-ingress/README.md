@@ -4,7 +4,15 @@ This Helm chart creates additional ingress controllers for OpenShift clusters, e
 
 ## Overview
 
-The Cluster Ingress chart enables the creation of additional ingress controllers beyond the default OpenShift ingress. Each ingress controller operates on a custom subdomain with its own SSL certificate issued by AWS Private CA, providing secure and isolated routing for different application tiers or environments. The chart integrates with private Route53 zones for internal DNS resolution.
+The Cluster Ingress chart provides enterprise-grade ingress capabilities by creating dedicated ingress controllers for specific application domains or environments. Unlike the default OpenShift ingress that handles all cluster traffic, this chart enables traffic segmentation through:
+
+- **Dedicated Ingress Controllers**: Separate ingress controllers for different application tiers (API, internal services, staging, etc.)
+- **cert-manager Integration**: Automated SSL certificate provisioning and renewal using cert-manager with AWS Private CA
+- **Private DNS Management**: Automatic Route53 private zone record creation and lifecycle management
+- **Namespace-based Routing**: Traffic isolation using namespace selectors and labels
+- **AWS Network Load Balancer**: High-performance Layer 4 load balancing with internal scope
+
+This approach allows organizations to implement proper traffic separation, security boundaries, and certificate management across different application environments within a single OpenShift cluster.
 
 ## Prerequisites
 
