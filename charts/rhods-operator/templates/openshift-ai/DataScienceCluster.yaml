@@ -5,8 +5,9 @@ kind: DataScienceCluster
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: {{ .Values.openshiftAI.datasciencecluster.syncwave | quote }}
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
   name: {{ .Values.openshiftAI.datasciencecluster.name }}
   namespace: {{ .Values.openshiftAI.namespace.name | default "redhat-ods-operator" }}
 spec:

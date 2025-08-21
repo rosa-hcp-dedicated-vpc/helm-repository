@@ -1,8 +1,8 @@
-# RHODS Operator (Red Hat OpenShift Data Science)
+# Red Hat OpenShift AI Operator
 
 ![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Master chart to deploy and configure the RHODS Operator (Red Hat OpenShift Data Science)
+Master chart to deploy and configure the Red Hat OpenShift AI Operator
 
 ## Description
 
