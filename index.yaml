@@ -1728,6 +1728,37 @@ entries:
   - annotations:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
+    created: "2025-08-21T00:43:41.174861583Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    description: Master chart to deploy and configure the RHODS Operator (Red Hat
+      OpenShift Data Science)
+    digest: 480ca3d9dbea130964953cca65bf62956d65713ea7d10ffc98185f294db08ace
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - ai
+    - machine-learning
+    - openshift-ai
+    - data-science
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhods-operator
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.2/rhods-operator-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+    apiVersion: v2
     created: "2025-08-20T10:15:43.006504034Z"
     dependencies:
     - name: helper-operator
@@ -1787,4 +1818,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-20T10:15:43.006844745Z"
+generated: "2025-08-21T00:43:41.17512171Z"
