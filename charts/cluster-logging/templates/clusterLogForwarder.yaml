@@ -4,34 +4,40 @@ metadata:
   name: cloudwatch
   namespace: openshift-logging
   annotations:
-    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
+    argocd.argoproj.io/sync-wave: {{ add (.Values.syncwave | default 3) 1 | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
   managementState: Managed
-  outputs:
-    - cloudwatch:
-        authentication:
-          iamRole:
-            roleARN:
-              key: role_arn
-              secretName: cloudwatch-credentials
-            token:
-              from: serviceAccount
-          type: iamRole
-        groupName: rosa-1234567
-        region: {{ .Values.region }}
-      name: cloudwatch
-      type: cloudwatch
-  pipelines:
-    - inputRefs:
-        - application
-        - infrastructure
-        - audit
-      name: cloudwatch
-      outputRefs:
-        - cloudwatch
   serviceAccount:
     name: logging-collector
+  outputs:
+  - name: cloudwatch
+    type: cloudwatch
+    cloudwatch:
+      authentication:
+        iamRole:
+          roleARN:
+            key: role_arn
+            secretName: cloudwatch-credentials
+          token:
+            from: serviceAccount
+        type: iamRole
+      groupName: {{ .Values.cloudwatch.groupPrefix | default .Values.rosaClusterName }}.{.log_type||"none-typed-logs"}
+      region: {{ .Values.region }}
+      tuning:
+        compression: {{ .Values.cloudwatch.compression | default "zstd" }}
+        delivery: {{ .Values.cloudwatch.delivery | default "atMostOnce" }}
+        maxRetryDuration: 30
+        maxWrite: 10M
+        minRetryDuration: 5
+  pipelines:
+  - name: cloudwatch
+    inputRefs:
+    - application
+    - infrastructure
+    - audit
+    outputRefs:
+    - cloudwatch
 

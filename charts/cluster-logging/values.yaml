@@ -1,8 +1,16 @@
 nameOverride: ""
 fullnameOverride: ""
-RoleArn: placeholder
+# AWS CloudWatch configuration
+roleArn: placeholder
 rosaClusterName: placeholder
 region: placeholder
+# CloudWatch log group configuration
+cloudwatch:
+  groupPrefix: "logging"  # Will be combined with cluster name: logging-{cluster_name}
+  compression: "zstd"  # Options: none, gzip, zstd
+  delivery: "atMostOnce"  # Options: atMostOnce, atLeastOnce
+# Sync wave configuration
+syncwave: 3
 # dependency chart helper-operator
 helper-operator:
   operators:
