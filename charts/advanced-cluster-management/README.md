@@ -209,16 +209,16 @@ helper-status-checker:
 
 ```bash
 # Check operator status
-kubectl get csv -n open-cluster-management
+oc get csv -n open-cluster-management
 
 # Check MultiClusterHub status
-kubectl get multiclusterhub -n open-cluster-management
+oc get multiclusterhub -n open-cluster-management
 
 # Check all pods are running
-kubectl get pods -n open-cluster-management
+oc get pods -n open-cluster-management
 
 # Access the console
-kubectl get route multicloud-console -n open-cluster-management
+oc get route multicloud-console -n open-cluster-management
 ```
 
 ### Initial Configuration
@@ -236,45 +236,45 @@ kubectl get route multicloud-console -n open-cluster-management
 #### Operator Installation Fails
 ```bash
 # Check subscription status
-kubectl get subscription advanced-cluster-management -n open-cluster-management -o yaml
+oc get subscription advanced-cluster-management -n open-cluster-management -o yaml
 
 # Check install plan
-kubectl get installplan -n open-cluster-management
+oc get installplan -n open-cluster-management
 
 # Check operator logs
-kubectl logs -n open-cluster-management -l name=multiclusterhub-operator
+oc logs -n open-cluster-management -l name=multiclusterhub-operator
 ```
 
 #### MultiClusterHub Not Ready
 ```bash
 # Check MultiClusterHub status
-kubectl describe multiclusterhub multiclusterhub -n open-cluster-management
+oc describe multiclusterhub multiclusterhub -n open-cluster-management
 
 # Check component status
-kubectl get pods -n open-cluster-management
-kubectl get pods -n multicluster-engine
+oc get pods -n open-cluster-management
+oc get pods -n multicluster-engine
 ```
 
 #### Resource Constraints
 ```bash
 # Check node resources
-kubectl top nodes
+oc adm top nodes
 
 # Check pod resource usage
-kubectl top pods -n open-cluster-management
+oc adm top pods -n open-cluster-management
 ```
 
 ### Logs and Diagnostics
 
 ```bash
 # Collect RHACM logs
-kubectl logs -n open-cluster-management -l app=multiclusterhub-operator
+oc logs -n open-cluster-management -l app=multiclusterhub-operator
 
 # Check MultiClusterHub events
-kubectl get events -n open-cluster-management --sort-by='.lastTimestamp'
+oc get events -n open-cluster-management --sort-by='.lastTimestamp'
 
 # Export configuration for support
-kubectl get multiclusterhub multiclusterhub -n open-cluster-management -o yaml > multiclusterhub-config.yaml
+oc get multiclusterhub multiclusterhub -n open-cluster-management -o yaml > multiclusterhub-config.yaml
 ```
 
 ## Upgrading
@@ -311,23 +311,23 @@ helper-operator:
 helm uninstall advanced-cluster-management -n open-cluster-management
 
 # Clean up remaining resources (if needed)
-kubectl delete namespace open-cluster-management
+oc delete namespace open-cluster-management
 ```
 
 ### Manual Cleanup
 
 ```bash
 # Remove MultiClusterHub
-kubectl delete multiclusterhub multiclusterhub -n open-cluster-management
+oc delete multiclusterhub multiclusterhub -n open-cluster-management
 
 # Remove subscription
-kubectl delete subscription advanced-cluster-management -n open-cluster-management
+oc delete subscription advanced-cluster-management -n open-cluster-management
 
 # Remove operator group
-kubectl delete operatorgroup -n open-cluster-management --all
+oc delete operatorgroup -n open-cluster-management --all
 
 # Remove namespace
-kubectl delete namespace open-cluster-management
+oc delete namespace open-cluster-management
 ```
 
 ## Security Considerations
