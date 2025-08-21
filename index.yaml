@@ -329,6 +329,21 @@ entries:
     version: 1.5.0
   cluster-bootstrap:
   - apiVersion: v2
+    created: "2025-08-21T04:42:24.182229015Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: abb7a018e06f73828054f98d2eb2978f3e17a954ed18545460de8d44f895441d
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.3.9/cluster-bootstrap-0.3.9.tgz
+    version: 0.3.9
+  - apiVersion: v2
     created: "2025-08-20T05:48:35.822883977Z"
     dependencies:
     - name: helper-installplan-approver
@@ -625,7 +640,38 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.1.8/cluster-bootstrap-0.1.8.tgz
     version: 0.1.8
+  cluster-bootstrap-spoke:
+  - apiVersion: v2
+    created: "2025-08-21T04:42:24.408505302Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: cd966294848df72f3bfd7de4d4e232b9d44f70b15c9aafbbb7d39ac4cde1c066
+    name: cluster-bootstrap-spoke
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-spoke-0.3.8/cluster-bootstrap-spoke-0.3.8.tgz
+    version: 0.3.8
   cluster-efs:
+  - apiVersion: v2
+    created: "2025-08-21T04:42:24.598701798Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy the efs operator and supporting componenets
+    digest: e4ece5ed819179985b0fd187f637b9fdfe693250c69652eb26b0f9149fb91c82
+    name: cluster-efs
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-efs-0.2.9/cluster-efs-0.2.9.tgz
+    version: 0.2.9
   - apiVersion: v2
     created: "2025-08-20T09:08:05.760416247Z"
     dependencies:
@@ -1928,4 +1974,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-21T02:12:51.112996642Z"
+generated: "2025-08-21T04:42:24.599126826Z"
