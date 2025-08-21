@@ -1,6 +1,6 @@
 # Cluster EFS Helm Chart
 
-This Helm chart deploys the AWS EFS CSI Driver operator and configures Amazon Elastic File System (EFS) storage for OpenShift clusters. The chart provides shared, persistent storage capabilities using AWS EFS, enabling applications to access shared file systems across multiple pods and nodes. This chart is designed for deployment via Terraform and integrates with the rosa-hcp-dedicated-vpc infrastructure.
+This Helm chart deploys the AWS EFS CSI Driver operator and configures Amazon Elastic File System (EFS) storage for OpenShift clusters. The chart provides shared, persistent storage capabilities using AWS EFS, enabling applications to access shared file systems across multiple pods and nodes. This chart is designed for deployment via ArgoCD and integrates with the rosa-hcp-dedicated-vpc infrastructure.
 
 ## Overview
 
@@ -12,7 +12,7 @@ The Cluster EFS chart enables Amazon EFS integration with OpenShift by deploying
 - AWS EFS file system provisioned via Terraform
 - IAM role with appropriate EFS permissions
 - VPC security groups configured for EFS access (port 2049)
-- Terraform deployment (this chart is not deployed via ArgoCD)
+- ArgoCD deployment (underlying EFS infrastructure provisioned via Terraform)
 - Sufficient cluster resources (see [Resource Requirements](#resource-requirements))
 
 ### Terraform Infrastructure Setup
@@ -79,13 +79,49 @@ The chart deploys the following components:
 
 ## Installation
 
-This chart is designed for deployment via Terraform, not ArgoCD.
+This chart is designed for deployment via ArgoCD as part of the GitOps workflow. The underlying EFS infrastructure is provisioned by Terraform.
 
-### Terraform Deployment
+### ArgoCD Deployment
 
-In the rosa-hcp-dedicated-vpc project, the Cluster EFS chart is deployed via ArgoCD as part of the GitOps workflow, but the underlying EFS infrastructure is provisioned by Terraform.
+In the rosa-hcp-dedicated-vpc project, the Cluster EFS chart is deployed via ArgoCD as part of the GitOps workflow, while the underlying EFS infrastructure is provisioned by Terraform.
 
 The EFS infrastructure is created by the [`7.storage.tf`](/Users/redhat/rosa-hcp-dedicated-vpc/rosa-hcp-dedicated-vpc/terraform/7.storage.tf) file, and the chart is deployed through the GitOps pipeline with the necessary parameters.
+
+#### ArgoCD Application Example
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-efs
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: '2'
+spec:
+  destination:
+    namespace: openshift-cluster-csi-drivers
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - repoURL: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      chart: cluster-efs
+      targetRevision: 0.2.9
+      helm:
+        valueFiles:
+        - $values/cluster-config/nonprod/np-app-1/infrastructure.yaml
+        values: |
+          appTeam: cluster-efs
+    - repoURL: https://github.com/rosa-hcp-dedicated-vpc/rosa-hcp-dedicated-vpc.git
+      targetRevision: HEAD
+      ref: values
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - ApplyOutOfSyncOnly=true
+    - CreateNamespace=true
+```
 
 #### Terraform EFS Infrastructure
 
