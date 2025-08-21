@@ -4,7 +4,7 @@ This is a dependency Helm chart that automatically approves OpenShift Operator I
 
 ## Overview
 
-The Helper InstallPlan Approver chart provides automated InstallPlan approval capabilities for OpenShift operators deployed via Terraform using Helm commands. Unlike ArgoCD deployments that can handle InstallPlan approval through sync policies, Terraform-based Helm deployments require a separate mechanism to approve operator installations when manual approval is configured.
+The Helper InstallPlan Approver chart provides automated InstallPlan approval capabilities for OpenShift operators deployed via Terraform using Helm commands. Both ArgoCD and Terraform-based Helm deployments face the same challenge with manual InstallPlan approval - neither can automatically approve InstallPlans without additional automation. This chart provides that automation mechanism for Terraform deployments, while ArgoCD deployments typically use the helper-status-checker chart or similar Job-based approaches.
 
 This dependency chart addresses the challenge by:
 
@@ -393,9 +393,14 @@ custom-operator:
 ## Alternatives
 
 ### ArgoCD Deployments
-For ArgoCD-based deployments, use ArgoCD sync policies instead:
+For ArgoCD-based deployments, InstallPlan approval still requires automation. ArgoCD sync policies do NOT automatically approve InstallPlans. Instead, ArgoCD deployments typically use:
+
+1. **helper-status-checker chart**: Similar Job-based InstallPlan approval
+2. **PostSync hooks**: Jobs that run after sync to approve InstallPlans
+3. **Automatic approval**: Set `installPlanApproval: Automatic` in subscriptions
 
 ```yaml
+# ArgoCD Application with PostSync hook for InstallPlan approval
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 spec:
@@ -405,7 +410,8 @@ spec:
       selfHeal: true
     syncOptions:
     - ApplyOutOfSyncOnly=true
-    - ServerSideApply=true
+    - CreateNamespace=true
+  # Note: Sync policies do NOT handle InstallPlan approval
 ```
 
 ### Manual Approval
