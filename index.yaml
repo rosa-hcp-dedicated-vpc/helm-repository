@@ -977,6 +977,14 @@ entries:
     version: 0.0.9
   cluster-ingress:
   - apiVersion: v2
+    created: "2025-08-21T05:00:51.935394041Z"
+    description: Chart to establish additional ingress on cluster
+    digest: 6b2c913cb9790b2882ebc1af0f65e791c2c1e54cda2115f8f43bdb902897e9c9
+    name: cluster-ingress
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-ingress-0.0.8/cluster-ingress-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     created: "2025-05-27T23:38:00.354042742Z"
     description: Chart to establish additional ingress on cluster
     digest: 6c42f51c23b1d1d25970981759d92e9845a77048028f8f6236c45d3d9dc1a736
@@ -1989,4 +1997,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-21T04:45:02.701244015Z"
+generated: "2025-08-21T05:00:51.935578626Z"
