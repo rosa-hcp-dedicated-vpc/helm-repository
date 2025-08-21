@@ -977,6 +977,14 @@ entries:
     version: 0.0.9
   cluster-ingress:
   - apiVersion: v2
+    created: "2025-08-21T05:29:32.569936677Z"
+    description: Chart to establish additional ingress on cluster
+    digest: 83416abd1af228bf20b55cd4ee62dc672914b9f0a32caa159ffc2f583b6ddcf9
+    name: cluster-ingress
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-ingress-0.0.9/cluster-ingress-0.0.9.tgz
+    version: 0.0.9
+  - apiVersion: v2
     created: "2025-08-21T05:00:51.935394041Z"
     description: Chart to establish additional ingress on cluster
     digest: 6b2c913cb9790b2882ebc1af0f65e791c2c1e54cda2115f8f43bdb902897e9c9
@@ -993,6 +1001,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-ingress-0.0.7/cluster-ingress-0.0.7.tgz
     version: 0.0.7
   cluster-logging:
+  - apiVersion: v2
+    created: "2025-08-21T05:29:32.768417758Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    digest: 90e90b0f4bffab0ff8414b7603bbb483f5725f1cc9d5e7a9e19f9b4c08bc6057
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.4.0/cluster-logging-0.4.0.tgz
+    version: 0.4.0
   - apiVersion: v2
     created: "2025-08-21T00:49:29.247362445Z"
     dependencies:
@@ -1997,4 +2020,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-21T05:00:51.935578626Z"
+generated: "2025-08-21T05:29:32.7687781Z"
