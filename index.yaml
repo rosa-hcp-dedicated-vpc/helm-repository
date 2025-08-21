@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   advanced-cluster-management:
   - apiVersion: v2
+    created: "2025-08-21T01:53:14.288020155Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy Red Hat Advanced Cluster Management (RHACM) and supporting
+      components
+    digest: 17f28bea03ba195ecd133291cfe6f9eb039b899560b66ff8d925f7b9d2321911
+    name: advanced-cluster-management
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/advanced-cluster-management-0.1.2/advanced-cluster-management-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2025-08-21T01:49:06.420009636Z"
     dependencies:
     - name: helper-status-checker
@@ -1898,4 +1914,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-21T01:52:07.173924992Z"
+generated: "2025-08-21T01:53:14.288236942Z"
