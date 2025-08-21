@@ -1,5 +1,14 @@
 apiVersion: v2
 name: helper-installplan-approver
-description: dependant chart to automatically approve operator installs via a job
+description: Dependency chart to automatically approve operator InstallPlans via Kubernetes Job for Terraform deployments
 type: application
-version: 0.1.0
+version: 0.1.1
+maintainers:
+  - name: Paul Foster
+    email: pafoster@redhat.com
+keywords:
+  - operator
+  - installplan
+  - approval
+  - terraform
+  - dependency
