@@ -1,6 +1,6 @@
 # Namespaces Helm Chart
 
-A foundational Helm chart for creating and managing OpenShift namespaces with comprehensive security, resource management, and governance controls. This chart is deployed via ArgoCD using a GitOps approach in combination with the `gitops-namespaces-payload` and `gitops-application-payload` charts.
+A foundational Helm chart for creating and managing OpenShift namespaces with comprehensive security, resource management, and governance controls. This chart is deployed via ArgoCD using a GitOps approach in combination with the `gitops-namespaces-payload` and `app-of-apps-application` charts.
 
 ## Overview
 
@@ -14,7 +14,7 @@ This chart serves as the core namespace template that is consumed by the GitOps 
 graph TB
     subgraph "GitOps Deployment Flow"
         A[cluster-config Repository] --> B[applications-ns.yaml]
-        B --> C[gitops-application-payload Chart]
+        B --> C[app-of-apps-application Chart]
         C --> D[ArgoCD Application]
         D --> E[gitops-namespaces-payload Chart]
         E --> F[Multiple ArgoCD Applications]
@@ -48,7 +48,7 @@ This chart is **only deployed via ArgoCD** using the GitOps payload pattern. It 
 ### GitOps Deployment Pattern
 
 1. **Configuration**: Define namespace requirements in `cluster-config` repository
-2. **Orchestration**: Use `gitops-application-payload` chart to create ArgoCD applications
+2. **Orchestration**: Use `app-of-apps-application` chart to create ArgoCD applications
 3. **Payload**: `gitops-namespaces-payload` chart creates multiple namespace applications
 4. **Execution**: Each namespace application deploys this chart with specific values
 
@@ -242,7 +242,7 @@ namespaces:
 ## Deployment Workflow
 
 1. **Team Configuration**: Teams define their namespace requirements in `cluster-config` repository
-2. **GitOps Application**: `gitops-application-payload` creates ArgoCD applications for each team
+2. **GitOps Application**: `app-of-apps-application` creates ArgoCD applications for each team
 3. **Namespace Orchestration**: `gitops-namespaces-payload` generates individual namespace applications
 4. **Chart Deployment**: Each namespace application deploys this chart with team-specific values
 5. **Resource Creation**: Namespaces are created with all security and governance controls
@@ -253,14 +253,14 @@ namespaces:
 
 Before deploying to ArgoCD, you can test the payload chart templating locally using the cluster-config values files:
 
-#### Test gitops-application-payload Chart
+#### Test app-of-apps-application Chart
 ```bash
 # Template the application payload chart with cluster-config values
-helm template gitops-application-payload ./charts/gitops-application-payload \
+helm template app-of-apps-application ./charts/app-of-apps-application \
   -f ../cluster-config/nonprod/np-hub/applications-ns.yaml
 
 # Test specific team configuration
-helm template test-app ./charts/gitops-application-payload \
+helm template test-app ./charts/app-of-apps-application \
   -f ../cluster-config/nonprod/np-hub/applications-ns.yaml \
   --set applications[0].name=accounting \
   --set applications[0].apmnum=abcd \
@@ -295,7 +295,7 @@ helm template test-ns ./charts/namespaces \
 #### Validate Generated ArgoCD Applications
 ```bash
 # Check what ArgoCD applications would be created
-helm template gitops-application-payload ./charts/gitops-application-payload \
+helm template app-of-apps-application ./charts/app-of-apps-application \
   -f ../cluster-config/nonprod/np-hub/applications-ns.yaml \
   | grep -A 10 "kind: Application"
 
@@ -361,7 +361,7 @@ oc get applications -n openshift-gitops -l app.kubernetes.io/instance=<apmnum>-<
 
 ## Related Charts
 
-- **[gitops-application-payload](../gitops-application-payload/README.md)**: Orchestrates team-level ArgoCD applications
+- **[app-of-apps-application](../app-of-apps-application/README.md)**: Orchestrates team-level ArgoCD applications
 - **[gitops-namespaces-payload](../gitops-namespaces-payload/README.md)**: Creates multiple namespace applications from configuration
 - **[gitops-payload](../gitops-payload/README.md)**: Infrastructure-level GitOps orchestration
 
