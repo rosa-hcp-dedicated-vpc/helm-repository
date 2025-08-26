@@ -168,6 +168,33 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/advanced-cluster-management-0.0.1/advanced-cluster-management-0.0.1.tgz
     version: 0.0.1
+  app-of-apps-application:
+  - apiVersion: v2
+    created: "2025-08-26T23:42:35.20174963Z"
+    description: Chart to generate argocd apps for each team and gitops set up
+    digest: 2cee6eb8519f853931121d72763a6f9d297e928d9c354a8c62be799d93b0a4f8
+    name: app-of-apps-application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-application-1.5.4/app-of-apps-application-1.5.4.tgz
+    version: 1.5.4
+  app-of-apps-infrastructure:
+  - apiVersion: v1
+    created: "2025-08-26T23:42:35.487469303Z"
+    description: Chart to generate argocd apps
+    digest: 4716527a2c2c8fa64bb1893c8b8fe24662b2b0c9e9140f63520af477548997bc
+    name: app-of-apps-infrastructure
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-infrastructure-0.1.2/app-of-apps-infrastructure-0.1.2.tgz
+    version: 0.1.2
+  app-of-apps-namespaces:
+  - apiVersion: v1
+    created: "2025-08-26T23:42:35.753680999Z"
+    description: Chart to generate namespaces apps.
+    digest: 98716a15a3aec258dc643680b564e8d0d64d87fc9ecc0d90d6dc1ffd8a6d3fec
+    name: app-of-apps-namespaces
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-namespaces-0.3.2/app-of-apps-namespaces-0.3.2.tgz
+    version: 0.3.2
   application-certificates: null
   application-gitops:
   - apiVersion: v1
@@ -2076,4 +2103,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-26T07:08:30.470453044Z"
+generated: "2025-08-26T23:42:35.753951697Z"
