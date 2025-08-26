@@ -1,113 +1,203 @@
-# Red Hat OpenShift AI Operator
+# RHODS Operator Helm Chart
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+A comprehensive Helm chart for deploying Red Hat OpenShift Data Science (RHODS) operator on OpenShift clusters. This chart is deployed via ArgoCD as part of the infrastructure stack to provide enterprise-grade AI/ML and data science capabilities.
 
-Master chart to deploy and configure the Red Hat OpenShift AI Operator
+## Overview
 
-## Description
+The RHODS Operator chart deploys Red Hat OpenShift Data Science (now known as Red Hat OpenShift AI), providing a comprehensive platform for data scientists and developers to develop, train, and serve machine learning models at scale. RHODS includes Jupyter notebooks, model serving capabilities, data science pipelines, and integrated AI/ML frameworks.
 
-This Helm chart deploys the Red Hat OpenShift AI Operator using the helper-operator and helper-status-checker subcharts. It provides a consistent way to install and configure OpenShift AI across different environments.
-
-## Features
-
-- Deploys Red Hat OpenShift AI Operator via Subscription
-- Creates necessary namespaces and operator groups
-- Provides status checking to ensure operator is ready
-- Optional DataScienceCluster configuration
-- Configurable component management states
+This chart uses the `helper-operator` and `helper-status-checker` dependency charts to ensure reliable operator deployment with automated InstallPlan approval and readiness verification. It also creates and configures a `DataScienceCluster` resource to enable all RHODS components with proper sync wave orchestration for ArgoCD deployments.
 
 ## Prerequisites
 
 - OpenShift 4.12+ cluster
-- Cluster admin access
-- ArgoCD/OpenShift GitOps (if using with GitOps)
+- ArgoCD/OpenShift GitOps operator installed
+- Cluster admin privileges
+- Sufficient cluster resources (minimum 16GB RAM, 8 CPU cores recommended)
+- GPU nodes (optional, for accelerated workloads)
+- Persistent storage for notebooks and models
 
-## Usage
+## Installation
 
-### Basic Installation
+This chart is **deployed via ArgoCD** as part of the infrastructure stack. It is not intended for direct Helm installation.
 
-```yaml
-helper-operator:
-  operators:
-    rhods-operator:
-      enabled: true
-      namespace:
-        name: redhat-ods-operator
-        create: true
-      subscription:
-        channel: stable
-        approval: Manual
-        operatorName: rhods-operator
-        source: redhat-operators
+### ArgoCD Deployment
 
-helper-status-checker:
-  enabled: true
-  checks:
-    - operatorName: rhods-operator
-      namespace:
-        name: redhat-ods-operator
-```
-
-### With DataScienceCluster
+The chart is deployed through the `gitops-payload` pattern as part of the cluster infrastructure:
 
 ```yaml
-openshift-ai:
-  datasciencecluster:
-    enabled: true
-    name: default-dsc
-    spec:
-      components:
-        dashboard:
-          managementState: Managed
-        workbenches:
-          managementState: Managed
-        # ... other components
+# Example from cluster-config/nonprod/np-app-1/infrastructure.yaml
+infrastructure:
+  - chart: rhods-operator
+    targetRevision: 1.0.2
+    namespace: redhat-ods-operator
+    values:
+      helper-operator:
+        startingCSV: rhods-operator.2.22.1
 ```
 
-## Values
+### Example ArgoCD Application
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| helper-operator.operators.rhods-operator.enabled | bool | `true` | Enable the OpenShift AI operator installation |
-| helper-operator.operators.rhods-operator.namespace.name | string | `"redhat-ods-operator"` | Namespace for the operator |
-| helper-operator.operators.rhods-operator.namespace.create | bool | `true` | Create the namespace |
-| helper-operator.operators.rhods-operator.subscription.channel | string | `"stable"` | Subscription channel |
-| helper-operator.operators.rhods-operator.subscription.approval | string | `"Manual"` | Install plan approval mode |
-| helper-status-checker.enabled | bool | `true` | Enable status checking |
-| openshift-ai.datasciencecluster.enabled | bool | `false` | Enable DataScienceCluster creation |
-| openshift-ai.datasciencecluster.name | string | `"default-dsc"` | Name of the DataScienceCluster |
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-config-rhods-operator
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  project: default
+  source:
+    repoURL: https://rosa-hcp-dedicated-vpc.github.io/helm-repository
+    chart: rhods-operator
+    targetRevision: 1.0.2
+    helm:
+      values: |
+        helper-operator:
+          startingCSV: rhods-operator.2.22.1
+        openshiftAI:
+          datasciencecluster:
+            enabled: true
+            name: default-dsc
+  destination:
+    namespace: redhat-ods-operator
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
+    - ApplyOutOfSyncOnly=true
+```
 
-## Dependencies
+## Configuration
 
-| Repository | Name | Version |
-|------------|------|---------|
-| https://rosa-hcp-dedicated-vpc.github.io/helm-repository/ | helper-operator | 1.0.29 |
-| https://rosa-hcp-dedicated-vpc.github.io/helm-repository/ | helper-status-checker | 4.1.2 |
+### Core Values
 
-## Components
+| Parameter | Description | Default | Required |
+|-----------|-------------|---------|----------|
+| `helper-operator.operators.rhods-operator.enabled` | Enable RHODS operator | `true` | ✅ |
+| `helper-operator.operators.rhods-operator.namespace.name` | Operator namespace | `redhat-ods-operator` | ✅ |
+| `helper-operator.operators.rhods-operator.subscription.channel` | Subscription channel | `stable` | ✅ |
+| `helper-operator.operators.rhods-operator.subscription.approval` | InstallPlan approval | `Manual` | ✅ |
+| `openshiftAI.datasciencecluster.enabled` | Enable DataScienceCluster | `true` | ✅ |
 
-The OpenShift AI platform includes the following components that can be managed:
+### DataScienceCluster Components
 
-- **Dashboard**: Web-based user interface
-- **Workbenches**: Jupyter notebook environments
-- **Data Science Pipelines**: ML workflow orchestration
-- **Model Serving**: KServe and ModelMesh for model deployment
-- **CodeFlare**: Distributed compute for ML workloads
-- **Ray**: Distributed computing framework
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `openshiftAI.datasciencecluster.spec.components.dashboard.managementState` | Dashboard component | `Managed` |
+| `openshiftAI.datasciencecluster.spec.components.workbenches.managementState` | Workbenches component | `Managed` |
+| `openshiftAI.datasciencecluster.spec.components.datasciencepipelines.managementState` | Pipelines component | `Managed` |
+| `openshiftAI.datasciencecluster.spec.components.kserve.managementState` | KServe component | `Managed` |
+| `openshiftAI.datasciencecluster.spec.components.modelmeshserving.managementState` | ModelMesh component | `Managed` |
+| `openshiftAI.datasciencecluster.spec.components.codeflare.managementState` | CodeFlare component | `Managed` |
+| `openshiftAI.datasciencecluster.spec.components.ray.managementState` | Ray component | `Managed` |
 
-## Notes
+## Features
 
-- The operator CSV version should be specified in your infrastructure configuration
-- Manual approval is recommended for production environments
-- The DataScienceCluster is optional and can be created separately
-- All components default to "Managed" state when DataScienceCluster is enabled
+### 🧠 **AI/ML Development Platform**
+- **Jupyter Notebooks**: Pre-configured data science environments with popular ML libraries
+- **Workbenches**: Persistent development environments with GPU support
+- **Model Development**: Integrated tools for model creation, training, and validation
+- **Experiment Tracking**: Built-in experiment management and versioning
 
-## Maintainers
+### 🚀 **Model Serving and Deployment**
+- **KServe**: Kubernetes-native model serving with auto-scaling
+- **ModelMesh**: Multi-model serving for efficient resource utilization
+- **Inference Endpoints**: RESTful and gRPC model serving endpoints
+- **A/B Testing**: Built-in support for model comparison and canary deployments
 
-| Name | URL |
-| ---- | --- |
-| rosa-hcp-dedicated-vpc | <https://github.com/rosa-hcp-dedicated-vpc> |
+### 📊 **Data Science Pipelines**
+- **Kubeflow Pipelines**: Workflow orchestration for ML pipelines
+- **Pipeline Components**: Reusable components for common ML tasks
+- **Experiment Runs**: Automated pipeline execution and tracking
+- **Artifact Management**: Centralized storage for models and datasets
 
-## Source Code
+### ⚡ **Distributed Computing**
+- **CodeFlare**: Distributed training and batch processing
+- **Ray Integration**: Scalable distributed computing framework
+- **GPU Acceleration**: Support for NVIDIA GPUs and specialized hardware
+- **Auto-scaling**: Dynamic resource allocation based on workload demands
 
-* <https://github.com/rosa-hcp-dedicated-vpc/helm-repository>
+## Post-Installation Access
+
+### Accessing the RHODS Dashboard
+
+```bash
+# Get the dashboard route
+oc get route rhods-dashboard -n redhat-ods-applications
+
+# Access via OpenShift console
+# Navigate to: Networking > Routes > rhods-dashboard
+```
+
+## Troubleshooting
+
+### Common Issues
+
+#### DataScienceCluster Not Syncing
+```bash
+# Check DataScienceCluster status
+oc describe datasciencecluster default-dsc -n redhat-ods-operator
+
+# Check ArgoCD application sync status
+oc get application cluster-config-rhods-operator -n openshift-gitops
+
+# Verify PostSync hook completion
+oc get jobs -n redhat-ods-operator | grep status-checker
+```
+
+#### Operator Installation Issues
+```bash
+# Check subscription status
+oc get subscription rhods-operator -n redhat-ods-operator
+
+# Check InstallPlan approval
+oc get installplan -n redhat-ods-operator
+
+# Check operator logs
+oc logs -n redhat-ods-operator -l name=rhods-operator
+```
+
+### Validation Commands
+
+```bash
+# Verify operator installation
+oc get csv -n redhat-ods-operator | grep rhods-operator
+
+# Check DataScienceCluster status
+oc get datasciencecluster -n redhat-ods-operator
+
+# Verify component deployments
+oc get pods -n redhat-ods-applications
+
+# Access RHODS dashboard
+oc get route rhods-dashboard -n redhat-ods-applications
+```
+
+## Related Documentation
+
+- **[Red Hat OpenShift AI Documentation](https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed)**
+- **[OpenDataHub Documentation](https://opendatahub.io/docs/)**
+- **[Kubeflow Documentation](https://www.kubeflow.org/docs/)**
+
+## Version History
+
+| Version | Changes |
+|---------|---------|
+| 1.0.2 | Current stable version with DataScienceCluster PostSync hooks |
+| 1.0.1 | Enhanced ArgoCD integration and sync wave support |
+| 1.0.0 | Initial release with comprehensive component support |
+
+## Maintainer
+
+- **Name**: Paul Foster
+- **Email**: pafoster@redhat.com
+- **Team**: Platform Engineering
+
+## License
+
+This chart is part of the ROSA HCP Dedicated VPC project and follows the project's licensing terms.
