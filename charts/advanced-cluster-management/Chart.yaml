@@ -6,6 +6,6 @@ dependencies:
     version: 1.1.0
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
 name: advanced-cluster-management
-version: 0.1.2
+version: 0.1.3
 apiVersion: v2
 description: Chart to deploy Red Hat Advanced Cluster Management (RHACM) and supporting components
