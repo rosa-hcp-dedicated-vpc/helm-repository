@@ -192,7 +192,7 @@ argocd:
     helmRepoUrl: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     chart: app-of-apps-application
     project: application-ns-project
-    targetRevision: 1.5.0
+    targetRevision: 1.5.1
     gitRepoUrl: https://github.com/my-org/cluster-config.git
     gitPathFile: /applications-ns.yaml
 

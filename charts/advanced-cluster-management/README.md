@@ -44,7 +44,7 @@ spec:
   source:
     repoURL: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     chart: advanced-cluster-management
-    targetRevision: "0.1.0"
+    targetRevision: "0.1.1"
     helm:
       values: |
         # Custom sync wave (default is 3)
