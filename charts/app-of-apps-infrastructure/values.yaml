@@ -3,7 +3,7 @@
 # #################################################################
 # teamName: cpaas-d1
 # #################################################################
-# # default Values for gitops-payload helm chart
+# # default Values for app-of-apps-infrastructure helm chart
 # #################################################################
 # defaults:
 #   # argcod application defaults

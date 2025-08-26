@@ -49,7 +49,7 @@ This chart is **deployed via ArgoCD** as part of the infrastructure stack. It is
 
 ### ArgoCD Deployment
 
-The chart is deployed through the `gitops-payload` pattern as part of the cluster infrastructure:
+The chart is deployed through the `app-of-apps-infrastructure` pattern as part of the cluster infrastructure:
 
 ```yaml
 # Example from cluster-config/nonprod/np-os-ai/infrastructure.yaml

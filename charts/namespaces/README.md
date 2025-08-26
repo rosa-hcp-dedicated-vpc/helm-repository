@@ -363,7 +363,7 @@ oc get applications -n openshift-gitops -l app.kubernetes.io/instance=<apmnum>-<
 
 - **[app-of-apps-application](../app-of-apps-application/README.md)**: Orchestrates team-level ArgoCD applications
 - **[app-of-apps-namespaces](../app-of-apps-namespaces/README.md)**: Creates multiple namespace applications from configuration
-- **[gitops-payload](../gitops-payload/README.md)**: Infrastructure-level GitOps orchestration
+- **[app-of-apps-infrastructure](../app-of-apps-infrastructure/README.md)**: Infrastructure-level GitOps orchestration
 
 ## Version History
 
