@@ -1,0 +1,26 @@
+{{- if .Values.clusterObservability.enabled }}
+apiVersion: observability.openshift.io/v1alpha1
+kind: ClusterObservability
+metadata:
+  name: cluster-observability
+  namespace: {{ .Values.helper-operator.operators.cluster-observability-operator.namespace.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.syncwave }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  storage:
+    {{- if .Values.clusterObservability.storage }}
+    size: {{ .Values.clusterObservability.storage.size | quote }}
+    {{- if .Values.clusterObservability.storage.storageClass }}
+    storageClass: {{ .Values.clusterObservability.storage.storageClass | quote }}
+    {{- end }}
+    {{- end }}
+  {{- if .Values.clusterObservability.retention }}
+  retention:
+    days: {{ .Values.clusterObservability.retention.days }}
+  {{- end }}
+  {{- if .Values.clusterObservability.resources }}
+  resources:
+    {{- toYaml .Values.clusterObservability.resources | nindent 4 }}
+  {{- end }}
+{{- end }}

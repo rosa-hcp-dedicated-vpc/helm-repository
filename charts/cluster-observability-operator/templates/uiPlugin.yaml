@@ -1,0 +1,14 @@
+{{- if .Values.clusterObservability.enabled }}
+apiVersion: observability.openshift.io/v1alpha1
+kind: UIPlugin
+metadata:
+  name: cluster-observability-ui
+  namespace: {{ .Values.helper-operator.operators.cluster-observability-operator.namespace.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 1 }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  type: "observability"
+  displayName: "Cluster Observability"
+  description: "OpenShift Cluster Observability Console Plugin"
+{{- end }}

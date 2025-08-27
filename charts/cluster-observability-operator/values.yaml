@@ -1,0 +1,56 @@
+nameOverride: ""
+fullnameOverride: ""
+
+# Sync wave configuration
+syncwave: 3
+
+# Cluster Observability Operator configuration
+clusterObservability:
+  enabled: true
+  # Storage configuration for observability data
+  storage:
+    size: "50Gi"
+    storageClass: "gp3-csi"
+  # Retention configuration
+  retention:
+    days: 30
+  # Resource limits
+  resources:
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+
+# dependency chart helper-operator
+helper-operator:
+  operators:
+    cluster-observability-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-cluster-observability-operator
+        create: true
+      subscription:
+        channel: development
+        approval: Manual
+        operatorName: cluster-observability-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: false
+
+# dependency chart helper-status-checker
+helper-status-checker:
+  enabled: true
+  approver: true
+  checks:
+    - operatorName: cluster-observability-operator
+      subscriptionName: cluster-observability-operator
+      namespace:
+        name: openshift-cluster-observability-operator
+      syncwave: 3
+      serviceAccount:
+        name: "cluster-observability-install-check"
