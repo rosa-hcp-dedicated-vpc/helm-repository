@@ -1,0 +1,110 @@
+nameOverride: ""
+fullnameOverride: ""
+
+# Sync wave configuration
+syncwave: 3
+
+# Loki Stack configuration
+lokiStack:
+  enabled: true
+  name: "logging-loki"
+  # Size configuration (1x, 1x.demo, 1x.extra-small, 1x.small, 1x.medium)
+  size: "1x.small"
+  # Storage configuration
+  storage:
+    # Storage class for Loki components
+    storageClassName: "gp3-csi"
+    # Storage size for different components
+    size:
+      # Ingester storage
+      ingester: "10Gi"
+      # Querier storage  
+      querier: "10Gi"
+      # Ruler storage
+      ruler: "10Gi"
+  # Retention configuration
+  limits:
+    global:
+      retention: "744h"  # 31 days
+      # Per-stream rate limits
+      ingestionRate: "4"
+      ingestionBurstSize: "6"
+      maxStreamsPerUser: "10000"
+      maxLineSize: "256000"
+  # Tenants configuration
+  tenants:
+    mode: "openshift-logging"  # openshift-logging, openshift-network, static
+    # Authentication configuration
+    authentication:
+      - tenantName: "application"
+        tenantId: "application"
+        oidc:
+          secret:
+            name: "application-oidc-secret"
+      - tenantName: "infrastructure" 
+        tenantId: "infrastructure"
+        oidc:
+          secret:
+            name: "infrastructure-oidc-secret"
+      - tenantName: "audit"
+        tenantId: "audit"
+        oidc:
+          secret:
+            name: "audit-oidc-secret"
+  # Rules configuration
+  rules:
+    enabled: true
+    selector:
+      matchLabels:
+        loki.grafana.com/name: "logging-loki"
+    namespaceSelector:
+      matchLabels:
+        openshift.io/cluster-monitoring: "true"
+
+# Object Storage configuration (S3-compatible)
+objectStorage:
+  # AWS S3 configuration
+  s3:
+    enabled: false
+    bucketName: ""
+    endpoint: ""
+    region: ""
+    accessKeyId: ""
+    secretAccessKey: ""
+    # Secret containing S3 credentials
+    secret:
+      name: "loki-s3-secret"
+      key: "access_key_id"
+      secretKey: "secret_access_key"
+
+# dependency chart helper-operator
+helper-operator:
+  operators:
+    loki-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-operators-redhat
+        create: false
+      subscription:
+        channel: stable-5.9
+        approval: Manual
+        operatorName: loki-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: false
+        notownnamespace: true
+
+# dependency chart helper-status-checker
+helper-status-checker:
+  enabled: true
+  approver: true
+  checks:
+    - operatorName: loki-operator
+      subscriptionName: loki-operator
+      namespace:
+        name: openshift-operators-redhat
+      syncwave: 3
+      serviceAccount:
+        name: "loki-install-check"

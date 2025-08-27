@@ -1,0 +1,12 @@
+name: loki-operator
+version: 0.1.0
+apiVersion: v2
+description: Deploys the Loki Operator for OpenShift log aggregation and storage using Grafana Loki
+dependencies:
+  - name: helper-operator
+    version: ~1.1.0
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+  - name: helper-status-checker
+    version: ~4.1.2
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    condition: helper-status-checker.enabled
