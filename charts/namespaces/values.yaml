@@ -1,33 +1,33 @@
-project:
-  name: "accounting-ns-test"
-  apmnum: "abcd"
-  appserviceNumber: "efgh"
-  ecrUpdateRole: arn:aws:iam:::role/rosa-ecr-access-role
-  annotations:
-    comments: acounting teams namespaces dev only
-    description: accounting namespaces
-    display_name: accounting template
-  labels:
-    domain: Infrastruture_and_Cloud
-    egressip: 0.0.0.1
-    ingress: customer-ingress
-    primary-owner: Paul.foster@redhat.com
-    zone:
-    apm-number: abcd
-groupname:
-  admin_group: pa_admins
-  edit_group:
-  view_group:
-resourceQuota:
-  limits_cpu: 250m
-  limits_memory: 1Gi
-  requests_cpu: 200m
-  requests_memory: 500Mi
-  persistentvolumeclaims: 5
-  limits_ephemeral_storage: 4Gi
-  pods: 50
-serviceAccount:
-  create: true
-  automount: true
-  annotations:
-  name: pipeline
+# project:
+#   name: "accounting-ns-test"
+#   apmnum: "abcd"
+#   appserviceNumber: "efgh"
+#   ecrUpdateRole: arn:aws:iam:::role/rosa-ecr-access-role
+#   annotations:
+#     comments: acounting teams namespaces dev only
+#     description: accounting namespaces
+#     display_name: accounting template
+#   labels:
+#     domain: Infrastruture_and_Cloud
+#     egressip: 0.0.0.1
+#     ingress: customer-ingress
+#     primary-owner: Paul.foster@redhat.com
+#     zone:
+#     apm-number: abcd
+# groupname:
+#   admin_group: pa_admins
+#   edit_group:
+#   view_group:
+# resourceQuota:
+#   limits_cpu: 250m
+#   limits_memory: 1Gi
+#   requests_cpu: 200m
+#   requests_memory: 500Mi
+#   persistentvolumeclaims: 5
+#   limits_ephemeral_storage: 4Gi
+#   pods: 50
+# serviceAccount:
+#   create: true
+#   automount: true
+#   annotations:
+#   name: pipeline
