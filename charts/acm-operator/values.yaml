@@ -9,7 +9,7 @@ helper-status-checker:
         name: open-cluster-management
       serviceAccount:
         name: "status-checker"
-# advanced-cluster-management.v2.13.3
+# acm-operator.v2.13.3
 helper-operator:
   enabled: true
   operators:

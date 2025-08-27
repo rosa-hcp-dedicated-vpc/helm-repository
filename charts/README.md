@@ -208,7 +208,7 @@ dependencies:
 #### Management & Operations
 | Chart | Version | Description | Namespace |
 |-------|---------|-------------|-----------|
-| [advanced-cluster-management](./advanced-cluster-management/README.md) | 0.1.3 | Multi-cluster management hub | open-cluster-management |
+| [acm-operator](./acm-operator/README.md) | 0.2.0 | Multi-cluster management hub | open-cluster-management |
 | [overprovisioning](./overprovisioning/README.md) | 0.0.6 | Pod overprovisioning for autoscaling | overprovisioning |
 
 #### AI/ML Platform

@@ -18,7 +18,7 @@ graph TD
     D --> G[compliance-operator]
     D --> H[overprovisioning]
     D --> I[cluster-logging]
-    D --> J[advanced-cluster-management]
+    D --> J[acm-operator]
     D --> K[rhacs-operator]
     D --> L[rhods-operator]
     
@@ -107,12 +107,12 @@ infrastructure:
       helper-operator:
         startingCSV: cluster-logging.v6.2.3
 
-  - chart: advanced-cluster-management
+  - chart: acm-operator
     targetRevision: 0.1.2
     namespace: open-cluster-management
     values:
       helper-operator:
-        startingCSV: advanced-cluster-management.v2.13.3
+        startingCSV: acm-operator.v2.13.3
 
   - chart: rhacs-operator
     targetRevision: 0.0.4
@@ -139,7 +139,7 @@ infrastructure:
 - **[cluster-logging](../cluster-logging/README.md)** - Centralized logging with CloudWatch integration
 
 ### Management & Operations
-- **[advanced-cluster-management](../advanced-cluster-management/README.md)** - Multi-cluster management hub
+- **[acm-operator](../acm-operator/README.md)** - Multi-cluster management hub
 - **[overprovisioning](../overprovisioning/README.md)** - Pod overprovisioning for autoscaling
 
 ### AI/ML Platform

@@ -75,7 +75,7 @@ Source code: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-o
 
 Installing the Operator "Loki"
 
-TIP: Fetch the values for the subscription specification with `oc get packagemanifest advanced-cluster-management -o yaml`
+TIP: Fetch the values for the subscription specification with `oc get packagemanifest acm-operator -o yaml`
 
 ```yaml
 ---
