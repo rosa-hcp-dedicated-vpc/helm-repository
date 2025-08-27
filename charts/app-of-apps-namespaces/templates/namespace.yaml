@@ -47,7 +47,7 @@ spec:
               domain: {{ $nsLabels.domain | default $defaultsLabels.domain }}
               egressip: {{ $nsLabels.egressip | default $defaultsLabels.egressip }}
               ingress: {{ $nsLabels.ingress | default $defaultsLabels.ingress }}
-              primary-owner: {{ $nsLabels.primary_owner | default $defaultsLabels.primary_owner }}
+              primary_owner: {{ $nsLabels.primary_owner | default $defaultsLabels.primary_owner }}
               zone: {{ $nsLabels.zone | default $defaultsLabels.zone }}
           groupname:
             admin_group: {{ $nsGroupname.admin_group | default $defaultsGroupname.admin_group }}  
@@ -80,7 +80,7 @@ spec:
             domain: {{ $nsLabels.domain | default $defaultsLabels.domain }}
             egressip: {{ $nsLabels.egressip | default $defaultsLabels.egressip }}
             ingress: {{ $nsLabels.ingress | default $defaultsLabels.ingress }}
-            primary-owner: {{ $nsLabels.primary_owner | default $defaultsLabels.primary_owner }}
+            primary_owner: {{ $nsLabels.primary_owner | default $defaultsLabels.primary_owner }}
             zone: {{ $nsLabels.zone | default $defaultsLabels.zone }}
             apm-number: {{ $apmnum }}
         groupname:

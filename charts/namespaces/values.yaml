@@ -1,23 +1,23 @@
 # project:
-#   name: "accounting-ns-test"
-#   apmnum: "abcd"
-#   appserviceNumber: "efgh"
-#   ecrUpdateRole: arn:aws:iam:::role/rosa-ecr-access-role
+#   name: "payments-ns-dev"
+#   apmnum: "1234"
+#   appserviceNumber: "5678"
+#   ecrUpdateRole: arn:aws:iam:::role/poc-rosa-ecr-access-role
 #   annotations:
-#     comments: acounting teams namespaces dev only
-#     description: accounting namespaces
-#     display_name: accounting template
+#     comments: payments teams namespaces dev only
+#     description: paymernts namespaces
+#     display_name: namespace stemplate
 #   labels:
 #     domain: Infrastruture_and_Cloud
 #     egressip: 0.0.0.1
 #     ingress: customer-ingress
-#     primary-owner: Paul.foster@redhat.com
-#     zone:
-#     apm-number: abcd
+#     primary_owner: pafosterredhat.com
+#     zone: test
+#     apm-number: 1234
 # groupname:
-#   admin_group: pa_admins
-#   edit_group:
-#   view_group:
+#   admin_group: pa_admins  
+#   edit_group:  
+#   view_group:  
 # resourceQuota:
 #   limits_cpu: 250m
 #   limits_memory: 1Gi
@@ -29,5 +29,5 @@
 # serviceAccount:
 #   create: true
 #   automount: true
-#   annotations:
+#   annotations: 
 #   name: pipeline
