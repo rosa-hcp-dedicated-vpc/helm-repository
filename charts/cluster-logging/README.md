@@ -1,18 +1,32 @@
 # Cluster Logging Helm Chart
 
-This Helm chart deploys OpenShift Logging 6.x on ROSA clusters with CloudWatch log forwarding capabilities. The chart configures Vector-based log collection and forwards application, infrastructure, and audit logs to AWS CloudWatch using IAM role-based authentication. This chart is designed for deployment via GitOps (ArgoCD) and integrates with the rosa-hcp-dedicated-vpc infrastructure.
+This Helm chart deploys OpenShift Logging 6.x on ROSA clusters with flexible log storage options. The chart configures Vector-based log collection and supports both AWS CloudWatch forwarding and local LokiStack storage through an integrated dependency system. This chart is designed for deployment via GitOps (ArgoCD) and integrates with the rosa-hcp-dedicated-vpc infrastructure.
 
 ## Overview
 
-The Cluster Logging chart provides enterprise-grade log management for ROSA clusters by implementing OpenShift Logging 6.x with CloudWatch integration. Unlike traditional logging solutions that require local log storage, this chart focuses exclusively on log forwarding to AWS CloudWatch, providing:
+The Cluster Logging chart provides enterprise-grade log management for ROSA clusters by implementing OpenShift Logging 6.x with multiple storage backend options. The chart supports both traditional CloudWatch forwarding and modern LokiStack local storage through an integrated dependency system:
 
+### **Storage Backend Options**:
+
+#### **CloudWatch Integration** (Default):
 - **Vector Log Collection**: Modern, high-performance log collector replacing Fluentd
 - **CloudWatch Integration**: Direct log forwarding to AWS CloudWatch with structured log groups
 - **IAM Role Authentication**: Secure authentication using AWS STS and pre-provisioned IAM roles
 - **Comprehensive Log Coverage**: Collects application, infrastructure, and audit logs
-- **GitOps Deployment**: Designed for ArgoCD-based deployment with proper sync wave ordering
 
-This approach enables organizations to leverage AWS-native logging capabilities while maintaining centralized log management and monitoring through CloudWatch.
+#### **LokiStack Integration** (Optional Dependency):
+- **Local Log Storage**: High-performance log storage within the OpenShift cluster
+- **OpenShift Console Integration**: Native log viewing through Console UI plugins
+- **S3 Object Storage**: Long-term log retention using S3-compatible storage
+- **Multi-tenant Architecture**: Built-in tenant isolation for application, infrastructure, and audit logs
+- **Grafana Integration**: Advanced log analytics and visualization capabilities
+
+#### **Hybrid Deployment** (Recommended):
+- **Dual Storage**: Combine local LokiStack for fast queries with CloudWatch for compliance
+- **Cost Optimization**: Reduce CloudWatch ingestion costs while maintaining AWS integration
+- **Performance**: Fast local queries with AWS backup and long-term storage
+
+This flexible approach enables organizations to choose the optimal logging strategy based on their requirements, costs, and compliance needs.
 
 ## Prerequisites
 
@@ -22,6 +36,49 @@ This approach enables organizations to leverage AWS-native logging capabilities 
 - IAM role pre-provisioned via Terraform for CloudWatch access
 - GitOps deployment via ArgoCD
 - Sufficient cluster resources (see [Resource Requirements](#resource-requirements))
+- Optional: S3 bucket for LokiStack object storage (if using Loki integration)
+
+## Chart Dependencies
+
+This chart uses Helm dependencies to provide flexible logging backend options:
+
+### **Core Dependencies**:
+- **helper-operator** (~1.1.0): Manages OpenShift Logging Operator installation
+- **helper-status-checker** (~4.1.2): Validates operator deployment status
+
+### **Optional Dependencies**:
+- **loki-operator** (~0.1.2): Provides LokiStack local log storage backend
+
+### **Dependency Management**:
+
+The chart automatically manages dependencies based on configuration:
+
+```yaml
+# Chart.yaml dependencies
+dependencies:
+  - name: helper-operator
+    version: ~1.1.0
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+  - name: helper-status-checker
+    version: ~4.1.2
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    condition: helper-status-checker.enabled
+  - name: loki-operator
+    version: ~0.1.2
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    condition: loki-operator.enabled  # Only deployed when enabled
+```
+
+### **Deployment Orchestration**:
+
+When LokiStack is enabled, the deployment follows this orchestrated sequence:
+
+1. **Sync Wave 0**: `helper-operator` installs OpenShift Logging Operator
+2. **Sync Wave 1**: `helper-status-checker` validates operator readiness
+3. **Sync Wave 2**: `loki-operator` deploys LokiStack, secrets, and UI plugins
+4. **Sync Wave 3**: `cluster-logging` configures Vector log collection and forwarding
+
+This ensures proper dependency resolution and prevents deployment conflicts.
 
 ### Terraform Infrastructure Setup
 
@@ -50,18 +107,46 @@ The Terraform file creates:
 
 ## Chart Components
 
-### Core Resources
+### **Core Resources** (Always Deployed)
 - **ClusterLogging**: Configures Vector-based log collection
-- **ClusterLogForwarder**: Defines CloudWatch log forwarding rules
-- **Secret**: Contains IAM role ARN for authentication
+- **ClusterLogForwarder**: Defines log forwarding rules (CloudWatch and/or Loki)
+- **Secret**: Contains IAM role ARN for CloudWatch authentication
 - **ServiceAccount**: Logging collector service account with IAM role annotation
 - **ClusterRoleBindings**: RBAC permissions for log collection
 
-### AWS Integration
+### **Dependency Resources** (Conditionally Deployed)
+
+#### **helper-operator Dependency**:
+- **Subscription**: OpenShift Logging Operator subscription
+- **OperatorGroup**: Operator group for `openshift-logging` namespace
+- **InstallPlan**: Automated operator installation approval
+
+#### **helper-status-checker Dependency**:
+- **Job**: Validates operator installation status
+- **ServiceAccount**: Status checker service account with cluster permissions
+- **ClusterRole/ClusterRoleBinding**: RBAC for operator status validation
+
+#### **loki-operator Dependency** (Optional):
+- **LokiStack**: Main Loki deployment with multi-tenant configuration
+- **Secret**: S3 credentials for LokiStack object storage
+- **Secret**: LokiStack gateway bearer token for authentication
+- **ConsolePlugin**: OpenShift Console UI plugin for log viewing
+- **Subscription**: Loki Operator subscription
+- **OperatorGroup**: Loki operator group
+
+### **Integration Components**
+
+#### **AWS CloudWatch Integration**:
 - **IAM Role Integration**: Uses OpenShift service account token for AWS authentication
 - **CloudWatch Integration**: Direct integration with AWS CloudWatch Logs
 - **Structured Log Groups**: Organized by log type and cluster name
 - **STS Authentication**: Secure token-based authentication with AWS
+
+#### **LokiStack Integration** (When Enabled):
+- **Local Log Storage**: High-performance log ingestion and querying
+- **S3 Object Storage**: Long-term log retention and archival
+- **Multi-tenant Architecture**: Separate log streams for application, infrastructure, and audit logs
+- **Console UI Integration**: Native OpenShift Console log viewing capabilities
 
 ## Architecture
 
@@ -119,11 +204,72 @@ graph TB
 
 ## Installation
 
-This chart is designed for deployment via GitOps (ArgoCD), not direct Helm installation.
+This chart is designed for deployment via GitOps (ArgoCD) with automatic dependency management, not direct Helm installation.
 
 ### GitOps Deployment
 
-The cluster-logging chart is deployed via ArgoCD as part of the GitOps workflow. The underlying IAM infrastructure is provisioned by Terraform, while the chart deployment is managed through the GitOps pipeline.
+The cluster-logging chart is deployed via ArgoCD as part of the GitOps workflow. The chart automatically manages its dependencies based on configuration, ensuring proper deployment orchestration:
+
+1. **Infrastructure Provisioning**: Terraform provisions AWS IAM roles and S3 buckets
+2. **Dependency Resolution**: Helm automatically installs required dependencies
+3. **Orchestrated Deployment**: ArgoCD sync waves ensure proper deployment sequence
+4. **Validation**: Status checkers validate successful deployment
+
+### Deployment Options
+
+#### **Option 1: CloudWatch Only** (Default)
+```yaml
+# cluster-config/infrastructure.yaml
+- chart: cluster-logging
+  targetRevision: 0.4.2
+  namespace: openshift-logging
+  values:
+    # CloudWatch configuration (default)
+    loki-operator:
+      enabled: false  # LokiStack dependency disabled
+```
+
+#### **Option 2: LokiStack Only**
+```yaml
+# cluster-config/infrastructure.yaml
+- chart: cluster-logging
+  targetRevision: 0.4.2
+  namespace: openshift-logging
+  values:
+    # Disable CloudWatch forwarding
+    cloudwatch:
+      enabled: false
+    # Enable LokiStack dependency
+    loki-operator:
+      enabled: true
+      lokiStack:
+        size: "1x.small"
+        limits:
+          tenants:
+            application:
+              retention: "168h"
+```
+
+#### **Option 3: Hybrid Deployment** (Recommended)
+```yaml
+# cluster-config/infrastructure.yaml
+- chart: cluster-logging
+  targetRevision: 0.4.2
+  namespace: openshift-logging
+  values:
+    # CloudWatch for compliance and archival
+    cloudwatch:
+      groupPrefix: "logging"
+    # LokiStack for fast local queries
+    loki-operator:
+      enabled: true
+      lokiStack:
+        size: "1x.small"
+      objectStorage:
+        s3:
+          enabled: true
+          bucketName: "rosa-logging-loki"
+```
 
 #### ArgoCD Application Example
 
