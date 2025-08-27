@@ -1937,6 +1937,14 @@ entries:
     version: 4.0.9
   namespaces:
   - apiVersion: v2
+    created: "2025-08-27T03:05:37.049994084Z"
+    description: Chart to generate argocd apps
+    digest: a35d15e10dfd5ec94273272d31e2000b4e44901faf9f10d9758660f53b114bce
+    name: namespaces
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/namespaces-1.5.1/namespaces-1.5.1.tgz
+    version: 1.5.1
+  - apiVersion: v2
     created: "2025-08-27T00:59:09.814755756Z"
     description: Chart to generate argocd apps
     digest: a19e77b4b55072a3b68b645a2cb575794bf3dfa01ac7f8c74a7dcd8e51904f2c
@@ -2166,4 +2174,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-27T00:59:09.815022849Z"
+generated: "2025-08-27T03:05:37.050345455Z"
