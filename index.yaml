@@ -188,6 +188,14 @@ entries:
     version: 0.1.2
   app-of-apps-namespaces:
   - apiVersion: v1
+    created: "2025-08-27T03:18:57.864092853Z"
+    description: Chart to generate namespaces apps.
+    digest: eaaf495a4df0f8a5680807fdfc3b86b9f252a008a83461436f74d37c2b4eb5fc
+    name: app-of-apps-namespaces
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-namespaces-0.3.3/app-of-apps-namespaces-0.3.3.tgz
+    version: 0.3.3
+  - apiVersion: v1
     created: "2025-08-26T23:42:35.753680999Z"
     description: Chart to generate namespaces apps.
     digest: 98716a15a3aec258dc643680b564e8d0d64d87fc9ecc0d90d6dc1ffd8a6d3fec
@@ -1937,6 +1945,14 @@ entries:
     version: 4.0.9
   namespaces:
   - apiVersion: v2
+    created: "2025-08-27T03:18:58.194170367Z"
+    description: Chart to generate argocd apps
+    digest: f009ce280b26b1f06b4f165c993654fbb42cc3586d88982f02b700e0c4604a54
+    name: namespaces
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/namespaces-1.5.2/namespaces-1.5.2.tgz
+    version: 1.5.2
+  - apiVersion: v2
     created: "2025-08-27T03:05:37.049994084Z"
     description: Chart to generate argocd apps
     digest: a35d15e10dfd5ec94273272d31e2000b4e44901faf9f10d9758660f53b114bce
@@ -2174,4 +2190,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-27T03:05:37.050345455Z"
+generated: "2025-08-27T03:18:58.194520843Z"
