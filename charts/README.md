@@ -34,6 +34,92 @@ graph TD
     style I fill:#fff9c4
 ```
 
+## Chart Publishing & Release Process
+
+### 📦 How to Publish Charts
+
+Charts are automatically published when changes are committed to the `main` branch. The process is managed by GitHub Actions workflows located in the `.github/workflows/` directory.
+
+#### **Version Management (Critical)**
+⚠️ **IMPORTANT**: Always bump the chart version in `Chart.yaml` when making changes. Failing to update the version will cause GitHub Actions to fail during the release process.
+
+```yaml
+# charts/<chart-name>/Chart.yaml
+apiVersion: v2
+name: my-chart
+description: Chart description
+version: 1.2.3  # ← MUST be incremented for each change
+```
+
+#### **Publishing Workflow**
+1. **Make Changes**: Update chart templates, values, or documentation
+2. **Bump Version**: Increment version in `Chart.yaml` following [semantic versioning](https://semver.org/)
+   - **Patch** (1.2.3 → 1.2.4): Bug fixes, documentation updates
+   - **Minor** (1.2.3 → 1.3.0): New features, backward-compatible changes
+   - **Major** (1.2.3 → 2.0.0): Breaking changes
+3. **Commit & Push**: Commit changes to `main` branch
+4. **Automatic Release**: GitHub Actions handles the rest
+
+#### **GitHub Actions Workflow**
+The `.github/workflows/` directory contains automated workflows that:
+
+```
+.github/workflows/
+├── release.yml          # Main release workflow
+├── lint-test.yml        # Chart linting and testing
+└── pages-deploy.yml     # GitHub Pages deployment
+```
+
+**Release Process Flow**:
+1. **Trigger**: Push to `main` branch with chart changes
+2. **Lint & Test**: Validates chart syntax and structure
+3. **Package**: Creates `.tgz` packages for changed charts
+4. **Release**: Creates GitHub releases with chart packages
+5. **Index Update**: Updates Helm repository index (`index.yaml`)
+6. **Publish**: Deploys to GitHub Pages at `https://rosa-hcp-dedicated-vpc.github.io/helm-repository/`
+
+#### **Common Errors & Solutions**
+
+**❌ Version Not Bumped Error**:
+```
+Error: Chart version 1.2.3 already exists
+```
+**Solution**: Increment the version in `Chart.yaml` before committing.
+
+**❌ Invalid Version Format**:
+```
+Error: Version must follow semantic versioning
+```
+**Solution**: Use format `MAJOR.MINOR.PATCH` (e.g., `1.2.3`, not `v1.2.3` or `1.2`).
+
+**❌ Chart Lint Failures**:
+```
+Error: Chart validation failed
+```
+**Solution**: Run local validation before committing:
+```bash
+helm lint ./charts/<chart-name>
+helm template test ./charts/<chart-name>
+```
+
+#### **Verification**
+After successful release, verify your chart is available:
+```bash
+# Add the Helm repository
+helm repo add rosa-hcp https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+
+# Update repository index
+helm repo update
+
+# Search for your chart
+helm search repo rosa-hcp/<chart-name>
+
+# View available versions
+helm search repo rosa-hcp/<chart-name> --versions
+```
+
+---
+
 ## Chart Categories
 
 ### 🚀 Bootstrap Charts

@@ -1,4 +1,4 @@
 apiVersion: v2
 description: Chart to generate argocd apps
 name: namespaces
-version: 1.4.9
+version: 1.5.0
