@@ -77,11 +77,15 @@ graph TD
 ### 🛠️ Helper Charts
 **Purpose**: Utility charts that assist with operator installations and cluster operations
 
-| Chart | Version | Description | Usage |
-|-------|---------|-------------|-------|
-| [helper-operator](./helper-operator/README.md) | 1.0.26 | OpenShift operator installation automation | Sub-chart dependency |
-| [helper-status-checker](./helper-status-checker/README.md) | 1.0.7 | Operator readiness verification | Sub-chart dependency |
-| [helper-installplan-approver](./helper-installplan-approver/README.md) | 0.1.2 | InstallPlan approval automation | Standalone or sub-chart |
+| Chart | Version | Description | Usage | Annotation Type |
+|-------|---------|-------------|-------|-----------------|
+| [helper-operator](./helper-operator/README.md) | 1.0.26 | OpenShift operator installation automation | Sub-chart dependency | ArgoCD annotations |
+| [helper-status-checker](./helper-status-checker/README.md) | 1.0.7 | Operator readiness verification | Sub-chart dependency | ArgoCD annotations |
+| [helper-installplan-approver](./helper-installplan-approver/README.md) | 0.1.2 | InstallPlan approval automation | Standalone or sub-chart | Helm annotations |
+
+**Annotation Differences**:
+- **helper-operator & helper-status-checker**: Use ArgoCD annotations (`argocd.argoproj.io/sync-wave`, `argocd.argoproj.io/hook`) for GitOps deployment orchestration
+- **helper-installplan-approver**: Uses Helm annotations (`helm.sh/hook`, `helm.sh/hook-weight`) for Terraform-driven Helm deployments
 
 **Common Pattern**:
 Most infrastructure charts use helper-operator + helper-status-checker as dependencies:
