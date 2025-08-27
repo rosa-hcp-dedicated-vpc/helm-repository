@@ -1,0 +1,79 @@
+{{- if .Values.flowCollector.enabled }}
+apiVersion: flows.netobserv.io/v1beta2
+kind: FlowCollector
+metadata:
+  name: cluster
+  namespace: {{ .Values.helper-operator.operators.netobserv-operator.namespace.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.syncwave }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  {{- if .Values.flowCollector.agent }}
+  agent:
+    type: {{ .Values.flowCollector.agent.type | quote }}
+    ebpf:
+      sampling: {{ .Values.flowCollector.agent.sampling }}
+      logLevel: "info"
+      privileged: false
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "50Mi"
+        limits:
+          cpu: "800m"
+          memory: "800Mi"
+  {{- end }}
+  {{- if .Values.flowCollector.processor }}
+  processor:
+    logLevel: {{ .Values.flowCollector.processor.logLevel | quote }}
+    resources:
+      {{- toYaml .Values.flowCollector.processor.resources | nindent 6 }}
+    conversationEndTimeout: "10s"
+    logTypes: "FLOWS"
+    conversationHeartbeatInterval: "30s"
+  {{- end }}
+  {{- if .Values.flowCollector.loki }}
+  loki:
+    enable: {{ .Values.flowCollector.loki.enable }}
+    {{- if .Values.flowCollector.loki.enable }}
+    url: {{ .Values.flowCollector.loki.url | quote }}
+    tenantID: {{ .Values.flowCollector.loki.tenantID | quote }}
+    timeout: {{ .Values.flowCollector.loki.timeout | quote }}
+    batchSize: {{ .Values.flowCollector.loki.batchSize }}
+    batchWait: {{ .Values.flowCollector.loki.batchWait | quote }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.flowCollector.consolePlugin }}
+  consolePlugin:
+    enable: {{ .Values.flowCollector.consolePlugin.enable }}
+    {{- if .Values.flowCollector.consolePlugin.enable }}
+    register: {{ .Values.flowCollector.consolePlugin.register }}
+    imagePullPolicy: {{ .Values.flowCollector.consolePlugin.imagePullPolicy | quote }}
+    portNaming:
+      enable: true
+      portNames:
+        "3100": "loki"
+    quickFilters:
+    - name: "Applications"
+      filter:
+        src_namespace!: 'openshift-,netobserv'
+        dst_namespace!: 'openshift-,netobserv'
+      default: true
+    - name: "Infrastructure"
+      filter:
+        src_namespace: 'openshift-,netobserv'
+    - name: "Pods network"
+      filter:
+        src_kind: 'Pod'
+        dst_kind: 'Pod'
+      default: true
+    - name: "Services network"
+      filter:
+        dst_kind: 'Service'
+    {{- end }}
+  {{- end }}
+  {{- if .Values.flowCollector.exporters }}
+  exporters:
+    {{- toYaml .Values.flowCollector.exporters | nindent 4 }}
+  {{- end }}
+{{- end }}

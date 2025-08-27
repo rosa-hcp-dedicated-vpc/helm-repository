@@ -1,0 +1,74 @@
+nameOverride: ""
+fullnameOverride: ""
+
+# Sync wave configuration
+syncwave: 3
+
+# Network Observability configuration
+flowCollector:
+  enabled: true
+  # Agent configuration
+  agent:
+    type: "eBPF"  # Options: eBPF, IPFIX
+    sampling: 50  # Sampling rate (1-1000)
+  # Storage configuration
+  loki:
+    enable: true
+    url: "https://loki-gateway-http.netobserv.svc:3100/"
+    tenantID: "netobserv"
+    timeout: "10s"
+    batchSize: 10240
+    batchWait: "1s"
+  # Console plugin configuration
+  consolePlugin:
+    enable: true
+    register: true
+    imagePullPolicy: "IfNotPresent"
+  # Processor configuration
+  processor:
+    logLevel: "info"
+    resources:
+      limits:
+        cpu: "800m"
+        memory: "800Mi"
+      requests:
+        cpu: "100m"
+        memory: "100Mi"
+  # Export configuration
+  exporters:
+    - type: "KAFKA"
+      kafka:
+        address: "kafka-cluster-kafka-bootstrap.netobserv"
+        topic: "network-flows"
+
+# dependency chart helper-operator
+helper-operator:
+  operators:
+    netobserv-operator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: netobserv
+        create: true
+      subscription:
+        channel: stable
+        approval: Manual
+        operatorName: netobserv-operator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: false
+
+# dependency chart helper-status-checker
+helper-status-checker:
+  enabled: true
+  approver: true
+  checks:
+    - operatorName: netobserv-operator
+      subscriptionName: netobserv-operator
+      namespace:
+        name: netobserv
+      syncwave: 3
+      serviceAccount:
+        name: "netobserv-install-check"
