@@ -1,9 +1,7 @@
 nameOverride: ""
 fullnameOverride: ""
 # AWS CloudWatch configuration
-roleArn: placeholder
-rosaClusterName: placeholder
-region: placeholder
+credentials: placeholder
 # CloudWatch log group configuration
 cloudwatch:
   groupPrefix: "logging"  # Will be combined with cluster name: logging-{cluster_name}
@@ -41,3 +39,52 @@ helper-status-checker:
       syncwave: 3
       serviceAccount:
         name: "openshift-operators-install-check"
+
+# dependency chart loki-operator
+loki-operator:
+  enabled: false  # Set to true to enable Loki as log storage backend
+  # Sync wave - deploy before cluster-logging
+  syncwave: 2
+  # LokiStack configuration
+  lokiStack:
+    enabled: true
+    name: "openshift-logging-lokistack"
+    namespace: "openshift-logging"
+    size: "1x.small"
+    # Storage configuration
+    storage:
+      secret:
+        name: "logging-loki-s3"
+        type: "s3"
+    # Limits configuration
+    limits:
+      global:
+        retention: "744h"  # 31 days
+        ingestionRate: 4
+        ingestionBurstSize: 6
+      tenants:
+        application:
+          retention: "168h"  # 7 days
+        infrastructure:
+          retention: "744h"  # 31 days
+        audit:
+          retention: "2160h"  # 90 days
+    # Multi-tenancy configuration
+    tenants:
+      mode: "openshift-logging"
+  # Object storage configuration
+  objectStorage:
+    s3:
+      enabled: true
+      bucketName: "rosa-logging-loki"
+      region: "us-east-1"
+  # LokiStack Gateway Secret
+  lokiStackGateway:
+    secret:
+      enabled: true
+      name: "lokistack-gateway-bearer-token"
+  # UI Plugin for OpenShift Console
+  uiPlugin:
+    enabled: true
+    name: "logging"
+    displayName: "Logging"

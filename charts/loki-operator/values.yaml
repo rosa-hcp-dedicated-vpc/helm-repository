@@ -191,6 +191,32 @@ objectStorage:
       key: "access_key_id"
       secretKey: "secret_access_key"
 
+# LokiStack Gateway Secret configuration
+lokiStackGateway:
+  secret:
+    enabled: true
+    name: "lokistack-gateway-bearer-token"
+    # Bearer token data for gateway authentication
+    data:
+      token: ""  # Base64 encoded bearer token
+
+# UI Plugin configuration for OpenShift Console
+uiPlugin:
+  enabled: true
+  name: "logging"
+  displayName: "Logging"
+  service:
+    name: "logging-view-plugin"
+    namespace: "openshift-logging"
+    port: 9443
+    basePath: "/"
+  proxy:
+    authorize: true
+    service:
+      name: "lokistack-dev-gateway-http"
+      namespace: "openshift-logging"
+      port: 8080
+
 # dependency chart helper-operator
 helper-operator:
   operators:

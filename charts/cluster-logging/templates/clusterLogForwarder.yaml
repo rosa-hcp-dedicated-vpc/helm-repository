@@ -1,43 +1,72 @@
 apiVersion: observability.openshift.io/v1
 kind: ClusterLogForwarder
 metadata:
-  name: cloudwatch
-  namespace: openshift-logging
   annotations:
-    argocd.argoproj.io/sync-wave: {{ add (.Values.syncwave | default 3) 1 | quote }}
+    observability.openshift.io/log-level: info
+    argocd.argoproj.io/sync-wave: {{ .Values.syncwave | default 3 | quote }}
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+  name: vector
+  namespace: openshift-logging
 spec:
   managementState: Managed
-  serviceAccount:
-    name: logging-collector
   outputs:
-  - name: cloudwatch
-    type: cloudwatch
-    cloudwatch:
+  - cloudwatch:
       authentication:
         iamRole:
           roleARN:
-            key: role_arn
+            key: credentials
             secretName: cloudwatch-credentials
           token:
             from: serviceAccount
         type: iamRole
-      groupName: {{ .Values.cloudwatch.groupPrefix | default .Values.rosaClusterName }}.{.log_type||"none-typed-logs"}
-      region: {{ .Values.region }}
-      tuning:
-        compression: {{ .Values.cloudwatch.compression | default "zstd" }}
-        delivery: {{ .Values.cloudwatch.delivery | default "atMostOnce" }}
-        maxRetryDuration: 30
-        maxWrite: 10M
-        minRetryDuration: 5
+      groupName: the-cluster-infrastructure
+      region: ap-southeast-2
+    name: cloudwatch-infrastructure
+    type: cloudwatch
+  - cloudwatch:
+      authentication:
+        iamRole:
+          roleARN:
+            key: credentials
+            secretName: cloudwatch-credentials
+          token:
+            from: serviceAccount
+        type: iamRole
+      groupName: the-cluster.{.kubernetes.namespace_name||"unknown"}
+      region: ap-southeast-2
+    name: cloudwatch-namespace-all
+    type: cloudwatch
+  - name: openshift-logging-lokistack
+    type: lokiStack
+    lokiStack:
+      authentication:
+        token:
+          from: serviceAccount
+      target:
+        name: openshift-logging-lokistack
+        namespace: openshift-logging
+    tls:
+      ca:
+        key: service-ca.crt
+        configMapName: openshift-service-ca.crt
   pipelines:
-  - name: cloudwatch
+  - name: input-cloudwatch-infrastructure
+    inputRefs:
+    - infrastructure
+    outputRefs:
+    - cloudwatch-infrastructure
+  - name: input-cloudwatch-namespace-all
+    inputRefs:
+    - application
+    outputRefs:
+    - cloudwatch-namespace-all
+  - name: input-openshift-logging-lokistack
     inputRefs:
     - application
     - infrastructure
-    - audit
     outputRefs:
-    - cloudwatch
-
+    - openshift-logging-lokistack
+  serviceAccount:
+    name: logging

@@ -204,6 +204,8 @@ This chart creates the following Kubernetes resources:
 ### Loki Resources
 - **LokiStack**: Main custom resource for Loki deployment configuration
 - **Secret**: S3 credentials (if object storage enabled)
+- **Secret**: LokiStack gateway bearer token for authentication
+- **ConsolePlugin**: OpenShift Console UI plugin for log viewing
 - **ClusterLogging**: Integration with OpenShift logging (if enabled)
 
 ### Loki Components (created by operator)

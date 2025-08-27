@@ -69,6 +69,7 @@ The Terraform file creates:
 graph TB
     subgraph "AWS Infrastructure"
         CW[CloudWatch Logs]
+        S3[S3 Bucket]
         IAM[IAM Role]
         STS[AWS STS]
     end
@@ -79,6 +80,12 @@ graph TB
         VECTOR[Vector Collector]
         SA[ServiceAccount]
         SECRET[CloudWatch Secret]
+        
+        subgraph "Loki Stack (Optional)"
+            LOKI[LokiStack]
+            LOKISEC[Loki S3 Secret]
+            PLUGIN[Console Plugin]
+        end
     end
     
     subgraph "Terraform"
@@ -88,12 +95,18 @@ graph TB
     subgraph "GitOps"
         ARGO[ArgoCD]
         CHART[cluster-logging Chart]
+        LOKICHART[loki-operator Chart]
     end
     
     TF --> IAM
+    TF --> S3
     ARGO --> CHART
     CHART --> CL
     CHART --> CLF
+    CHART -.->|Optional| LOKICHART
+    LOKICHART --> LOKI
+    LOKICHART --> LOKISEC
+    LOKICHART --> PLUGIN
     CHART --> SECRET
     CHART --> SA
     CL --> VECTOR
@@ -210,6 +223,55 @@ resource "aws_iam_role_policy_attachment" "rosa_cloudwatch_role_attachment" {
   policy_arn = aws_iam_policy.rosa_cloudwatch_policy_iam[0].arn
 }
 ```
+
+## Loki Integration (Optional)
+
+This chart now includes optional integration with the **loki-operator** chart, providing an alternative log storage backend using Grafana Loki. When enabled, logs can be stored locally in the cluster using LokiStack with S3 object storage for long-term retention.
+
+### Enabling Loki Integration
+
+To enable Loki as a log storage backend:
+
+```yaml
+# In your cluster-config values
+loki-operator:
+  enabled: true  # Enable Loki integration
+  lokiStack:
+    name: "openshift-logging-lokistack"
+    size: "1x.small"
+    limits:
+      tenants:
+        application:
+          retention: "168h"  # 7 days
+        infrastructure:
+          retention: "744h"  # 31 days
+        audit:
+          retention: "2160h"  # 90 days
+  objectStorage:
+    s3:
+      enabled: true
+      bucketName: "rosa-logging-loki"
+      region: "us-east-1"
+```
+
+### Loki vs CloudWatch
+
+| Feature | CloudWatch | Loki |
+|---------|------------|------|
+| **Storage Location** | AWS CloudWatch | Local cluster + S3 |
+| **Query Interface** | AWS Console | OpenShift Console + Grafana |
+| **Cost Model** | Pay per ingestion/storage | Infrastructure + S3 costs |
+| **Retention** | AWS managed | Configurable per tenant |
+| **Multi-tenancy** | Log groups | Built-in tenant isolation |
+| **Performance** | AWS managed | Cluster resource dependent |
+
+### Deployment Architecture with Loki
+
+When Loki is enabled, the deployment follows this pattern:
+
+1. **loki-operator** (sync wave 2): Deploys LokiStack and UI plugins
+2. **cluster-logging** (sync wave 3): Configures log collection and forwarding
+3. **Log Flow**: Vector → LokiStack → S3 (long-term) + Local storage (queries)
 
 ## Configuration
 
