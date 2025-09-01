@@ -1,0 +1,95 @@
+{{- if .Values.lokiStack.enabled }}
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: {{ .Values.lokiStack.name }}
+  namespace: {{ .Values.lokiStack.namespace | default "openshift-logging" }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .Values.syncwave }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  size: {{ .Values.lokiStack.size }}
+  storage:
+    schemas:
+    - version: v13
+      effectiveDate: "2024-04-01"
+    {{- if .Values.lokiStack.storage.secret }}
+    secret:
+      name: {{ .Values.lokiStack.storage.secret.name }}
+      type: {{ .Values.lokiStack.storage.secret.type }}
+    {{- end }}
+    {{- if .Values.lokiStack.storage.tls }}
+    tls:
+      caName: {{ .Values.lokiStack.storage.tls.caName }}
+    {{- end }}
+  {{- if .Values.lokiStack.limits }}
+  limits:
+    {{- if .Values.lokiStack.limits.global }}
+    global:
+      {{- toYaml .Values.lokiStack.limits.global | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.limits.tenants }}
+    tenants:
+      {{- toYaml .Values.lokiStack.limits.tenants | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.lokiStack.tenants }}
+  tenants:
+    mode: {{ .Values.lokiStack.tenants.mode }}
+    {{- if .Values.lokiStack.tenants.authentication }}
+    authentication:
+      {{- toYaml .Values.lokiStack.tenants.authentication | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.tenants.authorization }}
+    authorization:
+      {{- toYaml .Values.lokiStack.tenants.authorization | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.lokiStack.rules }}
+  rules:
+    enabled: {{ .Values.lokiStack.rules.enabled }}
+    {{- if .Values.lokiStack.rules.selector }}
+    selector:
+      {{- toYaml .Values.lokiStack.rules.selector | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.rules.namespaceSelector }}
+    namespaceSelector:
+      {{- toYaml .Values.lokiStack.rules.namespaceSelector | nindent 6 }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.lokiStack.template }}
+  template:
+    {{- if .Values.lokiStack.template.compactor }}
+    compactor:
+      {{- toYaml .Values.lokiStack.template.compactor | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.template.distributor }}
+    distributor:
+      {{- toYaml .Values.lokiStack.template.distributor | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.template.gateway }}
+    gateway:
+      {{- toYaml .Values.lokiStack.template.gateway | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.template.indexGateway }}
+    indexGateway:
+      {{- toYaml .Values.lokiStack.template.indexGateway | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.template.ingester }}
+    ingester:
+      {{- toYaml .Values.lokiStack.template.ingester | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.template.querier }}
+    querier:
+      {{- toYaml .Values.lokiStack.template.querier | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.template.queryFrontend }}
+    queryFrontend:
+      {{- toYaml .Values.lokiStack.template.queryFrontend | nindent 6 }}
+    {{- end }}
+    {{- if .Values.lokiStack.template.ruler }}
+    ruler:
+      {{- toYaml .Values.lokiStack.template.ruler | nindent 6 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
