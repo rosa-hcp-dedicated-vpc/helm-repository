@@ -6,7 +6,7 @@ A comprehensive Helm chart for deploying Red Hat OpenShift Data Science (RHODS) 
 
 The RHODS Operator chart deploys Red Hat OpenShift Data Science (now known as Red Hat OpenShift AI), providing a comprehensive platform for data scientists and developers to develop, train, and serve machine learning models at scale. RHODS includes Jupyter notebooks, model serving capabilities, data science pipelines, and integrated AI/ML frameworks.
 
-This chart uses the `helper-operator` and `helper-status-checker` dependency charts to ensure reliable operator deployment with automated InstallPlan approval and readiness verification. It also creates and configures a `DataScienceCluster` resource to enable all RHODS components with proper sync wave orchestration for ArgoCD deployments.
+This chart uses the `helper-operator` and `helper-status-checker` dependency charts to ensure reliable operator deployment with automated InstallPlan approval and readiness verification. It also includes optional dependencies on `servicemesh-operator` and `serverless-operator` to provide enhanced capabilities for secure model serving and scalable ML workloads. The chart creates and configures a `DataScienceCluster` resource to enable all RHODS components with proper sync wave orchestration for ArgoCD deployments.
 
 ## Prerequisites
 
