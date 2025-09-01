@@ -2168,6 +2168,41 @@ entries:
   - annotations:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
+    created: "2025-09-01T23:11:47.063439156Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    - condition: servicemesh-operator.enabled
+      name: servicemesh-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~0.2.0
+    description: Master chart to deploy and configure the RHODS Operator (Red Hat
+      OpenShift Data Science)
+    digest: 8e3780d6ca1e884f14a5aaa63472478d6f3ae24036e1b4ac322340490e05f81a
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - ai
+    - machine-learning
+    - openshift-ai
+    - data-science
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhods-operator
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.1.1/rhods-operator-1.1.1.tgz
+    version: 1.1.1
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+    apiVersion: v2
     created: "2025-08-27T00:34:51.708194603Z"
     dependencies:
     - name: helper-operator
@@ -2289,6 +2324,25 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
+  serverless-operator:
+  - apiVersion: v2
+    appVersion: "1.34"
+    created: "2025-09-01T23:11:47.287818972Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    description: Helm chart for deploying Red Hat OpenShift Serverless Operator
+    digest: 5ffbc7f07868aa721cc4804cae519b36b17ddee6fb54c14aa1b3699cef44a696
+    name: serverless-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/serverless-operator-0.1.1/serverless-operator-0.1.1.tgz
+    version: 0.1.1
   servicemesh-operator:
   - apiVersion: v2
     appVersion: "2.5"
@@ -2334,4 +2388,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.2.0/servicemesh-operator-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-01T23:01:23.586518865Z"
+generated: "2025-09-01T23:11:47.288063291Z"
