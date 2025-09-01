@@ -2168,6 +2168,45 @@ entries:
   - annotations:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
+    created: "2025-09-01T23:12:41.997854749Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    - condition: servicemesh-operator.enabled
+      name: servicemesh-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~0.2.0
+    - condition: serverless-operator.enabled
+      name: serverless-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~0.1.1
+    description: Master chart to deploy and configure the RHODS Operator (Red Hat
+      OpenShift Data Science)
+    digest: 4eb4259e1953f56b2970ace715a9e1f546786e533e8696e55a15a2cae3e745cd
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - ai
+    - machine-learning
+    - openshift-ai
+    - data-science
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhods-operator
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.1.2/rhods-operator-1.1.2.tgz
+    version: 1.1.2
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+    apiVersion: v2
     created: "2025-09-01T23:11:47.063439156Z"
     dependencies:
     - name: helper-operator
@@ -2388,4 +2427,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.2.0/servicemesh-operator-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-01T23:11:47.288063291Z"
+generated: "2025-09-01T23:12:41.998117373Z"
