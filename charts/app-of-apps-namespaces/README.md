@@ -219,3 +219,4 @@ This chart implements the second layer of the GitOps "App of Apps" pattern:
 3. **Layer 3**: namespaces (actual resource creation)
 
 Each layer provides increasing specificity and configuration granularity for namespace management at scale.
+

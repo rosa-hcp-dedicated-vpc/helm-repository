@@ -1,0 +1,32 @@
+# Serverless Operator Configuration
+appTeam: serverless-operator
+
+# Sync wave for ArgoCD deployment
+syncwave: 1
+
+# Operator configuration
+operatorName: serverless-operator
+operatorNamespace: openshift-serverless
+operatorChannel: stable
+operatorSource: redhat-operators
+operatorSourceNamespace: openshift-marketplace
+operatorInstallPlanApproval: Automatic
+
+# Helper operator dependency
+helper-operator:
+  enabled: true
+  syncwave: 1
+  operatorName: serverless-operator
+  operatorNamespace: openshift-serverless
+  operatorChannel: stable
+  operatorSource: redhat-operators
+  operatorSourceNamespace: openshift-marketplace
+  operatorInstallPlanApproval: Automatic
+
+# Helper status checker dependency
+helper-status-checker:
+  enabled: true
+  syncwave: 2
+  operatorName: serverless-operator
+  operatorNamespace: openshift-serverless
+  maxWaitTime: 600

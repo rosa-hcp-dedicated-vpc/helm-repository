@@ -1,7 +1,9 @@
-name: cluster-observability-operator
-version: 0.1.0
 apiVersion: v2
-description: Deploys the Cluster Observability Operator for OpenShift cluster monitoring and observability
+name: kiali-operator
+description: Helm chart for deploying Red Hat OpenShift Kiali Operator
+type: application
+version: 0.1.0
+appVersion: "1.73"
 dependencies:
   - name: helper-operator
     version: ~1.1.0
@@ -10,4 +12,3 @@ dependencies:
     version: ~4.1.2
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     condition: helper-status-checker.enabled
-

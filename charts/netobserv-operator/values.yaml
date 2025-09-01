@@ -72,3 +72,4 @@ helper-status-checker:
       syncwave: 3
       serviceAccount:
         name: "netobserv-install-check"
+

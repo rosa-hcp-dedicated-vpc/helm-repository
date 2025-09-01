@@ -77,3 +77,4 @@ spec:
     {{- toYaml .Values.flowCollector.exporters | nindent 4 }}
   {{- end }}
 {{- end }}
+

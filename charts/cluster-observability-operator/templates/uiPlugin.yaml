@@ -12,3 +12,4 @@ spec:
   displayName: "Cluster Observability"
   description: "OpenShift Cluster Observability Console Plugin"
 {{- end }}
+

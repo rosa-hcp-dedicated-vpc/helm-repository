@@ -183,16 +183,16 @@ argocd:
   applications:
   - name: cluster-config
     helmRepoUrl: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
-    chart: app-of-apps-infrastructure
+    chart: gitops-payload
     project: cluster-config-project
     targetRevision: 0.0.4
     gitRepoUrl: https://github.com/my-org/cluster-config.git
     gitPathFile: /infrastructure.yaml
   - name: application-ns
     helmRepoUrl: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
-    chart: app-of-apps-application
+    chart: gitops-application-payload
     project: application-ns-project
-    targetRevision: 1.5.1
+    targetRevision: 1.4.4
     gitRepoUrl: https://github.com/my-org/cluster-config.git
     gitPathFile: /applications-ns.yaml
 

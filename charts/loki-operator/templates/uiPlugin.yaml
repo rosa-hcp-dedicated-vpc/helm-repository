@@ -21,3 +21,4 @@ spec:
         namespace: {{ .Values.uiPlugin.proxy.service.namespace | default "openshift-logging" }}
         port: {{ .Values.uiPlugin.proxy.service.port }}
 {{- end }}
+
