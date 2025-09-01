@@ -1,5 +1,5 @@
 name: loki-operator
-version: 0.1.2
+version: 0.1.3
 apiVersion: v2
 description: Deploys the Loki Operator for OpenShift log aggregation and storage using Grafana Loki
 dependencies:
