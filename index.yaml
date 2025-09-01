@@ -1060,6 +1060,25 @@ entries:
     version: 0.0.7
   cluster-logging:
   - apiVersion: v2
+    created: "2025-09-01T23:01:23.586131117Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.2
+    - condition: loki-operator.enabled
+      name: loki-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~0.1.5
+    digest: ae284fb55c7158152f87f5f5a72333f5acc9df1cc9e012550126909fa286942b
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.4.8/cluster-logging-0.4.8.tgz
+    version: 0.4.8
+  - apiVersion: v2
     created: "2025-09-01T22:58:22.810009608Z"
     dependencies:
     - name: helper-operator
@@ -2315,4 +2334,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.2.0/servicemesh-operator-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-01T23:00:13.013894016Z"
+generated: "2025-09-01T23:01:23.586518865Z"
