@@ -2,7 +2,7 @@ apiVersion: v2
 name: servicemesh-operator
 description: Helm chart for deploying Red Hat OpenShift Service Mesh Operator
 type: application
-version: 0.1.0
+version: 0.2.0
 appVersion: "2.5"
 dependencies:
   - name: helper-operator
@@ -12,3 +12,11 @@ dependencies:
     version: ~4.1.2
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     condition: helper-status-checker.enabled
+  - name: jaeger-operator
+    version: ~0.1.0
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    condition: jaeger-operator.enabled
+  - name: kiali-operator
+    version: ~0.1.0
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    condition: kiali-operator.enabled

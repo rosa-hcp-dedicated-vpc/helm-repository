@@ -85,6 +85,15 @@ servicemesh-operator:
   helper-status-checker:
     enabled: true
     maxWaitTime: 600
+  # Enable observability dependencies
+  jaeger-operator:
+    enabled: true
+    operatorChannel: stable
+    operatorNamespace: openshift-distributed-tracing
+  kiali-operator:
+    enabled: true
+    operatorChannel: stable
+    operatorNamespace: openshift-operators
 ```
 
 ## Dependencies
@@ -93,6 +102,26 @@ This chart includes the following dependencies:
 
 - **helper-operator** (~1.1.0): Manages operator subscription and installation
 - **helper-status-checker** (~4.1.2): Validates operator deployment status
+- **jaeger-operator** (~0.1.0): Provides distributed tracing capabilities (conditional)
+- **kiali-operator** (~0.1.0): Provides service mesh observability console (conditional)
+
+### Dependency Management
+
+The Service Mesh Operator chart automatically deploys the required observability operators:
+
+- **Jaeger Operator**: Deployed first (sync wave 1) to provide distributed tracing
+- **Kiali Operator**: Deployed first (sync wave 1) to provide service mesh visualization
+- **Service Mesh Operator**: Deployed after dependencies are ready
+
+You can disable individual dependencies by setting their `enabled` flag to `false`:
+
+```yaml
+servicemesh-operator:
+  jaeger-operator:
+    enabled: false  # Disable Jaeger if using external tracing
+  kiali-operator:
+    enabled: false  # Disable Kiali if using external observability
+```
 
 ## Architecture
 
@@ -101,15 +130,23 @@ graph TB
     A[ArgoCD] --> B[servicemesh-operator Chart]
     B --> C[helper-operator]
     B --> D[helper-status-checker]
-    C --> E[Subscription]
-    C --> F[OperatorGroup]
-    E --> G[Service Mesh Operator Pod]
-    D --> H[Status Validation]
-    G --> I[ServiceMeshControlPlane]
-    I --> J[Istiod]
-    I --> K[Istio Gateway]
-    I --> L[Istio Proxy]
-    I --> M[Observability Stack]
+    B --> E[jaeger-operator]
+    B --> F[kiali-operator]
+    C --> G[Subscription]
+    C --> H[OperatorGroup]
+    G --> I[Service Mesh Operator Pod]
+    D --> J[Status Validation]
+    E --> K[Jaeger Operator Pod]
+    F --> L[Kiali Operator Pod]
+    I --> M[ServiceMeshControlPlane]
+    K --> N[Jaeger Instance]
+    L --> O[Kiali Instance]
+    M --> P[Istiod]
+    M --> Q[Istio Gateway]
+    M --> R[Istio Proxy]
+    M --> S[Observability Stack]
+    N --> S
+    O --> S
 ```
 
 ## Usage
