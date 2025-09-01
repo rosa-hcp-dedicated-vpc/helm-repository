@@ -1,7 +1,7 @@
 apiVersion: v2
 name: rhods-operator
 description: Master chart to deploy and configure the RHODS Operator (Red Hat OpenShift Data Science)
-version: 1.1.1
+version: 1.1.2
 home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
 dependencies:
   - name: helper-operator
@@ -15,10 +15,10 @@ dependencies:
     version: ~0.2.0
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     condition: servicemesh-operator.enabled
-  # - name: serverless-operator
-  #   version: ~0.1.1
-  #   repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
-  #   condition: serverless-operator.enabled
+  - name: serverless-operator
+    version: ~0.1.1
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    condition: serverless-operator.enabled
 maintainers:
   - name: Paul Foster
     email: pafoster@redhat.com
