@@ -15,10 +15,10 @@ dependencies:
     version: ~0.2.0
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     condition: servicemesh-operator.enabled
-  - name: serverless-operator
-    version: ~0.1.0
-    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
-    condition: serverless-operator.enabled
+  # - name: serverless-operator
+  #   version: ~0.1.1
+  #   repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+  #   condition: serverless-operator.enabled
 maintainers:
   - name: Paul Foster
     email: pafoster@redhat.com
