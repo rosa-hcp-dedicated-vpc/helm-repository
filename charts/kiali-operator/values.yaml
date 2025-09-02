@@ -4,29 +4,34 @@ appTeam: kiali-operator
 # Sync wave for ArgoCD deployment
 syncwave: 1
 
-# Operator configuration
-operatorName: kiali-ossm
-operatorNamespace: openshift-operators
-operatorChannel: stable
-operatorSource: redhat-operators
-operatorSourceNamespace: openshift-marketplace
-operatorInstallPlanApproval: Automatic
-
 # Helper operator dependency
 helper-operator:
-  enabled: true
-  syncwave: 1
-  operatorName: kiali-ossm
-  operatorNamespace: openshift-operators
-  operatorChannel: stable
-  operatorSource: redhat-operators
-  operatorSourceNamespace: openshift-marketplace
-  operatorInstallPlanApproval: Automatic
+  operators:
+    kiali-ossm:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-operators
+        create: false
+      subscription:
+        channel: stable
+        approval: Manual
+        operatorName: kiali-ossm
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: false
 
 # Helper status checker dependency
 helper-status-checker:
   enabled: true
-  syncwave: 2
-  operatorName: kiali-ossm
-  operatorNamespace: openshift-operators
-  maxWaitTime: 600
+  approver: true
+  checks:
+    - operatorName: kiali-ossm
+      subscriptionName: kiali-ossm
+      namespace:
+        name: openshift-operators
+      syncwave: 2
+      serviceAccount:
+        name: "kiali-install-check"
