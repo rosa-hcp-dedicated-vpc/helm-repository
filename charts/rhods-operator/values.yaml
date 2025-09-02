@@ -56,13 +56,15 @@ helper-status-checker:
   approver: true 
   checks:
     - operatorName: rhods-operator
+      approver: true
       subscriptionName: rhods-operator
       namespace:
         name: redhat-ods-operator
       syncwave: 3
       serviceAccount:
-        name: "sa-openshift-ai"
+        name: "rhods-openshift-ai"
     - operatorName: servicemeshoperator
+      approver: false
       subscriptionName: servicemeshoperator
       namespace:
         name: openshift-operators
@@ -70,6 +72,7 @@ helper-status-checker:
       serviceAccount:
         name: "rhods-servicemesh-install-check"
     - operatorName: serverless-operator
+      approver: false
       subscriptionName: serverless-operator
       namespace:
         name: openshift-serverless
