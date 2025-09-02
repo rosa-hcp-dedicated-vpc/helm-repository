@@ -4,14 +4,6 @@ appTeam: servicemesh-operator
 # Sync wave for ArgoCD deployment
 syncwave: 1
 
-# Operator configuration
-operatorName: servicemeshoperator
-operatorNamespace: openshift-operators
-operatorChannel: stable
-operatorSource: redhat-operators
-operatorSourceNamespace: openshift-marketplace
-operatorInstallPlanApproval: Automatic
-
 # Helper operator dependency
 helper-operator:
   operators:
@@ -23,13 +15,13 @@ helper-operator:
         create: false
       subscription:
         channel: stable
-        approval: Automatic
+        approval: Manual
         operatorName: servicemeshoperator
         source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
         create: true
-        notownnamespace: false
+        notownnamespace: true
 
 # Helper status checker dependency
 helper-status-checker:
