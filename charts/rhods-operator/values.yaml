@@ -52,19 +52,30 @@ helper-operator:
 
 # Using sub-chart helper-status-checker
 helper-status-checker:
-  # -- Enable status checker
-  # @default -- false
   enabled: true
   approver: true 
   checks:
     - operatorName: rhods-operator
+      subscriptionName: rhods-operator
       namespace:
         name: redhat-ods-operator
       syncwave: 3
-
-      # -- Set the values of the ServiceAccount that will execute the status checker Job.
       serviceAccount:
         name: "sa-openshift-ai"
+    - operatorName: servicemeshoperator
+      subscriptionName: servicemeshoperator
+      namespace:
+        name: openshift-operators
+      syncwave: 2
+      serviceAccount:
+        name: "rhods-servicemesh-install-check"
+    - operatorName: serverless-operator
+      subscriptionName: serverless-operator
+      namespace:
+        name: openshift-serverless
+      syncwave: 2
+      serviceAccount:
+        name: "rhods-serverless-install-check"
 
 openshiftAI:
   # -- Settings for namespace where OpenShift AI operator will be installed.
