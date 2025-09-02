@@ -18,22 +18,16 @@ olsConfig:
   name: cluster
   llm:
     providers:
-      - name: openai
-        type: openai
-        url: https://api.openai.com/v1
+      - name: red_hat_openshift_ai
+        type: rhoai_vllm
+        url: "https://dummy"
         credentialsSecretRef:
-          name: openai-api-keys
+          name: rhoai-api-keys
         models:
-          - name: gpt-3.5-turbo
-          - name: gpt-4
+          - name: mistral-small-24b-instruct-quantized
   ols:
-    conversationCache:
-      type: memory
-    logLevel: INFO
-    queryFilters:
-      - name: no_cluster_specific
-        pattern: "(?i)\\b(cluster|node)\\s+\\w+"
-        replaceWith: "cluster"
+    defaultProvider: red_hat_openshift_ai
+    defaultModel: mistral-small-24b-instruct-quantized
 
 # Helper status checker dependency
 helper-status-checker:

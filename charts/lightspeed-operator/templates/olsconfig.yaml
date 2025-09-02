@@ -24,9 +24,6 @@ spec:
         models:
           {{- range .models }}
           - name: {{ .name }}
-            {{- if .url }}
-            url: {{ .url }}
-            {{- end }}
           {{- end }}
         {{- end }}
       {{- end }}
@@ -43,12 +40,10 @@ spec:
     {{- if .Values.olsConfig.ols.logLevel }}
     logLevel: {{ .Values.olsConfig.ols.logLevel }}
     {{- end }}
-    {{- if .Values.olsConfig.ols.queryFilters }}
-    queryFilters:
-      {{- range .Values.olsConfig.ols.queryFilters }}
-      - name: {{ .name }}
-        pattern: {{ .pattern | quote }}
-        replaceWith: {{ .replaceWith | quote }}
-      {{- end }}
+    {{- if .Values.olsConfig.ols.defaultModel }}
+    defaultModel: {{ .Values.olsConfig.ols.defaultModel }}
+    {{- end }}
+    {{- if .Values.olsConfig.ols.defaultProvider }}
+    defaultProvider: {{ .Values.olsConfig.ols.defaultProvider }}
     {{- end }}
 {{- end }}
