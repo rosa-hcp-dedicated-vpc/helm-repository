@@ -26,41 +26,13 @@ helper-operator:
 # Helper status checker dependency
 helper-status-checker:
   enabled: true
-  syncwave: 2
-  operatorName: servicemeshoperator
-  operatorNamespace: openshift-operators
-  maxWaitTime: 600
+  approver: true
+  checks:
+    - operatorName: servicemeshoperator
+      subscriptionName: servicemeshoperator
+      namespace:
+        name: openshift-operators
+      syncwave: 2
+      serviceAccount:
+        name: "servicemesh-install-check-servicemesh-operator"
 
-# Jaeger operator dependency (required for distributed tracing)
-jaeger-operator:
-  enabled: true
-  syncwave: 1
-  operatorName: jaeger-product
-  operatorNamespace: openshift-distributed-tracing
-  operatorChannel: stable
-  operatorSource: redhat-operators
-  operatorSourceNamespace: openshift-marketplace
-  operatorInstallPlanApproval: Automatic
-  helper-status-checker:
-    enabled: true
-    syncwave: 2
-    operatorName: jaeger-product
-    operatorNamespace: openshift-distributed-tracing
-    maxWaitTime: 600
-
-# Kiali operator dependency (required for service mesh observability)
-kiali-operator:
-  enabled: true
-  syncwave: 1
-  operatorName: kiali-ossm
-  operatorNamespace: openshift-operators
-  operatorChannel: stable
-  operatorSource: redhat-operators
-  operatorSourceNamespace: openshift-marketplace
-  operatorInstallPlanApproval: Automatic
-  helper-status-checker:
-    enabled: true
-    syncwave: 2
-    operatorName: kiali-ossm
-    operatorNamespace: openshift-operators
-    maxWaitTime: 600

@@ -26,7 +26,6 @@ checks:
 
     # -- Namespace where the status-checker Job shall be scheduled.
     namespace:
-      name: openshift-logging
 
     # -- Syncwave for the status-check Job. 0 is the recommended value.
     # @default -- 0
