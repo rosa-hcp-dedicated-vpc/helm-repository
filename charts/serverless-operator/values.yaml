@@ -4,14 +4,6 @@ appTeam: serverless-operator
 # Sync wave for ArgoCD deployment
 syncwave: 1
 
-# Operator configuration
-operatorName: serverless-operator
-operatorNamespace: openshift-serverless
-operatorChannel: stable
-operatorSource: redhat-operators
-operatorSourceNamespace: openshift-marketplace
-operatorInstallPlanApproval: Automatic
-
 # Helper operator dependency
 helper-operator:
   operators:
@@ -23,7 +15,7 @@ helper-operator:
         create: false
       subscription:
         channel: stable
-        approval: Automatic
+        approval: Manual
         operatorName: serverless-operator
         source: redhat-operators
         sourceNamespace: openshift-marketplace
