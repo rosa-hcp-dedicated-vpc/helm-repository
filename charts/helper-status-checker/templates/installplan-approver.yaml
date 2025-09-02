@@ -1,6 +1,7 @@
 {{- with .Values }}
 {{ if eq ( .approver | toString) "true" }}
 {{- range .checks }}
+{{ if ne ( .approver | toString) "false" }}
 ---
 apiVersion: batch/v1
 kind: Job
@@ -65,6 +66,7 @@ spec:
       restartPolicy: Never
       terminationGracePeriodSeconds: 30
       serviceAccountName: {{ .serviceAccount.name | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
