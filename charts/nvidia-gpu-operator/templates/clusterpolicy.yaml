@@ -1,0 +1,12 @@
+{{- if .Values.clusterPolicy.enabled }}
+apiVersion: nvidia.com/v1
+kind: ClusterPolicy
+metadata:
+  name: {{ .Values.clusterPolicy.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 2 }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec: {}
+{{- end }}

@@ -1,0 +1,31 @@
+# NVIDIA GPU Operator Configuration
+appTeam: nvidia-gpu-operator
+
+# Sync wave for ArgoCD deployment
+syncwave: 0
+
+# Operator configuration
+operatorName: gpu-operator-certified
+operatorNamespace: nvidia-gpu-operator
+operatorChannel: stable
+operatorSource: certified-operators
+operatorSourceNamespace: openshift-marketplace
+operatorInstallPlanApproval: Manual
+
+# ClusterPolicy configuration
+clusterPolicy:
+  enabled: true
+  name: gpu-cluster-policy
+
+# Helper status checker dependency
+helper-status-checker:
+  enabled: true
+  approver: true
+  checks:
+    - operatorName: gpu-operator-certified
+      subscriptionName: gpu-operator-certified
+      namespace:
+        name: nvidia-gpu-operator
+      syncwave: 2
+      serviceAccount:
+        name: "gpu-install-check"
