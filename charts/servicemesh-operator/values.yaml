@@ -14,14 +14,22 @@ operatorInstallPlanApproval: Automatic
 
 # Helper operator dependency
 helper-operator:
-  enabled: true
-  syncwave: 1
-  operatorName: servicemeshoperator
-  operatorNamespace: openshift-operators
-  operatorChannel: stable
-  operatorSource: redhat-operators
-  operatorSourceNamespace: openshift-marketplace
-  operatorInstallPlanApproval: Automatic
+  operators:
+    servicemeshoperator:
+      enabled: true
+      syncwave: '0'
+      namespace:
+        name: openshift-operators
+        create: false
+      subscription:
+        channel: stable
+        approval: Automatic
+        operatorName: servicemeshoperator
+        source: redhat-operators
+        sourceNamespace: openshift-marketplace
+      operatorgroup:
+        create: true
+        notownnamespace: false
 
 # Helper status checker dependency
 helper-status-checker:
