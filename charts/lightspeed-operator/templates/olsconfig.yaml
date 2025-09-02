@@ -1,0 +1,51 @@
+{{- if .Values.olsConfig.enabled }}
+apiVersion: ols.openshift.io/v1alpha1
+kind: OLSConfig
+metadata:
+  name: {{ .Values.olsConfig.name | default "cluster" }}
+  namespace: {{ .Values.operatorNamespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 1 }}"
+spec:
+  llm:
+    providers:
+      {{- range .Values.olsConfig.llm.providers }}
+      - name: {{ .name }}
+        type: {{ .type }}
+        url: {{ .url }}
+        {{- if .credentialsSecretRef }}
+        credentialsSecretRef:
+          name: {{ .credentialsSecretRef.name }}
+        {{- end }}
+        {{- if .models }}
+        models:
+          {{- range .models }}
+          - name: {{ .name }}
+            {{- if .url }}
+            url: {{ .url }}
+            {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
+  ols:
+    {{- if .Values.olsConfig.ols.conversationCache }}
+    conversationCache:
+      type: {{ .Values.olsConfig.ols.conversationCache.type }}
+      {{- if eq .Values.olsConfig.ols.conversationCache.type "redis" }}
+      redis:
+        maxMemory: {{ .Values.olsConfig.ols.conversationCache.redis.maxMemory | default "1024mb" }}
+        maxMemoryPolicy: {{ .Values.olsConfig.ols.conversationCache.redis.maxMemoryPolicy | default "allkeys-lru" }}
+      {{- end }}
+    {{- end }}
+    {{- if .Values.olsConfig.ols.logLevel }}
+    logLevel: {{ .Values.olsConfig.ols.logLevel }}
+    {{- end }}
+    {{- if .Values.olsConfig.ols.queryFilters }}
+    queryFilters:
+      {{- range .Values.olsConfig.ols.queryFilters }}
+      - name: {{ .name }}
+        pattern: {{ .pattern | quote }}
+        replaceWith: {{ .replaceWith | quote }}
+      {{- end }}
+    {{- end }}
+{{- end }}
