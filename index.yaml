@@ -2114,6 +2114,24 @@ entries:
   kiali-operator:
   - apiVersion: v2
     appVersion: "1.73"
+    created: "2025-09-02T05:31:47.619172334Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Kiali Operator
+    digest: 958ab012b24f823d65b1e01ac004bd3cb64fe8627416eeb4afdc7ce7df7d2236
+    name: kiali-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/kiali-operator-0.1.6/kiali-operator-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
+    appVersion: "1.73"
     created: "2025-09-02T05:09:07.982053626Z"
     dependencies:
     - name: helper-operator
@@ -2184,6 +2202,22 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/kiali-operator-0.1.1/kiali-operator-0.1.1.tgz
     version: 0.1.1
+  lightspeed-operator:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-02T05:31:47.78574819Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Lightspeed Operator
+    digest: 6562d27f373c8f8043f323367f55998d5fd35b4e1504ad46e6f9189d4b646e5f
+    name: lightspeed-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/lightspeed-operator-0.1.0/lightspeed-operator-0.1.0.tgz
+    version: 0.1.0
   loki-operator:
   - apiVersion: v2
     created: "2025-09-01T22:58:23.354667604Z"
@@ -2896,4 +2930,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-02T05:09:07.982366535Z"
+generated: "2025-09-02T05:31:47.78608796Z"
