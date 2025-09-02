@@ -5,7 +5,7 @@ appTeam: servicemesh-operator
 syncwave: 1
 
 # Operator configuration
-operatorName: servicemeshoperator3
+operatorName: servicemeshoperator
 operatorNamespace: openshift-operators
 operatorChannel: stable
 operatorSource: redhat-operators
@@ -15,7 +15,7 @@ operatorInstallPlanApproval: Automatic
 # Helper operator dependency
 helper-operator:
   operators:
-    servicemeshoperator3:
+    servicemeshoperator:
       enabled: true
       syncwave: '0'
       namespace:
@@ -24,7 +24,7 @@ helper-operator:
       subscription:
         channel: stable
         approval: Automatic
-        operatorName: servicemeshoperator3
+        operatorName: servicemeshoperator
         source: redhat-operators
         sourceNamespace: openshift-marketplace
       operatorgroup:
@@ -36,8 +36,8 @@ helper-status-checker:
   enabled: true
   approver: true
   checks:
-    - operatorName: servicemeshoperator3
-      subscriptionName: servicemeshoperator3
+    - operatorName: servicemeshoperator
+      subscriptionName: servicemeshoperator
       namespace:
         name: openshift-operators
       syncwave: 2
