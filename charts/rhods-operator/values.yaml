@@ -57,15 +57,7 @@ helper-status-checker:
   enabled: true
   approver: true 
   checks:
-
-      # -- Define the name of the operator that shall be verified.
-      # Use the value of the currentCSV (packagemanifest) but WITHOUT the version !!
-      # For the OpenShift AI operator the name should be "**rhods-operator**"
-      # @default -- ""
     - operatorName: rhods-operator
-      # -- Define where the operator is installed
-      # For the OpenShift AI operator this should be "**redhat-ods-operator**"
-      # @default -- ""
       namespace:
         name: redhat-ods-operator
       syncwave: 3
@@ -106,43 +98,3 @@ openshiftAI:
         workbenches:
           managementState: Managed
 
-# Service Mesh operator dependency (for secure model serving)
-servicemesh-operator:
-  enabled: true
-  syncwave: 1
-  operatorName: servicemeshoperator
-  operatorNamespace: openshift-operators
-  operatorChannel: stable
-  operatorSource: redhat-operators
-  operatorSourceNamespace: openshift-marketplace
-  operatorInstallPlanApproval: Automatic
-  # Enable observability dependencies for service mesh
-  jaeger-operator:
-    enabled: true
-    syncwave: 1
-  kiali-operator:
-    enabled: true
-    syncwave: 1
-  helper-status-checker:
-    enabled: true
-    syncwave: 2
-    operatorName: servicemeshoperator
-    operatorNamespace: openshift-operators
-    maxWaitTime: 600
-
-# Serverless operator dependency (for scalable ML workloads)
-serverless-operator:
-  enabled: true
-  syncwave: 1
-  operatorName: serverless-operator
-  operatorNamespace: openshift-serverless
-  operatorChannel: stable
-  operatorSource: redhat-operators
-  operatorSourceNamespace: openshift-marketplace
-  operatorInstallPlanApproval: Automatic
-  helper-status-checker:
-    enabled: true
-    syncwave: 2
-    operatorName: serverless-operator
-    operatorNamespace: openshift-serverless
-    maxWaitTime: 600
