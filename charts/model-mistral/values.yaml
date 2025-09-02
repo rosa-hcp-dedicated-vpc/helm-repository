@@ -53,3 +53,16 @@ route:
   enabled: true
   tls:
     termination: edge
+
+# Helper status checker dependency - checks serverless operator is ready
+helper-status-checker:
+  enabled: true
+  approver: false
+  checks:
+    - operatorName: serverless-operator
+      subscriptionName: serverless-operator
+      namespace:
+        name: openshift-serverless
+      syncwave: 0
+      serviceAccount:
+        name: "mistral-serverless-check"
