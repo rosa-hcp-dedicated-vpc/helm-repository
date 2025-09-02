@@ -1,0 +1,26 @@
+# OpenShift Lightspeed Operator Configuration
+appTeam: lightspeed-operator
+
+# Sync wave for ArgoCD deployment
+syncwave: 1
+
+# Operator configuration
+operatorName: lightspeed-operator
+operatorNamespace: openshift-lightspeed
+operatorChannel: stable
+operatorSource: redhat-operators
+operatorSourceNamespace: openshift-marketplace
+operatorInstallPlanApproval: Manual
+
+# Helper status checker dependency
+helper-status-checker:
+  enabled: true
+  approver: true
+  checks:
+    - operatorName: lightspeed-operator
+      subscriptionName: lightspeed-operator
+      namespace:
+        name: openshift-lightspeed
+      syncwave: 2
+      serviceAccount:
+        name: "lightspeed-install-check"

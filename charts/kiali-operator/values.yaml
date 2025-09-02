@@ -27,7 +27,7 @@ helper-status-checker:
   enabled: true
   approver: true
   checks:
-    - operatorName: kiali-ossm
+    - operatorName: kiali-operator
       subscriptionName: kiali-ossm
       namespace:
         name: openshift-operators
