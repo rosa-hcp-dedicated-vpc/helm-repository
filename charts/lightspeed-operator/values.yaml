@@ -4,6 +4,14 @@ appTeam: lightspeed-operator
 # Sync wave for ArgoCD deployment
 syncwave: 1
 
+# Operator configuration
+operatorName: lightspeed-operator
+operatorNamespace: openshift-lightspeed
+operatorChannel: stable
+operatorSource: redhat-operators
+operatorSourceNamespace: openshift-marketplace
+operatorInstallPlanApproval: Manual
+
 # OLSConfig configuration
 olsConfig:
   enabled: true

@@ -12,3 +12,6 @@ spec:
   name: {{ .Values.operatorName }}
   source: {{ .Values.operatorSource }}
   sourceNamespace: {{ .Values.operatorSourceNamespace }}
+  {{- if .Values.startingCSV }}
+  startingCSV: {{ .Values.startingCSV }}
+  {{- end }}
