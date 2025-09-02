@@ -2240,6 +2240,21 @@ entries:
   lightspeed-operator:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-02T05:47:29.945119372Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Lightspeed Operator
+    digest: 2a33d0ef84b772c6e81ffc8b05cc0702b306eeaf51ab412703f5e4445fc68ac2
+    name: lightspeed-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/lightspeed-operator-0.1.2/lightspeed-operator-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-02T05:31:47.78574819Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -2965,4 +2980,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-02T05:37:38.027439419Z"
+generated: "2025-09-02T05:47:29.945411132Z"
