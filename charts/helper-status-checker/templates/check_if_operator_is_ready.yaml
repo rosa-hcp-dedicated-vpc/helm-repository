@@ -5,7 +5,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: check-operator-status
+  name: {{ .serviceAccount.name }}-check-operator-status
   namespace: {{ .namespace.name | quote }}
   annotations:
     argocd.argoproj.io/hook: Sync

@@ -34,5 +34,5 @@ helper-status-checker:
         name: openshift-operators
       syncwave: 2
       serviceAccount:
-        name: "servicemesh-install-check-servicemesh-operator"
+        name: "servicemesh-install-check"
 
