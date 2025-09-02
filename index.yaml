@@ -1595,6 +1595,25 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/compliance-operator-1.0.42/compliance-operator-1.0.42.tgz
     version: 1.0.42
+  devspaces-operator:
+  - apiVersion: v2
+    appVersion: "3.15"
+    created: "2025-09-02T02:52:22.932944178Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Dev Spaces Operator
+    digest: a13688aba51889feda7fa55246cb80a85ebf9161bcf392ac6e00af2433abd6e7
+    name: devspaces-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/devspaces-operator-0.1.1/devspaces-operator-0.1.1.tgz
+    version: 0.1.1
   gitops-application-payload:
   - apiVersion: v2
     created: "2025-06-20T03:19:04.608567017Z"
@@ -2058,6 +2077,24 @@ entries:
   jaeger-operator:
   - apiVersion: v2
     appVersion: "1.57"
+    created: "2025-09-02T02:52:23.139862718Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Jaeger Operator
+    digest: c4e1a225444a9ed184403670f84d102d84a8ce0e3d26c6bf898b6b4c2615b002
+    name: jaeger-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/jaeger-operator-0.1.2/jaeger-operator-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: "1.57"
     created: "2025-09-01T22:58:23.007117576Z"
     dependencies:
     - name: helper-operator
@@ -2075,6 +2112,24 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/jaeger-operator-0.1.1/jaeger-operator-0.1.1.tgz
     version: 0.1.1
   kiali-operator:
+  - apiVersion: v2
+    appVersion: "1.73"
+    created: "2025-09-02T02:52:23.312937626Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Kiali Operator
+    digest: 9517d26004351aad70c82fc03d06e3d35d1f09f887e5158e30198e5901c85284
+    name: kiali-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/kiali-operator-0.1.2/kiali-operator-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: "1.73"
     created: "2025-09-01T22:58:23.182694152Z"
@@ -2173,6 +2228,25 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/overprovisioning-0.0.4/overprovisioning-0.0.4.tgz
     version: 0.0.4
+  pipelines-operator:
+  - apiVersion: v2
+    appVersion: "1.14"
+    created: "2025-09-02T02:52:23.503401267Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Pipelines Operator
+    digest: 253074765f25131cf8bff089ea68d7a6b0c979cd18658bdcad7f1d17fb9ac78e
+    name: pipelines-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/pipelines-operator-0.1.1/pipelines-operator-0.1.1.tgz
+    version: 0.1.1
   rhacs-operator:
   - apiVersion: v2
     created: "2025-08-27T00:34:51.502182003Z"
@@ -2436,6 +2510,24 @@ entries:
   serverless-operator:
   - apiVersion: v2
     appVersion: "1.34"
+    created: "2025-09-02T02:52:23.718742118Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Serverless Operator
+    digest: 974dae157a9da1b9d481426bee6e4ab354f66b406fa05f199cfd07046fa3ff2a
+    name: serverless-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/serverless-operator-0.1.2/serverless-operator-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: "1.34"
     created: "2025-09-01T23:11:47.287818972Z"
     dependencies:
     - name: helper-operator
@@ -2453,6 +2545,24 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/serverless-operator-0.1.1/serverless-operator-0.1.1.tgz
     version: 0.1.1
   servicemesh-operator:
+  - apiVersion: v2
+    appVersion: "2.5"
+    created: "2025-09-02T02:52:23.906406748Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Service Mesh Operator
+    digest: 55fac79c966ea30a0386daf5068af13455f27e926eca9f62aa5344ca3f985dce
+    name: servicemesh-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.2.8/servicemesh-operator-0.2.8.tgz
+    version: 0.2.8
   - apiVersion: v2
     appVersion: "2.5"
     created: "2025-09-02T02:39:03.718716401Z"
@@ -2605,4 +2715,23 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.2.0/servicemesh-operator-0.2.0.tgz
     version: 0.2.0
-generated: "2025-09-02T02:39:03.719000977Z"
+  web-terminal-operator:
+  - apiVersion: v2
+    appVersion: "1.9"
+    created: "2025-09-02T02:52:24.10632174Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Red Hat OpenShift Web Terminal Operator
+    digest: f8cfb0cffa38511f9e9d93f6eccee549f1ccdd7be3a2af314c83b07dc0c003bd
+    name: web-terminal-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
+    version: 0.1.1
+generated: "2025-09-02T02:52:24.107543514Z"
