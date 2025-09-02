@@ -5,7 +5,10 @@ metadata:
   name: {{ .Values.olsConfig.name | default "cluster" }}
   namespace: {{ .Values.operatorNamespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 1 }}"
+    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 2 }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
   llm:
     providers:
