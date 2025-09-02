@@ -2367,6 +2367,17 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/loki-operator-0.1.5/loki-operator-0.1.5.tgz
     version: 0.1.5
+  model-mistral:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-02T09:46:39.522706314Z"
+    description: Helm chart for deploying AI models using KServe and vLLM
+    digest: e74c44f9410f3c30534ae97777db4e3b56d7d515e1fd417b942a2580121deaca
+    name: model-mistral
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/model-mistral-0.1.0/model-mistral-0.1.0.tgz
+    version: 0.1.0
   namespaces:
   - apiVersion: v2
     created: "2025-08-27T03:18:58.194170367Z"
@@ -3184,4 +3195,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-02T09:26:03.111757365Z"
+generated: "2025-09-02T09:46:39.522937453Z"
