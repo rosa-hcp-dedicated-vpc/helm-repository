@@ -2,7 +2,7 @@ apiVersion: v2
 name: lightspeed-operator
 description: Helm chart for deploying Red Hat OpenShift Lightspeed Operator
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: "1.0"
 dependencies:
   - name: helper-status-checker
