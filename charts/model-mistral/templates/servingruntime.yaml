@@ -1,0 +1,38 @@
+{{- if .Values.servingRuntime.enabled }}
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: {{ .Values.servingRuntime.name }}
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    openshift.io/display-name: {{ .Values.servingRuntime.displayName }}
+    opendatahub.io/recommended-accelerators: '["nvidia.com/gpu"]'
+    argocd.argoproj.io/sync-wave: "{{ .Values.servingRuntime.syncwave }}"
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  annotations:
+    prometheus.io/port: '{{ .Values.servingRuntime.port }}'
+    prometheus.io/path: '/metrics'
+  multiModel: false
+  supportedModelFormats:
+    - autoSelect: true
+      name: vLLM
+  containers:
+    - name: kserve-container
+      image: {{ .Values.servingRuntime.image }}
+      command:
+        - python
+        - -m
+        - vllm.entrypoints.openai.api_server
+      args:
+        - "--port={{ .Values.servingRuntime.port }}"
+        - "--model=/mnt/models"
+        - "--served-model-name={{.Name}}"
+      env:
+        - name: HF_HOME
+          value: /tmp/hf_home
+      ports:
+        - containerPort: {{ .Values.servingRuntime.port }}
+          protocol: TCP
+{{- end }}

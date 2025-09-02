@@ -1,0 +1,17 @@
+{{- if .Values.route.enabled }}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ .Values.model.name }}
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ add .Values.model.syncwave 1 }}"
+spec:
+  to:
+    kind: Service
+    name: {{ .Values.model.name }}-predictor
+  port:
+    targetPort: {{ .Values.servingRuntime.port }}
+  tls:
+    termination: {{ .Values.route.tls.termination }}
+{{- end }}

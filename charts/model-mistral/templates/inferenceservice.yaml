@@ -1,0 +1,40 @@
+{{- if .Values.model.enabled }}
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: {{ .Values.model.name }}
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    openshift.io/display-name: {{ .Values.model.displayName }}
+    serving.kserve.io/deploymentMode: RawDeployment
+    argocd.argoproj.io/sync-wave: "{{ .Values.model.syncwave }}"
+  labels:
+    opendatahub.io/dashboard: 'true'
+spec:
+  predictor:
+    maxReplicas: {{ .Values.model.replicas.max }}
+    minReplicas: {{ .Values.model.replicas.min }}
+    model:
+      modelFormat:
+        name: vLLM
+      name: ''
+      resources:
+        limits:
+          cpu: {{ .Values.model.resources.limits.cpu | quote }}
+          memory: {{ .Values.model.resources.limits.memory | quote }}
+          nvidia.com/gpu: {{ .Values.model.resources.limits.gpu | quote }}
+        requests:
+          cpu: {{ .Values.model.resources.requests.cpu | quote }}
+          memory: {{ .Values.model.resources.requests.memory | quote }}
+          nvidia.com/gpu: {{ .Values.model.resources.requests.gpu | quote }}
+      runtime: {{ .Values.servingRuntime.name }}
+      storageUri: {{ .Values.model.storageUri }}
+      args:
+        {{- range .Values.model.args }}
+        - {{ . | quote }}
+        {{- end }}
+    tolerations:
+    - effect: NoSchedule
+      key: nvidia.com/gpu
+      operator: Exists
+{{- end }}
