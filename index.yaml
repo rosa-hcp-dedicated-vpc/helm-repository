@@ -2497,6 +2497,21 @@ entries:
   nfd-operator:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-03T07:31:48.833811467Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Node Feature Discovery Operator
+    digest: cfbd4b83d96b11370b85f74faf077808f3d940894209878fa3a2bcc78690f75a
+    name: nfd-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nfd-operator-0.1.1/nfd-operator-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-03T07:25:19.75638585Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -3342,4 +3357,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-03T07:25:19.756691695Z"
+generated: "2025-09-03T07:31:48.834208143Z"
