@@ -34,4 +34,11 @@ helper-status-checker:
       syncwave: 2
       serviceAccount:
         name: "servicemesh-install-check"
+    - operatorName: servicemeshoperator
+      subscriptionName: servicemeshoperator
+      namespace:
+        name: openshift-operators
+      syncwave: 2
+      serviceAccount:
+        name: "servicemesh-install-check"
 
