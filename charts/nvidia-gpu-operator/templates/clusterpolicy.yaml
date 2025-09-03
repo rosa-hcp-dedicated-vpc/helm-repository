@@ -8,4 +8,31 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  nfd:
+    enabled: {{ .Values.clusterPolicy.nfd.enabled }}
+  operator:
+    defaultRuntime: {{ .Values.clusterPolicy.operator.defaultRuntime }}
+  devicePlugin:
+    enabled: {{ .Values.clusterPolicy.devicePlugin.enabled }}
+  dcgmExporter:
+    enabled: {{ .Values.clusterPolicy.dcgmExporter.enabled }}
+  gfd:
+    enabled: {{ .Values.clusterPolicy.gfd.enabled }}
+  migManager:
+    enabled: {{ .Values.clusterPolicy.migManager.enabled }}
+  nodeStatusExporter:
+    enabled: {{ .Values.clusterPolicy.nodeStatusExporter.enabled }}
+  gds:
+    enabled: {{ .Values.clusterPolicy.gds.enabled }}
+  cdi:
+    enabled: {{ .Values.clusterPolicy.cdi.enabled }}
+  vgpuManager:
+    enabled: {{ .Values.clusterPolicy.vgpuManager.enabled }}
+  vgpuDeviceManager:
+    enabled: {{ .Values.clusterPolicy.vgpuDeviceManager.enabled }}
+  sandboxWorkloads:
+    enabled: {{ .Values.clusterPolicy.sandboxWorkloads.enabled }}
+  vfioManager:
+    enabled: {{ .Values.clusterPolicy.vfioManager.enabled }}
 {{- end }}

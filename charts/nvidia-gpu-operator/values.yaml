@@ -16,6 +16,38 @@ operatorInstallPlanApproval: Manual
 clusterPolicy:
   enabled: true
   name: gpu-cluster-policy
+  # Enable Node Feature Discovery (NFD) - required for GPU detection
+  nfd:
+    enabled: true
+  # Operator configuration
+  operator:
+    defaultRuntime: crio
+  # Enable GPU device plugin
+  devicePlugin:
+    enabled: true
+  # Enable GPU feature discovery
+  gfd:
+    enabled: true
+  # Enable DCGM exporter for monitoring
+  dcgmExporter:
+    enabled: true
+  # Disable optional components
+  migManager:
+    enabled: false
+  nodeStatusExporter:
+    enabled: false
+  gds:
+    enabled: false
+  cdi:
+    enabled: false
+  vgpuManager:
+    enabled: false
+  vgpuDeviceManager:
+    enabled: false
+  sandboxWorkloads:
+    enabled: false
+  vfioManager:
+    enabled: false
 
 # Helper status checker dependency
 helper-status-checker:
