@@ -3,7 +3,7 @@ appTeam: model-mistral
 
 # Namespace configuration
 namespace:
-  name: models
+  name: mistral-ai
   create: true
 
 # Sync wave for ArgoCD deployment
