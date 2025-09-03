@@ -12,32 +12,4 @@ spec:
   instance: ""
   # Configure NFD to label GPU nodes
   topologyUpdater: false
-  enableNodeFeatureApi: true
-  # Worker configuration
-  workerConfig:
-    configData: |
-      sources:
-        pci:
-          deviceClassWhitelist:
-            - "03"
-            - "0b"
-          deviceLabelFields:
-            - "vendor"
-            - "device"
-        usb:
-          deviceClassWhitelist:
-            - "03"
-            - "0e"
-            - "ef"
-            - "fe"
-            - "ff"
-          deviceLabelFields:
-            - "class"
-            - "vendor"
-            - "device"
-        custom:
-          - name: "nvidia-gpu"
-            matchOn:
-              - pciId:
-                  vendor: ["10de"]
 {{- end }}
