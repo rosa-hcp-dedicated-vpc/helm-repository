@@ -4,21 +4,49 @@ kind: ClusterPolicy
 metadata:
   name: {{ .Values.clusterPolicy.name }}
   annotations:
-    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 2 }}"
+    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 3 }}"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
-    argocd.argoproj.io/hook: PostSync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
+  # Node Feature Discovery
   nfd:
     enabled: {{ .Values.clusterPolicy.nfd.enabled }}
+  # Operator configuration
   operator:
     defaultRuntime: {{ .Values.clusterPolicy.operator.defaultRuntime }}
+  # NVIDIA Driver
+  driver:
+    enabled: {{ .Values.clusterPolicy.driver.enabled }}
+    {{- if .Values.clusterPolicy.driver.repository }}
+    repository: {{ .Values.clusterPolicy.driver.repository }}
+    {{- end }}
+    {{- if .Values.clusterPolicy.driver.version }}
+    version: {{ .Values.clusterPolicy.driver.version }}
+    {{- end }}
+  # NVIDIA Container Toolkit
+  toolkit:
+    enabled: {{ .Values.clusterPolicy.toolkit.enabled }}
+  # Device Plugin
   devicePlugin:
     enabled: {{ .Values.clusterPolicy.devicePlugin.enabled }}
+  # DCGM (Data Center GPU Manager)
+  dcgm:
+    enabled: {{ .Values.clusterPolicy.dcgm.enabled }}
+  # DCGM Exporter for monitoring
   dcgmExporter:
     enabled: {{ .Values.clusterPolicy.dcgmExporter.enabled }}
+  # GPU Feature Discovery
   gfd:
     enabled: {{ .Values.clusterPolicy.gfd.enabled }}
+  # Daemonsets configuration
+  daemonsets:
+    tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+    updateStrategy: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: "1"
+  # Optional components
   migManager:
     enabled: {{ .Values.clusterPolicy.migManager.enabled }}
   nodeStatusExporter:
