@@ -37,11 +37,11 @@ clusterPolicy:
   # GPU Feature Discovery
   gfd:
     enabled: true
-  # Optional components - disabled to reduce resource usage
+  # Additional components - matching UI defaults
   migManager:
-    enabled: false
+    enabled: true
   nodeStatusExporter:
-    enabled: false
+    enabled: true
   gds:
     enabled: false
   cdi:
@@ -49,11 +49,11 @@ clusterPolicy:
   vgpuManager:
     enabled: false
   vgpuDeviceManager:
-    enabled: false
+    enabled: true
   sandboxWorkloads:
     enabled: false
   vfioManager:
-    enabled: false
+    enabled: true
 
 # Helper status checker dependency
 helper-status-checker:
