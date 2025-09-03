@@ -16,10 +16,7 @@ operatorInstallPlanApproval: Manual
 clusterPolicy:
   enabled: true
   name: gpu-cluster-policy
-  # Enable Node Feature Discovery (NFD) - required for GPU detection
-  nfd:
-    enabled: true
-  # Operator configuration
+  # Operator configuration (NFD managed separately)
   operator:
     defaultRuntime: crio
   # NVIDIA Driver - REQUIRED

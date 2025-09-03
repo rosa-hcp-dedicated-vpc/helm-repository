@@ -7,9 +7,6 @@ metadata:
     argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 3 }}"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
 spec:
-  # Node Feature Discovery
-  nfd:
-    enabled: {{ .Values.clusterPolicy.nfd.enabled }}
   # Operator configuration
   operator:
     defaultRuntime: {{ .Values.clusterPolicy.operator.defaultRuntime }}
