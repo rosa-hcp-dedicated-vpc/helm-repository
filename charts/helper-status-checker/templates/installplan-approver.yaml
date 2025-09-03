@@ -9,8 +9,7 @@ metadata:
   name: {{ .serviceAccount.name }}-installplan-approver
   namespace: {{ .namespace.name | quote }}
   annotations:
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/sync-wave: {{ .syncwave | default 0 | quote }}
+    argocd.argoproj.io/sync-wave: {{ .syncwave | default 1 | quote }}
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
@@ -70,3 +69,4 @@ spec:
 {{- end }}
 {{- end }}
 {{- end }}
+ 
