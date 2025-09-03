@@ -49,8 +49,10 @@ spec:
       prune: false
     syncOptions:
     - ApplyOutOfSyncOnly=true
-    - Validate=false
+    - Validate=false  
     - CreateNamespace=false
+    - RespectIgnoreDifferences=true    # NEW: Helps with hook timing
+    - ServerSideApply=true 
     retry:
       limit: 5
       backoff:
