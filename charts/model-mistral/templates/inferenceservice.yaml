@@ -35,8 +35,7 @@ spec:
         {{- end }}
     tolerations:
     - effect: NoSchedule
-      key: gpu
-      value: "true"
-      operator: Equal
+      key: nvidia.com/gpu
+      operator: Exists
 {{- end }}
 
