@@ -1,0 +1,43 @@
+{{- if .Values.nodeFeatureDiscovery.enabled }}
+apiVersion: nfd.openshift.io/v1
+kind: NodeFeatureDiscovery
+metadata:
+  name: {{ .Values.nodeFeatureDiscovery.name }}
+  namespace: {{ .Values.operatorNamespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ add .Values.syncwave 3 }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
+spec:
+  # Enable NFD on all nodes
+  instance: ""
+  # Configure NFD to label GPU nodes
+  topologyUpdater: false
+  enableNodeFeatureApi: true
+  # Worker configuration
+  workerConfig:
+    configData: |
+      sources:
+        pci:
+          deviceClassWhitelist:
+            - "03"
+            - "0b"
+          deviceLabelFields:
+            - "vendor"
+            - "device"
+        usb:
+          deviceClassWhitelist:
+            - "03"
+            - "0e"
+            - "ef"
+            - "fe"
+            - "ff"
+          deviceLabelFields:
+            - "class"
+            - "vendor"
+            - "device"
+        custom:
+          - name: "nvidia-gpu"
+            matchOn:
+              - pciId:
+                  vendor: ["10de"]
+{{- end }}
