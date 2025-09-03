@@ -2494,6 +2494,22 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/namespaces-1.4.8/namespaces-1.4.8.tgz
     version: 1.4.8
+  nfd-operator:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-03T07:25:19.75638585Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.1.6
+    description: Helm chart for deploying Node Feature Discovery Operator
+    digest: 7f1fccb0b2943559e324c0fad83161dd5d1290c65c2d56a829556b7a2037ae7e
+    name: nfd-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nfd-operator-0.1.0/nfd-operator-0.1.0.tgz
+    version: 0.1.0
   nvidia-gpu-operator:
   - apiVersion: v2
     appVersion: "1.0"
@@ -3326,4 +3342,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-03T07:12:40.19717731Z"
+generated: "2025-09-03T07:25:19.756691695Z"
