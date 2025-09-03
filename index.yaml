@@ -2497,6 +2497,21 @@ entries:
   nvidia-gpu-operator:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-03T07:12:40.196823526Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.1.8
+    description: Helm chart for deploying NVIDIA GPU Operator
+    digest: 3bd0b8275da70c13795b04e03fe78bc383f929a022e31317f7de96118c8c607c
+    name: nvidia-gpu-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nvidia-gpu-operator-0.1.5/nvidia-gpu-operator-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-03T06:50:54.59276663Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -3311,4 +3326,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-03T06:50:54.593135444Z"
+generated: "2025-09-03T07:12:40.19717731Z"
