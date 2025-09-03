@@ -37,6 +37,6 @@ spec:
     - effect: NoSchedule
       key: gpu
       value: "true"
-      operator: Exists
+      operator: Equals
 {{- end }}
 
