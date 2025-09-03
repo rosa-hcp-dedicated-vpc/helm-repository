@@ -29,3 +29,4 @@ helper-status-checker:
       syncwave: 2
       serviceAccount:
         name: "gpu-install-check"
+

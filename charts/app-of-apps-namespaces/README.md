@@ -220,3 +220,4 @@ This chart implements the second layer of the GitOps "App of Apps" pattern:
 
 Each layer provides increasing specificity and configuration granularity for namespace management at scale.
 
+

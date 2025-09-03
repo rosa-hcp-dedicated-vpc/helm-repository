@@ -13,3 +13,4 @@ spec:
   description: "OpenShift Cluster Observability Console Plugin"
 {{- end }}
 
+

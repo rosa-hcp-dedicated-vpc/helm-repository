@@ -6,3 +6,4 @@ metadata:
     argocd.argoproj.io/sync-wave: "{{ .Values.syncwave }}"
   labels:
     openshift.io/cluster-monitoring: "true"
+

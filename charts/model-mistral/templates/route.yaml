@@ -15,3 +15,4 @@ spec:
   tls:
     termination: {{ .Values.route.tls.termination }}
 {{- end }}
+

@@ -2,7 +2,7 @@ apiVersion: v2
 name: serverless-operator
 description: Helm chart for deploying Red Hat OpenShift Serverless Operator
 type: application
-version: 0.1.5
+version: 0.1.6
 appVersion: "1.34"
 dependencies:
   - name: helper-operator

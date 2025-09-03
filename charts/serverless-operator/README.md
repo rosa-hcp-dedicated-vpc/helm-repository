@@ -454,3 +454,4 @@ For issues and support:
 | Version | Changes |
 |---------|---------|
 | 0.1.0 | Initial release with basic operator deployment |
+

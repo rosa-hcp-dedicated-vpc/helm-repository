@@ -12,7 +12,7 @@ helper-operator:
       syncwave: '0'
       namespace:
         name: openshift-serverless
-        create: false
+        create: true
       subscription:
         channel: stable
         approval: Manual
