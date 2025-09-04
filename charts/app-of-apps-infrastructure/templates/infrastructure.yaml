@@ -60,6 +60,10 @@ spec:
         factor: 2
         maxDuration: 3m
   ignoreDifferences:
+    - group: serving.kserve.io
+      kind: InferenceService
+      jsonPointers:
+      - /status/conditions
 ---
 {{ end }}
 ---
