@@ -15,6 +15,9 @@ metadata:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
   template:
+    metadata:
+      labels:
+        job-name: {{ .serviceAccount.name }}-installplan-approver
     spec:
       containers:
         - image: registry.redhat.io/openshift4/ose-cli
