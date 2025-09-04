@@ -485,6 +485,21 @@ entries:
     version: 1.5.0
   cluster-bootstrap:
   - apiVersion: v2
+    created: "2025-09-04T09:48:07.406553333Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: dae64c7123f8a85dea39ef502978767875daa3cece5a0db4d4c54be773f0c908
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.4.4/cluster-bootstrap-0.4.4.tgz
+    version: 0.4.4
+  - apiVersion: v2
     created: "2025-09-04T09:15:09.790715655Z"
     dependencies:
     - name: helper-installplan-approver
@@ -5792,4 +5807,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-04T09:47:44.286942636Z"
+generated: "2025-09-04T09:48:07.407332711Z"
