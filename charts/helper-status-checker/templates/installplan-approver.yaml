@@ -27,7 +27,7 @@ spec:
               export HOME=/tmp/approver
 
               echo "Approving operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
-              sleep_timer={{ .sleeptimer | default 20 }}
+              sleep_timer={{ .sleeptimer | default 5 }}
 
               SLEEPER_TMP=0
                while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
