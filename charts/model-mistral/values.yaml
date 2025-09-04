@@ -61,6 +61,7 @@ helper-status-checker:
   approver: false
   checks:
     - operatorName: serverless-operator
+      approver: false
       subscriptionName: serverless-operator
       namespace:
         name: openshift-serverless
@@ -68,17 +69,20 @@ helper-status-checker:
         name: "mistral-serverless-check"
     - operatorName: gpu-operator-certified
       subscriptionName: gpu-operator-certified
+      approver: false
       namespace:
         name: nvidia-gpu-operator
       serviceAccount:
         name: "mistral-install-check"
     - operatorName: nfd
       subscriptionName: nfd
+      approver: false
       namespace:
         name: openshift-nfd
       serviceAccount:
         name: "mistral-nfd-install-check"
     - operatorName: servicemeshoperator
+      approver: false
       subscriptionName: servicemeshoperator
       namespace:
         name: openshift-operators

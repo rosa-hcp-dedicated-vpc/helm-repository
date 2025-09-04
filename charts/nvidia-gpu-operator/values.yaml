@@ -67,6 +67,7 @@ helper-status-checker:
       serviceAccount:
         name: "gpu-install-check"
     - operatorName: nfd
+      approver: false
       subscriptionName: nfd
       namespace:
         name: openshift-nfd
