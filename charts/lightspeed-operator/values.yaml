@@ -20,7 +20,7 @@ olsConfig:
     providers:
       - name: red_hat_openshift_ai
         type: rhoai_vllm
-        url: "https://dummy"
+        url: "https://mistral-small-24b-instruct-quantized-mistral-ai.apps.rosa.np-ai-1.zz49.p3.openshiftapps.com"
         credentialsSecretRef:
           name: rhoai-api-keys
         models:
