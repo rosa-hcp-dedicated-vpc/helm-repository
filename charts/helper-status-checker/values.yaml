@@ -18,11 +18,11 @@ checks:
 
     # -- If the Operator is not yet ready wait this amount of seconds.
     # @default -- 20
-    sleeptimer: 20
+    sleeptimer: 5
 
     # -- Maximum number of retries before the checks will fail
     # @default -- 20
-    maxretries: 40
+    maxretries: 60
 
     # -- Namespace where the status-checker Job shall be scheduled.
     namespace:
