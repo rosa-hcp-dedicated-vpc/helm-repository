@@ -42,7 +42,6 @@ model:
   args:
     - "--max-model-len=8192"
     - "--gpu-memory-utilization=0.95"
-    - "--dtype=half"
   
   # Scaling configuration
   replicas:
