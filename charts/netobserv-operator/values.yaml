@@ -69,7 +69,6 @@ helper-status-checker:
       subscriptionName: netobserv-operator
       namespace:
         name: netobserv
-      syncwave: 3
       serviceAccount:
         name: "netobserv-install-check"
 

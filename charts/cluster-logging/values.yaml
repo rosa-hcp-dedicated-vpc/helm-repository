@@ -36,7 +36,6 @@ helper-status-checker:
       subscriptionName: cluster-logging
       namespace:
         name: openshift-logging
-      syncwave: 3
       serviceAccount:
         name: "openshift-operators-install-check"
 

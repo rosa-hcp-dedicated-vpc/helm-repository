@@ -60,7 +60,6 @@ helper-status-checker:
       subscriptionName: rhods-operator
       namespace:
         name: redhat-ods-operator
-      syncwave: 3
       serviceAccount:
         name: "rhods-openshift-ai"
     - operatorName: servicemeshoperator
@@ -68,7 +67,6 @@ helper-status-checker:
       subscriptionName: servicemeshoperator
       namespace:
         name: openshift-operators
-      syncwave: 2
       serviceAccount:
         name: "rhods-servicemesh-install-check"
     - operatorName: serverless-operator
@@ -76,7 +74,6 @@ helper-status-checker:
       subscriptionName: serverless-operator
       namespace:
         name: openshift-serverless
-      syncwave: 2
       serviceAccount:
         name: "rhods-serverless-install-check"
 

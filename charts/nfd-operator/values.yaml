@@ -26,6 +26,5 @@ helper-status-checker:
       subscriptionName: nfd
       namespace:
         name: openshift-nfd
-      syncwave: 2
       serviceAccount:
         name: "nfd-install-check"

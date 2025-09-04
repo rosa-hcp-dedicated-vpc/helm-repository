@@ -64,13 +64,11 @@ helper-status-checker:
       subscriptionName: gpu-operator-certified
       namespace:
         name: nvidia-gpu-operator
-      syncwave: 2
       serviceAccount:
         name: "gpu-install-check"
     - operatorName: nfd
       subscriptionName: nfd
       namespace:
         name: openshift-nfd
-      syncwave: 2
       serviceAccount:
         name: "nfd-install-check"

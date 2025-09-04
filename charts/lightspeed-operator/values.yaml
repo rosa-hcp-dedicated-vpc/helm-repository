@@ -38,6 +38,5 @@ helper-status-checker:
       subscriptionName: lightspeed-operator
       namespace:
         name: openshift-lightspeed
-      syncwave: 2
       serviceAccount:
         name: "lightspeed-install-check"

@@ -245,6 +245,5 @@ helper-status-checker:
       subscriptionName: loki-operator
       namespace:
         name: openshift-operators-redhat
-      syncwave: 3
       serviceAccount:
         name: "loki-install-check"

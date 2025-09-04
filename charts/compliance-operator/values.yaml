@@ -69,7 +69,6 @@ helper-status-checker:
       # @default -- ""
       namespace:
         name: openshift-compliance
-      syncwave: 3
 
       # -- Set the values of the ServiceAccount that will execute the status checker Job.
       serviceAccount:

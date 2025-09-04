@@ -32,6 +32,5 @@ helper-status-checker:
       subscriptionName: serverless-operator
       namespace:
         name: openshift-serverless
-      syncwave: 2
       serviceAccount:
         name: "serverless-install-check"

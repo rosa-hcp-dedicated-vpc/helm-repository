@@ -31,7 +31,6 @@ helper-status-checker:
       subscriptionName: servicemeshoperator
       namespace:
         name: openshift-operators
-      syncwave: 2
       serviceAccount:
         name: "servicemesh-install-check"
 

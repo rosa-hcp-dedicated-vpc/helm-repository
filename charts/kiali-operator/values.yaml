@@ -31,6 +31,5 @@ helper-status-checker:
       subscriptionName: kiali-ossm
       namespace:
         name: openshift-operators
-      syncwave: 2
       serviceAccount:
         name: "kiali-install-check"

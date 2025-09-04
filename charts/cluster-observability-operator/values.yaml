@@ -51,6 +51,5 @@ helper-status-checker:
       subscriptionName: cluster-observability-operator
       namespace:
         name: openshift-cluster-observability-operator
-      syncwave: 3
       serviceAccount:
         name: "cluster-observability-install-check"
