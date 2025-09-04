@@ -42,6 +42,7 @@ model:
   args:
     - "--max-model-len=8192"
     - "--gpu-memory-utilization=0.95"
+    - "--served-model-name=mistral-small-24b-instruct-quantized"
   
   # Scaling configuration
   replicas:
