@@ -63,6 +63,23 @@ helper-status-checker:
       subscriptionName: serverless-operator
       namespace:
         name: openshift-serverless
-      syncwave: 0
       serviceAccount:
         name: "mistral-serverless-check"
+    - operatorName: gpu-operator-certified
+      subscriptionName: gpu-operator-certified
+      namespace:
+        name: nvidia-gpu-operator
+      serviceAccount:
+        name: "mistral-install-check"
+    - operatorName: nfd
+      subscriptionName: nfd
+      namespace:
+        name: openshift-nfd
+      serviceAccount:
+        name: "mistral-nfd-install-check"
+    - operatorName: servicemeshoperator
+      subscriptionName: servicemeshoperator
+      namespace:
+        name: openshift-operators
+      serviceAccount:
+        name: "mistral-servicemesh-install-check"
