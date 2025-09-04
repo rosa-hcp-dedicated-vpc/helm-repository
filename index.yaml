@@ -260,6 +260,14 @@ entries:
     version: 1.5.4
   app-of-apps-infrastructure:
   - apiVersion: v1
+    created: "2025-09-04T09:15:09.49682545Z"
+    description: Chart to generate argocd apps
+    digest: dca71eed9b3bf23e43f6c66d8376eaea365fe60476a62e22c7558b5d528bf058
+    name: app-of-apps-infrastructure
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-infrastructure-0.1.5/app-of-apps-infrastructure-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v1
     created: "2025-09-03T23:41:14.907451333Z"
     description: Chart to generate argocd apps
     digest: 49a7b470031bd4cc57ea3044d86f0b80e45a5f5db71531ceb3bae451ca1eb559
@@ -468,6 +476,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/aws-privateca-issuer-1.5.0/aws-privateca-issuer-1.5.0.tgz
     version: 1.5.0
   cluster-bootstrap:
+  - apiVersion: v2
+    created: "2025-09-04T09:15:09.790715655Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: 545bf93480a1dfc52b02ea5a7d95bedc792f2c5761608a059c021b89fcf2e783
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.4.3/cluster-bootstrap-0.4.3.tgz
+    version: 0.4.3
   - apiVersion: v2
     created: "2025-09-03T23:59:41.927588915Z"
     dependencies:
@@ -5731,4 +5754,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-04T08:33:26.019963283Z"
+generated: "2025-09-04T09:15:09.791280163Z"
