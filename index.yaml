@@ -3161,6 +3161,16 @@ entries:
   model-mistral:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-04T03:42:20.310737628Z"
+    description: Helm chart for deploying AI models using KServe and vLLM
+    digest: c3405d2e1e6172626d2c3733b0205b95aa2a2cff27e83f82c1cc63a604e0a652
+    name: model-mistral
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/model-mistral-0.1.9/model-mistral-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-04T02:54:22.833993575Z"
     description: Helm chart for deploying AI models using KServe and vLLM
     digest: d7cc4aa2abe8d4466c26da07808dfc9f1cb2d9847b50784e079ea98eddc1ba1d
@@ -4648,4 +4658,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-04T03:41:13.560421355Z"
+generated: "2025-09-04T03:42:20.311200601Z"
