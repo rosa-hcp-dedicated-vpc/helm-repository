@@ -71,4 +71,4 @@ helper-status-checker:
       namespace:
         name: openshift-nfd
       serviceAccount:
-        name: "nfd-install-check"
+        name: "gpu-nfd-install-check"
