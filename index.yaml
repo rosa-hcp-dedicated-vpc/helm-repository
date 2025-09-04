@@ -780,6 +780,21 @@ entries:
     version: 0.3.8
   cluster-efs:
   - apiVersion: v2
+    created: "2025-09-04T03:41:13.559688071Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.2.6
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy the efs operator and supporting componenets
+    digest: c95d0a1eadab2863e6a0b29be652ae69dd1eeb22af035280dcebf729ce87039f
+    name: cluster-efs
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-efs-0.4.2/cluster-efs-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v2
     created: "2025-09-04T02:47:18.314153124Z"
     dependencies:
     - name: helper-status-checker
@@ -4633,4 +4648,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-04T03:31:34.241900305Z"
+generated: "2025-09-04T03:41:13.560421355Z"
