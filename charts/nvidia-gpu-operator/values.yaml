@@ -67,4 +67,10 @@ helper-status-checker:
       syncwave: 2
       serviceAccount:
         name: "gpu-install-check"
-
+    - operatorName: nfd
+      subscriptionName: nfd
+      namespace:
+        name: openshift-nfd
+      syncwave: 2
+      serviceAccount:
+        name: "nfd-install-check"
