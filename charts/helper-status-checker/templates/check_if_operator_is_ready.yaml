@@ -12,7 +12,6 @@ metadata:
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
-  ttlSecondsAfterFinished: 120
   template:
     spec:
       containers:
