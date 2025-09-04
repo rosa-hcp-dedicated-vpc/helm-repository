@@ -10,6 +10,7 @@ metadata:
   namespace: {{ .namespace.name | quote }}
   annotations:
     argocd.argoproj.io/sync-wave: {{ .syncwave | default 1 | quote }}
+    argocd.argoproj.io/sync-options: Replace=true
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
