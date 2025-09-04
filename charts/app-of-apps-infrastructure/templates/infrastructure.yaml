@@ -51,8 +51,6 @@ spec:
     - ApplyOutOfSyncOnly=true
     - Validate=false  
     - CreateNamespace=false
-    - RespectIgnoreDifferences=true    # NEW: Helps with hook timing
-    - ServerSideApply=true 
     retry:
       limit: 5
       backoff:
