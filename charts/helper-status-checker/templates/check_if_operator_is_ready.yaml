@@ -13,9 +13,6 @@ metadata:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
   template:
-    metadata:
-      labels:
-        job-name: {{ .serviceAccount.name }}-check-operator-status
     spec:
       containers:
         - image: registry.redhat.io/openshift4/ose-cli
