@@ -2452,6 +2452,24 @@ entries:
   kiali-operator:
   - apiVersion: v2
     appVersion: "1.73"
+    created: "2025-09-04T01:49:09.712533327Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.2.0
+    description: Helm chart for deploying Red Hat OpenShift Kiali Operator
+    digest: 9eef23617ee438d71f005f57faa305b68a774de9db5180f271ae1a26b4845956
+    name: kiali-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/kiali-operator-0.1.9/kiali-operator-0.1.9.tgz
+    version: 0.1.9
+  - apiVersion: v2
+    appVersion: "1.73"
     created: "2025-09-04T00:15:18.504464358Z"
     dependencies:
     - name: helper-operator
@@ -4003,4 +4021,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-04T01:25:43.222936227Z"
+generated: "2025-09-04T01:49:09.713000178Z"
