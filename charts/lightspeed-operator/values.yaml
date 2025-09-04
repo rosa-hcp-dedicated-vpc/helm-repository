@@ -2,7 +2,7 @@
 appTeam: lightspeed-operator
 
 # Sync wave for ArgoCD deployment
-syncwave: 1
+syncwave: 0
 
 # Operator configuration
 operatorName: lightspeed-operator

@@ -22,7 +22,7 @@ spec:
             - |
              #!/usr/bin/env bash
              sleep_timer={{ .sleeptimer | default 5 }}
-             max_timer={{ .maxretries | default 60 }}
+             max_timer={{ .maxretries | default 120 }}
              counter=0
              status=0
 

@@ -22,7 +22,7 @@ checks:
 
     # -- Maximum number of retries before the checks will fail
     # @default -- 20
-    maxretries: 60
+    maxretries: 120
 
     # -- Namespace where the status-checker Job shall be scheduled.
     namespace:
