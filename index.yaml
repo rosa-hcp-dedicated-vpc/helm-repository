@@ -2484,6 +2484,41 @@ entries:
         fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
         url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
     apiVersion: v2
+    created: "2025-09-04T07:34:58.103256294Z"
+    description: A helper Chart that creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: 1f1540c40c9c938c12140d857ec5de1851f8536276e91b0b6402704fb52a443b
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-status-checker-4.3.3/helper-status-checker-4.3.3.tgz
+    version: 4.3.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+        - kind: added
+          description: added new option subscriptionName in case the subscription name is different to the operator name
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
     created: "2025-09-04T07:34:10.061027472Z"
     description: A helper Chart that creates a job to verify if the deployments of
       an operator are running. To do so it creates a service account with a role to
@@ -5355,4 +5390,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-04T07:34:12.535257848Z"
+generated: "2025-09-04T07:34:58.103768018Z"
