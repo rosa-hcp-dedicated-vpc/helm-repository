@@ -642,6 +642,8 @@ minio:
   iamEndpoint: ""
   region: ""
   useVirtualHost: false
+  tls:
+    enabled: false
   podDisruptionBudget:
     enabled: false
   resources:
