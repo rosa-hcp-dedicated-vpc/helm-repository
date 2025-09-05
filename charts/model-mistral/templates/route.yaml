@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.model.name }}
   namespace: {{ .Values.namespace.name }}
   annotations:
-    argocd.argoproj.io/sync-wave: "{{ add .Values.model.syncwave 1 }}"
+    argocd.argoproj.io/sync-wave: "{{ .Values.model.syncwave }}"
 spec:
   to:
     kind: Service
