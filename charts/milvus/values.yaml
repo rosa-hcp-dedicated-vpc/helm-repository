@@ -38,12 +38,19 @@ affinity: {}
 # Global securityContext
 # If set, this will apply to all milvus components
 # Individual components can be set to a different securityContext
-containerSecurityContext: {}
-securityContext: {}
-  # runAsUser: 1000
-  # runAsGroup: 1000
-  # fsGroup: 1000
-  # runAsNonRoot: true
+# OpenShift compatibility - let OpenShift assign user/group IDs
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  runAsNonRoot: true
+  capabilities:
+    drop: ["ALL"]
+securityContext:
+  # Let OpenShift assign these automatically
+  # runAsUser: auto-assigned by OpenShift
+  # runAsGroup: auto-assigned by OpenShift  
+  # fsGroup: auto-assigned by OpenShift
+  runAsNonRoot: true
 
 # Global topologySpreadConstraints
 # If set, this will apply to all milvus components
@@ -644,6 +651,13 @@ minio:
   useVirtualHost: false
   tls:
     enabled: false
+  # OpenShift compatibility - disable hardcoded security context
+  securityContext:
+    enabled: false
+  podSecurityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
   podDisruptionBudget:
     enabled: false
   resources:
@@ -695,6 +709,14 @@ etcd:
   replicaCount: 3
   pdb:
     create: false
+  # OpenShift compatibility - disable hardcoded security context
+  auth:
+    rbac:
+      create: false
+  podSecurityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
   image:
     repository: "milvusdb/etcd"
     tag: "3.5.18-r1"
