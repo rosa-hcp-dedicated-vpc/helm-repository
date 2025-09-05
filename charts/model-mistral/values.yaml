@@ -56,6 +56,7 @@ model:
 # Route configuration
 route:
   enabled: true
+  syncwave: 2  # Create route after InferenceService is ready
   tls:
     termination: edge
 
