@@ -14,6 +14,9 @@ spec:
   predictor:
     maxReplicas: {{ .Values.model.replicas.max }}
     minReplicas: {{ .Values.model.replicas.min }}
+    {{- if .Values.model.progressDeadlineSeconds }}
+    progressDeadlineSeconds: {{ .Values.model.progressDeadlineSeconds }}
+    {{- end }}
     model:
       modelFormat:
         name: vLLM

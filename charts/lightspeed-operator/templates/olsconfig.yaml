@@ -13,7 +13,7 @@ spec:
       {{- range .Values.olsConfig.llm.providers }}
       - name: {{ .name }}
         type: {{ .type }}
-        url: {{ .url }}
+        url: {{ $.Values.modelURL }}
         {{- if .credentialsSecretRef }}
         credentialsSecretRef:
           name: {{ .credentialsSecretRef.name }}
