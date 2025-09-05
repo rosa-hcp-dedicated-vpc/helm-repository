@@ -51,6 +51,7 @@ spec:
     - ApplyOutOfSyncOnly=true
     - Validate=false  
     - CreateNamespace=false
+    - RespectIgnoreDifferences=true
     retry:
       limit: 5
       backoff:
