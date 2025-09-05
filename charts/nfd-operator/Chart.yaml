@@ -2,10 +2,10 @@ apiVersion: v2
 name: nfd-operator
 description: Helm chart for deploying Node Feature Discovery Operator
 type: application
-version: 0.2.6
+version: 0.2.7
 appVersion: "1.0"
 dependencies:
   - name: helper-status-checker
-    version: 4.3.4
+    version: 4.3.5
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     condition: helper-status-checker.enabled
