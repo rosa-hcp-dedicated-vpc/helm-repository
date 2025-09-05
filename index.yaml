@@ -4418,6 +4418,42 @@ entries:
   milvus:
   - apiVersion: v1
     appVersion: 2.6.1
+    created: "2025-09-05T07:59:35.457748253Z"
+    dependencies:
+    - condition: etcd.enabled
+      name: etcd
+      repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+      tags:
+      - etcd
+      version: 6.3.3
+    - condition: minio.enabled
+      name: minio
+      repository: https://zilliztech.github.io/milvus-helm
+      version: 8.0.17
+    description: Milvus is an open-source vector database built to power AI applications
+      and vector similarity search.
+    digest: 6f98e9640bbeed3fbe8ed56af89dcba9b3217a17e1b3c2831e1b04483c0e69d3
+    home: https://milvus.io/
+    icon: https://raw.githubusercontent.com/milvus-io/docs/master/v1.0.0/assets/milvus_logo.png
+    keywords:
+    - milvus
+    - elastic
+    - vector
+    - search
+    - deploy
+    kubeVersion: ^1.10.0-0
+    maintainers:
+    - email: contact@milvus.io
+      name: contact
+      url: milvus.io
+    name: milvus
+    sources:
+    - https://github.com/zilliztech/milvus
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/milvus-5.0.7/milvus-5.0.7.tgz
+    version: 5.0.7
+  - apiVersion: v1
+    appVersion: 2.6.1
     created: "2025-09-05T07:46:14.581718841Z"
     description: Milvus is an open-source vector database built to power AI applications
       and vector similarity search.
@@ -6721,4 +6757,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-05T07:46:14.582302214Z"
+generated: "2025-09-05T07:59:35.458212613Z"
