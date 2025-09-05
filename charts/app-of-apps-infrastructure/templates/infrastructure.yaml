@@ -62,7 +62,7 @@ spec:
     - group: serving.kserve.io
       kind: InferenceService
       jsonPointers:
-      - /status/conditions
+      - /status
 ---
 {{ end }}
 ---
