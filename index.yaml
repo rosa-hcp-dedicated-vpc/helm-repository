@@ -4418,6 +4418,31 @@ entries:
   milvus:
   - apiVersion: v1
     appVersion: 2.6.1
+    created: "2025-09-05T07:46:14.581718841Z"
+    description: Milvus is an open-source vector database built to power AI applications
+      and vector similarity search.
+    digest: dd3112a81afe12acc0cd1be8944dfd972e28809a30ab1e1d85518b0ff7597800
+    home: https://milvus.io/
+    icon: https://raw.githubusercontent.com/milvus-io/docs/master/v1.0.0/assets/milvus_logo.png
+    keywords:
+    - milvus
+    - elastic
+    - vector
+    - search
+    - deploy
+    kubeVersion: ^1.10.0-0
+    maintainers:
+    - email: contact@milvus.io
+      name: contact
+      url: milvus.io
+    name: milvus
+    sources:
+    - https://github.com/zilliztech/milvus
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/milvus-5.0.6/milvus-5.0.6.tgz
+    version: 5.0.6
+  - apiVersion: v1
+    appVersion: 2.6.1
     created: "2025-09-05T07:37:22.075157479Z"
     description: Milvus is an open-source vector database built to power AI applications
       and vector similarity search.
@@ -6696,4 +6721,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-05T07:37:22.075664105Z"
+generated: "2025-09-05T07:46:14.582302214Z"
