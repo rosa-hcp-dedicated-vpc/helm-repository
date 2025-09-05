@@ -37,7 +37,7 @@ spec:
                # do not wait forever
                let "counter=counter+1"
                echo "Attempt $counter of $max_timer"
-
+               sleep 2
                if [[ $counter -eq $max_timer ]]
                then
                  echo "Giving up. Operator does not appear as clusterserviceversion"
@@ -47,7 +47,7 @@ spec:
                echo "Operator not yet found... Give Operator $sleep_timer seconds to create the Deployment"
                while [[ $SLEEPER_TMP -le "$sleep_timer" ]]; do
                  echo -n "."
-                 sleep 1
+                 sleep 2
                  SLEEPER_TMP=$(($SLEEPER_TMP+1))
                done
                get_exact_name=`oc get clusterserviceversion -n {{ .namespace.name }} | grep $operator | awk -F" " '{print $1}'`
