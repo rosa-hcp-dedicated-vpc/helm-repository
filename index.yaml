@@ -4415,6 +4415,32 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/loki-operator-0.1.5/loki-operator-0.1.5.tgz
     version: 0.1.5
+  milvus:
+  - apiVersion: v1
+    appVersion: 2.6.1
+    created: "2025-09-05T07:07:23.87071895Z"
+    description: Milvus is an open-source vector database built to power AI applications
+      and vector similarity search.
+    digest: df6d3fd3fd1d0c6fc807309640cdc386de242b6cc88fb927e935c4666fbafcd6
+    home: https://milvus.io/
+    icon: https://raw.githubusercontent.com/milvus-io/docs/master/v1.0.0/assets/milvus_logo.png
+    keywords:
+    - milvus
+    - elastic
+    - vector
+    - search
+    - deploy
+    kubeVersion: ^1.10.0-0
+    maintainers:
+    - email: contact@milvus.io
+      name: contact
+      url: milvus.io
+    name: milvus
+    sources:
+    - https://github.com/zilliztech/milvus
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/milvus-5.0.3/milvus-5.0.3.tgz
+    version: 5.0.3
   model-mistral:
   - apiVersion: v2
     appVersion: "1.0"
@@ -6645,4 +6671,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-05T04:05:06.967942726Z"
+generated: "2025-09-05T07:07:23.871474012Z"
