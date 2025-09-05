@@ -1,6 +1,6 @@
 ## Expand the name of the chart
 nameOverride: ""
-
+namespace: "milvus"
 ## Default fully qualified app name
 fullnameOverride: ""
 
