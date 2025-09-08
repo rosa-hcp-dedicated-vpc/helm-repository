@@ -11,6 +11,8 @@ This chart uses the `helper-operator` and `helper-status-checker` dependency cha
 ## Architecture
 
 ```mermaid
+
+
 graph TB
     subgraph "RHACS Deployment Flow"
         A[ArgoCD Application] --> B[RHACS Operator Chart]
