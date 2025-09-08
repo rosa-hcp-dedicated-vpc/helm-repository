@@ -1,5 +1,5 @@
 name: cluster-observability-operator
-version: 0.1.10
+version: 0.1.11
 apiVersion: v2
 description: Deploys the Cluster Observability Operator for OpenShift cluster monitoring and observability
 dependencies:
