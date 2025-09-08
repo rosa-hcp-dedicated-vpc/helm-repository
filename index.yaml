@@ -5166,6 +5166,21 @@ entries:
   model-mistral:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-08T11:16:23.290309905Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying AI models using KServe and vLLM
+    digest: 3873c9149c19dbbb520e52791433c86123c24c57225d25494353dfc33aa08a76
+    name: model-mistral
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/model-mistral-0.3.9/model-mistral-0.3.9.tgz
+    version: 0.3.9
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-08T11:16:09.171416339Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -8112,4 +8127,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-08T11:16:09.172207949Z"
+generated: "2025-09-08T11:16:23.291112459Z"
