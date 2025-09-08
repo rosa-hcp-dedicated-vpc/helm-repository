@@ -5480,6 +5480,21 @@ entries:
   nfd-operator:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-08T08:20:40.06466806Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Node Feature Discovery Operator
+    digest: 3eafe12d4b530512a5a1688a999db305c1ad9e928425b90e4671aabeb39e0a83
+    name: nfd-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nfd-operator-0.3.5/nfd-operator-0.3.5.tgz
+    version: 0.3.5
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-08T06:25:13.441859855Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -5719,6 +5734,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nfd-operator-0.1.0/nfd-operator-0.1.0.tgz
     version: 0.1.0
   nvidia-gpu-operator:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-08T08:20:40.315527135Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying NVIDIA GPU Operator
+    digest: 6274f55c8eea0112c36c080a15be381c161eaf710613666224fbe02e28c6e1c1
+    name: nvidia-gpu-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nvidia-gpu-operator-0.2.11/nvidia-gpu-operator-0.2.11.tgz
+    version: 0.2.11
   - apiVersion: v2
     appVersion: "1.0"
     created: "2025-09-08T04:13:29.346656155Z"
@@ -7649,4 +7679,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-08T06:25:13.442634936Z"
+generated: "2025-09-08T08:20:40.316663199Z"
