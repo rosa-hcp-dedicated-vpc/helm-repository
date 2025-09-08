@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   name: {{ .Values.operatorNamespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "{{ .Values.syncwave }}"
+    argocd.argoproj.io/sync-wave: "-1"
 
