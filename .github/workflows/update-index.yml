@@ -63,7 +63,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
-      - name: Package and release ${{ matrix.chart }}
+      - name: Package chart ${{ matrix.chart }}
         run: |
           echo "📦 Processing chart: ${{ matrix.chart }}"
           
@@ -73,34 +73,19 @@ jobs:
             exit 1
           fi
           
-          # Get chart version
-          CHART_VERSION=$(grep '^version:' charts/${{ matrix.chart }}/Chart.yaml | cut -d' ' -f2)
-          echo "Chart version: $CHART_VERSION"
-          
-          # Check if release already exists
-          if gh release view "${{ matrix.chart }}-$CHART_VERSION" >/dev/null 2>&1; then
-            echo "✅ Release ${{ matrix.chart }}-$CHART_VERSION already exists, skipping"
-            exit 0
-          fi
-          
           # Create package directory and package the chart
           mkdir -p .cr-release-packages
           helm package charts/${{ matrix.chart }} --destination .cr-release-packages/
           
-          # Create GitHub release and upload package
-          PACKAGE_FILE=".cr-release-packages/${{ matrix.chart }}-$CHART_VERSION.tgz"
-          if [ -f "$PACKAGE_FILE" ]; then
-            gh release create "${{ matrix.chart }}-$CHART_VERSION" \
-              --title "${{ matrix.chart }}-$CHART_VERSION" \
-              --notes "Release ${{ matrix.chart }} version $CHART_VERSION" \
-              "$PACKAGE_FILE"
-            echo "✅ Created release ${{ matrix.chart }}-$CHART_VERSION"
-          else
-            echo "❌ Package file not found: $PACKAGE_FILE"
-            exit 1
-          fi
-        env:
-          GH_TOKEN: "${{ secrets.HELM }}"
+          # List what was created
+          ls -la .cr-release-packages/
+        
+      - name: Upload packaged chart
+        uses: actions/upload-artifact@v4
+        with:
+          name: chart-${{ matrix.chart }}
+          path: .cr-release-packages/*.tgz
+          retention-days: 1
 
       - name: Report status
         if: always()
@@ -112,12 +97,39 @@ jobs:
             echo "❌ Failed to process ${{ matrix.chart }}"
           fi
 
-  update-index:
+  check-release-success:
     needs: [detect-changes, release-chart]
     if: needs.detect-changes.outputs.has-changes == 'true'
     runs-on: ubuntu-latest
+    outputs:
+      all-successful: ${{ steps.check-success.outputs.all-successful }}
+    steps:
+      - name: Check if all chart releases were successful
+        id: check-success
+        run: |
+          echo "🔍 Checking release results..."
+          
+          # Get the results from the matrix job
+          RESULTS='${{ toJson(needs.release-chart.result) }}'
+          echo "Release results: $RESULTS"
+          
+          # Check if all jobs succeeded
+          if echo "$RESULTS" | grep -q "failure\|cancelled"; then
+            echo "❌ Some chart releases failed"
+            echo "all-successful=false" >> $GITHUB_OUTPUT
+          else
+            echo "✅ All chart releases successful"
+            echo "all-successful=true" >> $GITHUB_OUTPUT
+          fi
+
+  release-and-index:
+    needs: [detect-changes, release-chart, check-release-success]
+    if: needs.detect-changes.outputs.has-changes == 'true' && needs.check-release-success.outputs.all-successful == 'true'
+    runs-on: ubuntu-latest
     permissions:
       contents: write
+      pages: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -129,11 +141,44 @@ jobs:
           git config user.name "root"
           git config user.email "root@users.noreply.github.com"
 
-      - name: Run chart-releaser to update index
+      - name: Download all packaged charts
+        uses: actions/download-artifact@v4
+        with:
+          path: .cr-release-packages
+          pattern: chart-*
+          merge-multiple: true
+
+      - name: List packaged charts
+        run: |
+          echo "📦 Packaged charts ready for release:"
+          ls -la .cr-release-packages/ || echo "No charts to release"
+
+      - name: Run chart-releaser
+        if: hashFiles('.cr-release-packages/*.tgz') != ''
         uses: helm/chart-releaser-action@v1.7.0
         with:
           charts_dir: charts
-          skip_packaging: true
-          skip_upload: true
+          packages_with_index: true
         env:
           CR_TOKEN: "${{ secrets.HELM }}"
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.HELM }}
+          publish_dir: .cr-index
+          destination_dir: .
+
+  report-failures:
+    needs: [detect-changes, release-chart, check-release-success]
+    if: needs.detect-changes.outputs.has-changes == 'true' && needs.check-release-success.outputs.all-successful == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report failed releases
+        run: |
+          echo "❌ Some chart releases failed - skipping pages deployment"
+          echo "## ❌ Release Failed" >> $GITHUB_STEP_SUMMARY
+          echo "**Reason**: One or more chart releases failed" >> $GITHUB_STEP_SUMMARY
+          echo "**Action Required**: Check individual chart release logs and fix issues" >> $GITHUB_STEP_SUMMARY
+          exit 1
