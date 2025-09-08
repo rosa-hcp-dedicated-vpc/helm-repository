@@ -6,12 +6,49 @@ on:
       - main
 
 jobs:
-  release:
-    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
-    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed-charts: ${{ steps.changed-charts.outputs.charts }}
+      has-changes: ${{ steps.changed-charts.outputs.has-changes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed charts
+        id: changed-charts
+        run: |
+          # Get list of changed Chart.yaml files
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep "charts/.*/Chart.yaml" || true)
+          
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No chart changes detected"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "charts=[]" >> $GITHUB_OUTPUT
+          else
+            echo "Changed Chart.yaml files:"
+            echo "$CHANGED_FILES"
+            
+            # Extract chart names
+            CHANGED_CHARTS=$(echo "$CHANGED_FILES" | cut -d'/' -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+            echo "Changed charts: $CHANGED_CHARTS"
+            
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            echo "charts=$CHANGED_CHARTS" >> $GITHUB_OUTPUT
+          fi
+
+  release-chart:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
     permissions:
       contents: write
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chart: ${{ fromJson(needs.detect-changes.outputs.changed-charts) }}
+      fail-fast: false  # Don't stop other charts if one fails
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,12 +60,80 @@ jobs:
           git config user.name "root"
           git config user.email "root@users.noreply.github.com"
 
-      # - name: Install Helm
-      #   uses: azure/setup-helm@v4
-      #   env:
-      #     GITHUB_TOKEN: "${{ secrets.HELM }}"
+      - name: Install Helm
+        uses: azure/setup-helm@v4
 
-      - name: Run chart-releaser
+      - name: Package and release ${{ matrix.chart }}
+        run: |
+          echo "📦 Processing chart: ${{ matrix.chart }}"
+          
+          # Check if chart directory exists
+          if [ ! -d "charts/${{ matrix.chart }}" ]; then
+            echo "❌ Chart directory not found: charts/${{ matrix.chart }}"
+            exit 1
+          fi
+          
+          # Get chart version
+          CHART_VERSION=$(grep '^version:' charts/${{ matrix.chart }}/Chart.yaml | cut -d' ' -f2)
+          echo "Chart version: $CHART_VERSION"
+          
+          # Check if release already exists
+          if gh release view "${{ matrix.chart }}-$CHART_VERSION" >/dev/null 2>&1; then
+            echo "✅ Release ${{ matrix.chart }}-$CHART_VERSION already exists, skipping"
+            exit 0
+          fi
+          
+          # Create package directory and package the chart
+          mkdir -p .cr-release-packages
+          helm package charts/${{ matrix.chart }} --destination .cr-release-packages/
+          
+          # Create GitHub release and upload package
+          PACKAGE_FILE=".cr-release-packages/${{ matrix.chart }}-$CHART_VERSION.tgz"
+          if [ -f "$PACKAGE_FILE" ]; then
+            gh release create "${{ matrix.chart }}-$CHART_VERSION" \
+              --title "${{ matrix.chart }}-$CHART_VERSION" \
+              --notes "Release ${{ matrix.chart }} version $CHART_VERSION" \
+              "$PACKAGE_FILE"
+            echo "✅ Created release ${{ matrix.chart }}-$CHART_VERSION"
+          else
+            echo "❌ Package file not found: $PACKAGE_FILE"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: "${{ secrets.HELM }}"
+
+      - name: Report status
+        if: always()
+        run: |
+          echo "📊 Chart: ${{ matrix.chart }}"
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ Successfully processed ${{ matrix.chart }}"
+          else
+            echo "❌ Failed to process ${{ matrix.chart }}"
+          fi
+
+  update-index:
+    needs: [detect-changes, release-chart]
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "root"
+          git config user.email "root@users.noreply.github.com"
+
+      - name: Run chart-releaser to update index
         uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: charts
+          skip_packaging: true
+          skip_upload: true
         env:
           CR_TOKEN: "${{ secrets.HELM }}"
