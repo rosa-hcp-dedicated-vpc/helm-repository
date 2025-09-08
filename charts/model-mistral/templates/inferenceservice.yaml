@@ -8,6 +8,7 @@ metadata:
     openshift.io/display-name: {{ .Values.model.displayName }}
     serving.kserve.io/deploymentMode: RawDeployment
     argocd.argoproj.io/sync-wave: "{{ .Values.model.syncwave }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
   labels:
     opendatahub.io/dashboard: 'true'
 spec:
