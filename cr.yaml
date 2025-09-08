@@ -1,0 +1,7 @@
+# Chart Releaser configuration
+owner: rosa-hcp-dedicated-vpc
+git-repo: helm-repository
+charts-repo-url: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+index-path: index.yaml
+packages-with-index: true
+skip-existing: true

@@ -6,12 +6,49 @@ on:
       - main
 
 jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed-charts: ${{ steps.changed-charts.outputs.charts }}
+      has-changes: ${{ steps.changed-charts.outputs.has-changes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed charts
+        id: changed-charts
+        run: |
+          # Get list of changed Chart.yaml files
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep "charts/.*/Chart.yaml" || true)
+          
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No chart changes detected"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "charts=[]" >> $GITHUB_OUTPUT
+          else
+            echo "Changed Chart.yaml files:"
+            echo "$CHANGED_FILES"
+            
+            # Extract chart names
+            CHANGED_CHARTS=$(echo "$CHANGED_FILES" | cut -d'/' -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+            echo "Changed charts: $CHANGED_CHARTS"
+            
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            echo "charts=$CHANGED_CHARTS" >> $GITHUB_OUTPUT
+          fi
+
   release:
-    # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
-    # see: https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
     permissions:
       contents: write
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chart: ${{ fromJson(needs.detect-changes.outputs.changed-charts) }}
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,12 +60,15 @@ jobs:
           git config user.name "root"
           git config user.email "root@users.noreply.github.com"
 
-      # - name: Install Helm
-      #   uses: azure/setup-helm@v4
-      #   env:
-      #     GITHUB_TOKEN: "${{ secrets.HELM }}"
-
-      - name: Run chart-releaser
+      - name: Run chart-releaser for ${{ matrix.chart }}
         uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: charts
+          config: cr.yaml
         env:
           CR_TOKEN: "${{ secrets.HELM }}"
+        continue-on-error: true
+
+      - name: Report status
+        run: |
+          echo "📊 Processed chart: ${{ matrix.chart }}"
