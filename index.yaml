@@ -998,6 +998,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-efs-0.5.0/cluster-efs-0.5.0.tgz
     version: 0.5.0
   - apiVersion: v2
+    created: "2025-09-08T04:13:27.205758725Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy the efs operator and supporting componenets
+    digest: 936bc5e9763b0610cd84b27796d5912db83a0d491c74e14ad5b18e929071fe43
+    name: cluster-efs
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-efs-0.4.10/cluster-efs-0.4.10.tgz
+    version: 0.4.10
+  - apiVersion: v2
     created: "2025-09-08T04:02:02.187028964Z"
     dependencies:
     - name: helper-status-checker
@@ -1507,6 +1522,25 @@ entries:
     version: 0.0.7
   cluster-logging:
   - apiVersion: v2
+    created: "2025-09-08T04:13:27.367409866Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    - condition: loki-operator.enabled
+      name: loki-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~0.1.5
+    digest: 2329ab27955e821ed78e40210dddb666ba0c5f92c23f30919ab058f906571a76
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.5.9/cluster-logging-0.5.9.tgz
+    version: 0.5.9
+  - apiVersion: v2
     created: "2025-09-08T04:02:02.459208458Z"
     dependencies:
     - name: helper-operator
@@ -1968,6 +2002,23 @@ entries:
     version: 0.1.6
   cluster-observability-operator:
   - apiVersion: v2
+    created: "2025-09-08T04:13:27.591250367Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.3.7
+    description: Deploys the Cluster Observability Operator for OpenShift cluster
+      monitoring and observability
+    digest: d576fe5d0d2dc238fa166a3692ba123e0e5748762c5a493bb8556b6ff424e7c3
+    name: cluster-observability-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-observability-operator-0.1.10/cluster-observability-operator-0.1.10.tgz
+    version: 0.1.10
+  - apiVersion: v2
     created: "2025-09-08T04:02:02.746363311Z"
     dependencies:
     - name: helper-operator
@@ -2087,6 +2138,47 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-observability-operator-0.1.2/cluster-observability-operator-0.1.2.tgz
     version: 0.1.2
   compliance-operator:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: README.md
+        - kind: added
+          description: updated to helper-status-checker v4
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-09-08T04:13:27.749819401Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Master chart to deploy and configure the Compliance Operator
+    digest: b907acda2dc8693a450114b633744f8db8445cae11bb5d12236786a9a37b70da
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/compliance-operator-full-stack
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/compliance-operator.png
+    keywords:
+    - security
+    - compliance
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: compliance-operator
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/compliance-operator-1.2.9/compliance-operator-1.2.9.tgz
+    version: 1.2.9
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -2703,6 +2795,24 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/compliance-operator-1.0.42/compliance-operator-1.0.42.tgz
     version: 1.0.42
   devspaces-operator:
+  - apiVersion: v2
+    appVersion: "3.15"
+    created: "2025-09-08T04:13:27.898535185Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.3.7
+    description: Helm chart for deploying Red Hat OpenShift Dev Spaces Operator
+    digest: 06cd322974aca70990cacb61905de9febdbe57e639d8e08f444382413d7edc7a
+    name: devspaces-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/devspaces-operator-0.1.11/devspaces-operator-0.1.11.tgz
+    version: 0.1.11
   - apiVersion: v2
     appVersion: "3.15"
     created: "2025-09-08T04:02:03.313272606Z"
@@ -3907,6 +4017,24 @@ entries:
   kiali-operator:
   - apiVersion: v2
     appVersion: "1.73"
+    created: "2025-09-08T04:13:28.057079955Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Red Hat OpenShift Kiali Operator
+    digest: a1e27695cb64790f6ec5149cadad0229faecac22c4d94905d84d462517767fb0
+    name: kiali-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/kiali-operator-0.2.11/kiali-operator-0.2.11.tgz
+    version: 0.2.11
+  - apiVersion: v2
+    appVersion: "1.73"
     created: "2025-09-08T04:02:03.892798128Z"
     dependencies:
     - name: helper-operator
@@ -4214,6 +4342,21 @@ entries:
   lightspeed-operator:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-08T04:13:28.220981628Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Red Hat OpenShift Lightspeed Operator
+    digest: 41af7af9c248378845a013ec16f71bb6c165ce66268c0486103306d5cd113bce
+    name: lightspeed-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/lightspeed-operator-0.3.4/lightspeed-operator-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-08T04:02:04.158337378Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -4498,6 +4641,24 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/lightspeed-operator-0.1.0/lightspeed-operator-0.1.0.tgz
     version: 0.1.0
   loki-operator:
+  - apiVersion: v2
+    created: "2025-09-08T04:13:28.40107584Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Deploys the Loki Operator for OpenShift log aggregation and storage
+      using Grafana Loki
+    digest: d9f80a299070d8d10ceb5d3ce35a264d5ad531aecc71d1fac8c1d8dcef15d3e4
+    name: loki-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/loki-operator-0.1.14/loki-operator-0.1.14.tgz
+    version: 0.1.14
   - apiVersion: v2
     created: "2025-09-08T04:02:04.403305163Z"
     dependencies:
@@ -5046,6 +5207,23 @@ entries:
     version: 1.4.8
   netobserv-operator:
   - apiVersion: v2
+    created: "2025-09-08T04:13:28.783658436Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~4.3.7
+    description: Deploys the Network Observability Operator for OpenShift network
+      flow monitoring and analysis
+    digest: de28228bd98a8de17b66de053ae1a41f96772c130a9d4eb8f8177c68acab3fbd
+    name: netobserv-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/netobserv-operator-0.1.10/netobserv-operator-0.1.10.tgz
+    version: 0.1.10
+  - apiVersion: v2
     created: "2025-09-08T04:02:05.015348004Z"
     dependencies:
     - name: helper-operator
@@ -5165,6 +5343,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/netobserv-operator-0.1.2/netobserv-operator-0.1.2.tgz
     version: 0.1.2
   nfd-operator:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-08T04:13:29.00777126Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Node Feature Discovery Operator
+    digest: 33907676804c4ed34b68bc12b7239e19b6d59d39f8886eb9c0ebc74ce2b03341
+    name: nfd-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nfd-operator-0.2.9/nfd-operator-0.2.9.tgz
+    version: 0.2.9
   - apiVersion: v2
     appVersion: "1.0"
     created: "2025-09-08T04:02:05.272222073Z"
@@ -5346,6 +5539,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nfd-operator-0.1.0/nfd-operator-0.1.0.tgz
     version: 0.1.0
   nvidia-gpu-operator:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-09-08T04:13:29.346656155Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying NVIDIA GPU Operator
+    digest: 400d22090616c7183dadb71ba8cee6f16f45839cf6afa34847a7c1e2d3239ca5
+    name: nvidia-gpu-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nvidia-gpu-operator-0.2.10/nvidia-gpu-operator-0.2.10.tgz
+    version: 0.2.10
   - apiVersion: v2
     appVersion: "1.0"
     created: "2025-09-08T04:02:05.50935011Z"
@@ -5665,6 +5873,21 @@ entries:
     version: 0.1.1
   rhacs-operator:
   - apiVersion: v2
+    created: "2025-09-08T04:13:29.495455887Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy the central acs operator and supporting components
+    digest: 8434f41807015d8885f7690801bd7ed1b4ed1117c6db6bd2e509a0d77258d3ae
+    name: rhacs-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.1.6/rhacs-operator-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
     created: "2025-09-08T04:02:05.780904698Z"
     dependencies:
     - name: helper-status-checker
@@ -5845,6 +6068,37 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhacs-operator-0.0.1/rhacs-operator-0.0.1.tgz
     version: 0.0.1
   rhods-operator:
+  - annotations:
+      artifacthub.io/license: Apache-2.0
+    apiVersion: v2
+    created: "2025-09-08T04:13:29.682184184Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Master chart to deploy and configure the RHODS Operator (Red Hat
+      OpenShift Data Science)
+    digest: ae6dc5f2fe76e275f4c79707197f1d100a95172f479121b2918987d58b4c84ee
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - ai
+    - machine-learning
+    - openshift-ai
+    - data-science
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhods-operator
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.2.9/rhods-operator-1.2.9.tgz
+    version: 1.2.9
   - annotations:
       artifacthub.io/license: Apache-2.0
     apiVersion: v2
@@ -6418,6 +6672,24 @@ entries:
   serverless-operator:
   - apiVersion: v2
     appVersion: "1.34"
+    created: "2025-09-08T04:13:29.91061656Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Red Hat OpenShift Serverless Operator
+    digest: a1c621f8e6088f9cc346cc82b11baa3d6510e0306a8030900b0a07ecd2393cd7
+    name: serverless-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/serverless-operator-0.2.9/serverless-operator-0.2.9.tgz
+    version: 0.2.9
+  - apiVersion: v2
+    appVersion: "1.34"
     created: "2025-09-08T04:02:06.398997752Z"
     dependencies:
     - name: helper-operator
@@ -6687,6 +6959,24 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/serverless-operator-0.1.1/serverless-operator-0.1.1.tgz
     version: 0.1.1
   servicemesh-operator:
+  - apiVersion: v2
+    appVersion: "2.5"
+    created: "2025-09-08T04:13:30.134855352Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Red Hat OpenShift Service Mesh Operator
+    digest: 041ee451f0bc6c4d3d9c7efedc1ed7d37cff7040e52dd4496e38a502681b872d
+    name: servicemesh-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.4.9/servicemesh-operator-0.4.9.tgz
+    version: 0.4.9
   - apiVersion: v2
     appVersion: "2.5"
     created: "2025-09-08T04:02:06.726628161Z"
@@ -7164,4 +7454,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-08T04:08:49.293026113Z"
+generated: "2025-09-08T04:13:30.136034398Z"
