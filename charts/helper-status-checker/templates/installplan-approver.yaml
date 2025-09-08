@@ -13,6 +13,7 @@ metadata:
   labels:
     {{- include "common.labels" $ | nindent 4 }}
 spec:
+  backoffLimit: 3  # Retry up to 3 times if job fails
   template:
     spec:
       containers:
@@ -41,20 +42,54 @@ spec:
 
               printf "\n\nProcessing subscription '$subscription'\n"
 
-              installplan=$(oc get subscriptions.operators.coreos.com --field-selector metadata.name=${subscription} -o jsonpath='{.items[0].status.installPlanRef.name}')
+              # Retry logic for getting InstallPlan
+              max_retries=10
+              retry_count=0
+              installplan=""
+              
+              while [ $retry_count -lt $max_retries ] && [ -z "$installplan" ]; do
+                printf "\nAttempt $((retry_count + 1))/$max_retries: Getting InstallPlan for subscription '$subscription'\n"
+                
+                # Try to get the InstallPlan name
+                installplan=$(oc get subscription ${subscription} -o jsonpath='{.status.installPlanRef.name}' 2>/dev/null || echo "")
+                
+                if [ -z "$installplan" ]; then
+                  printf "No InstallPlan found yet, waiting 10 seconds before retry...\n"
+                  sleep 10
+                  retry_count=$((retry_count + 1))
+                else
+                  printf "Found InstallPlan: $installplan\n"
+                  break
+                fi
+              done
+
+              # Exit with error if no InstallPlan found after retries
+              if [ -z "$installplan" ]; then
+                printf "\nERROR: Could not find InstallPlan for subscription '$subscription' after $max_retries attempts\n"
+                exit 1
+              fi
 
               printf "\nCheck installplan approved status\n"
 
-              oc get installplan $installplan -o jsonpath="{.spec.approved}"
+              # Check if InstallPlan exists and get approval status
+              if ! oc get installplan $installplan >/dev/null 2>&1; then
+                printf "\nERROR: InstallPlan '$installplan' not found\n"
+                exit 1
+              fi
 
-              if [ "`oc get installplan $installplan -o jsonpath="{.spec.approved}"`" == "false" ]; then
-
+              approved=$(oc get installplan $installplan -o jsonpath="{.spec.approved}" 2>/dev/null || echo "")
+              
+              if [ "$approved" == "false" ]; then
                 printf "\nApproving Subscription $subscription with install plan $installplan\n"
 
-                oc patch installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'
-
+                if oc patch installplan $installplan --type=json -p='[{"op":"replace","path": "/spec/approved", "value": true}]'; then
+                  printf "\nSuccessfully approved InstallPlan '$installplan'\n"
+                else
+                  printf "\nERROR: Failed to approve InstallPlan '$installplan'\n"
+                  exit 1
+                fi
               else
-                printf "\nInstall Plan '$installplan' already approved\n"
+                printf "\nInstall Plan '$installplan' already approved (status: $approved)\n"
               fi
           imagePullPolicy: Always
           name: installplan-approver
