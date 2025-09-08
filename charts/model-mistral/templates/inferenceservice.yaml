@@ -7,6 +7,9 @@ metadata:
   annotations:
     openshift.io/display-name: {{ .Values.model.displayName }}
     serving.kserve.io/deploymentMode: RawDeployment
+    {{- if .Values.model.progressDeadlineSeconds }}
+    serving.kserve.io/deploymentTimeout: "{{ .Values.model.progressDeadlineSeconds }}"
+    {{- end }}
     argocd.argoproj.io/sync-wave: "{{ .Values.model.syncwave }}"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
   labels:
@@ -15,9 +18,6 @@ spec:
   predictor:
     maxReplicas: {{ .Values.model.replicas.max }}
     minReplicas: {{ .Values.model.replicas.min }}
-    {{- if .Values.model.progressDeadlineSeconds }}
-    progressDeadlineSeconds: {{ .Values.model.progressDeadlineSeconds }}
-    {{- end }}
     model:
       modelFormat:
         name: vLLM
