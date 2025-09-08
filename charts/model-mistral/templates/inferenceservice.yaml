@@ -8,11 +8,12 @@ metadata:
     openshift.io/display-name: {{ .Values.model.displayName }}
     serving.kserve.io/deploymentMode: RawDeployment
     {{- if .Values.model.progressDeadlineSeconds }}
-    serving.kserve.io/deploymentTimeout: "{{ .Values.model.progressDeadlineSeconds }}"
+    serving.kserve.io/deploymentSpec: |
+      {"progressDeadlineSeconds": {{ .Values.model.progressDeadlineSeconds }}}
     {{- end }}
     argocd.argoproj.io/sync-wave: "{{ .Values.model.syncwave }}"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
-    argocd.argoproj.io/health.kserve.io: |
+    argocd.argoproj.io/health: |
       hs = {}
       if obj.status ~= nil then
         if obj.status.conditions ~= nil then
