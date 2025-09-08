@@ -2,7 +2,7 @@ apiVersion: v2
 name: model-mistral
 description: Helm chart for deploying AI models using KServe and vLLM
 type: application
-version: 0.2.8
+version: 0.2.9
 appVersion: "1.0"
 dependencies:
   - name: helper-status-checker
