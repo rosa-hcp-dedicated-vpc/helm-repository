@@ -5465,6 +5465,21 @@ entries:
   nfd-operator:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-08T06:21:20.75811961Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Node Feature Discovery Operator
+    digest: 64b7abae3d8e24e6da6fcd27e0b3a97c7eeb77f2244f9ac0823e8e1cfb7c3e85
+    name: nfd-operator
+    type: application
+    urls:
+    - nfd-operator-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-08T06:20:13.598196717Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -6007,6 +6022,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/pipelines-operator-0.1.1/pipelines-operator-0.1.1.tgz
     version: 0.1.1
   rhacs-operator:
+  - apiVersion: v2
+    created: "2025-09-08T06:21:20.921509315Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy the central acs operator and supporting components
+    digest: a2199f7cf551e0c7c4bef46853f2e54b8bcdc904d08ad16bc2e6571d9db903e4
+    name: rhacs-operator
+    urls:
+    - rhacs-operator-0.1.7.tgz
+    version: 0.1.7
   - apiVersion: v2
     created: "2025-09-08T04:13:29.495455887Z"
     dependencies:
@@ -7589,4 +7619,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-08T06:20:13.771226451Z"
+generated: "2025-09-08T06:21:20.922211982Z"
