@@ -1,0 +1,240 @@
+name: Release Charts (Improved)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed-charts: ${{ steps.changed-charts.outputs.charts }}
+      has-changes: ${{ steps.changed-charts.outputs.has-changes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed charts
+        id: changed-charts
+        run: |
+          # Get list of changed Chart.yaml files
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD | grep "charts/.*/Chart.yaml" || true)
+          
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No chart changes detected"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "charts=[]" >> $GITHUB_OUTPUT
+          else
+            echo "Changed Chart.yaml files:"
+            echo "$CHANGED_FILES"
+            
+            # Extract chart names
+            CHANGED_CHARTS=$(echo "$CHANGED_FILES" | cut -d'/' -f2 | sort -u | jq -R -s -c 'split("\n")[:-1]')
+            echo "Changed charts: $CHANGED_CHARTS"
+            
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            echo "charts=$CHANGED_CHARTS" >> $GITHUB_OUTPUT
+          fi
+
+  validate-and-package:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        chart: ${{ fromJson(needs.detect-changes.outputs.changed-charts) }}
+      fail-fast: false  # Don't stop other charts if one fails
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Add helm repositories
+        run: |
+          # Add any required helm repositories for dependencies
+          helm repo add bitnami https://charts.bitnami.com/bitnami || true
+          helm repo add rosa-hcp-dedicated-vpc https://rosa-hcp-dedicated-vpc.github.io/helm-repository/ || true
+          helm repo update
+
+      - name: Validate chart
+        id: validate
+        continue-on-error: true
+        run: |
+          echo "🔍 Validating chart: ${{ matrix.chart }}"
+          
+          # Check if chart directory exists
+          if [ ! -d "charts/${{ matrix.chart }}" ]; then
+            echo "❌ Chart directory not found: charts/${{ matrix.chart }}"
+            exit 1
+          fi
+          
+          # Lint the chart
+          echo "📋 Linting chart..."
+          if ! helm lint "charts/${{ matrix.chart }}"; then
+            echo "❌ Chart linting failed"
+            exit 1
+          fi
+          
+          # Update dependencies
+          echo "📦 Updating dependencies..."
+          if ! helm dependency update "charts/${{ matrix.chart }}"; then
+            echo "❌ Dependency update failed"
+            exit 1
+          fi
+          
+          echo "✅ Chart validation successful"
+
+      - name: Package chart
+        id: package
+        if: steps.validate.outcome == 'success'
+        continue-on-error: true
+        run: |
+          echo "📦 Packaging chart: ${{ matrix.chart }}"
+          
+          # Create package directory
+          mkdir -p .cr-release-packages
+          
+          # Package the chart
+          if helm package "charts/${{ matrix.chart }}" --destination .cr-release-packages; then
+            echo "✅ Chart packaged successfully"
+            echo "packaged=true" >> $GITHUB_OUTPUT
+          else
+            echo "❌ Chart packaging failed"
+            echo "packaged=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Upload packaged chart
+        if: steps.package.outputs.packaged == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: chart-${{ matrix.chart }}
+          path: .cr-release-packages/*.tgz
+          retention-days: 1
+
+      - name: Report status
+        if: always()
+        run: |
+          if [ "${{ steps.validate.outcome }}" != "success" ]; then
+            echo "❌ ${{ matrix.chart }}: Validation failed"
+          elif [ "${{ steps.package.outcome }}" != "success" ]; then
+            echo "❌ ${{ matrix.chart }}: Packaging failed"
+          else
+            echo "✅ ${{ matrix.chart }}: Successfully processed"
+          fi
+
+  check-failures:
+    needs: [detect-changes, validate-and-package]
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      has-failures: ${{ steps.check-failures.outputs.has-failures }}
+    steps:
+      - name: Check for failures
+        id: check-failures
+        run: |
+          # Check if any chart jobs failed
+          CHANGED_CHARTS='${{ needs.detect-changes.outputs.changed-charts }}'
+          VALIDATE_RESULTS='${{ toJson(needs.validate-and-package.result) }}'
+          
+          echo "Changed charts: $CHANGED_CHARTS"
+          echo "Validation results: $VALIDATE_RESULTS"
+          
+          # If any chart job failed, mark as having failures
+          if echo "$VALIDATE_RESULTS" | grep -q "failure"; then
+            echo "❌ Some charts failed to process"
+            echo "has-failures=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ All charts processed successfully"
+            echo "has-failures=false" >> $GITHUB_OUTPUT
+          fi
+
+  release:
+    needs: [detect-changes, validate-and-package, check-failures]
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Download all packaged charts
+        uses: actions/download-artifact@v4
+        with:
+          path: .cr-release-packages
+          pattern: chart-*
+          merge-multiple: true
+
+      - name: List packaged charts
+        run: |
+          echo "📦 Packaged charts ready for release:"
+          ls -la .cr-release-packages/ || echo "No charts to release"
+
+      - name: Run chart-releaser
+        if: hashFiles('.cr-release-packages/*.tgz') != ''
+        uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: charts
+          packages_with_index: true
+        env:
+          CR_TOKEN: "${{ secrets.HELM }}"
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 📊 Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "### Changed Charts:" >> $GITHUB_STEP_SUMMARY
+          echo '${{ needs.detect-changes.outputs.changed-charts }}' | jq -r '.[]' | while read chart; do
+            if [ -f ".cr-release-packages/${chart}-"*.tgz ]; then
+              echo "- ✅ **${chart}**: Successfully released" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- ❌ **${chart}**: Failed to package/release" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+  final-status:
+    needs: [detect-changes, validate-and-package, check-failures, release]
+    if: always() && needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Final status check
+        run: |
+          echo "🔍 Checking final workflow status..."
+          
+          if [ "${{ needs.check-failures.outputs.has-failures }}" == "true" ]; then
+            echo "❌ WORKFLOW FAILED: Some charts were changed but failed to process successfully"
+            echo "This ensures the workflow goes into RED state when charts are changed but not bumped properly"
+            
+            echo "## ❌ Workflow Failed" >> $GITHUB_STEP_SUMMARY
+            echo "**Reason**: Some charts were changed but failed to process successfully" >> $GITHUB_STEP_SUMMARY
+            echo "**Action Required**: Check individual chart validation logs and fix issues" >> $GITHUB_STEP_SUMMARY
+            
+            exit 1
+          else
+            echo "✅ All changed charts processed successfully"
+            echo "## ✅ Workflow Succeeded" >> $GITHUB_STEP_SUMMARY
+            echo "All changed charts were successfully validated, packaged, and released" >> $GITHUB_STEP_SUMMARY
+          fi
