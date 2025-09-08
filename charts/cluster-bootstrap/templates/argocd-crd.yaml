@@ -156,6 +156,28 @@ spec:
       hs.message = "Waiting for PVC"
       return hs
     kind: PersistentVolumeClaim
+  - check: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.conditions ~= nil then
+          for i, condition in ipairs(obj.status.conditions) do
+            if condition.type == "Ready" and condition.status == "True" then
+              hs.status = "Healthy"
+              hs.message = "InferenceService is ready"
+              return hs
+            elseif condition.type == "Ready" and condition.status == "False" then
+              hs.status = "Degraded"
+              hs.message = condition.message or "InferenceService not ready"
+              return hs
+            end
+          end
+        end
+      end
+      hs.status = "Progressing"
+      hs.message = "Waiting for InferenceService to be ready"
+      return hs
+    group: serving.kserve.io
+    kind: InferenceService
   server:
     autoscale:
       enabled: false
