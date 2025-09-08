@@ -6,6 +6,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
   annotations:
     openshift.io/display-name: {{ .Values.model.displayName }}
+    serving.knative.dev/progress-deadline: 1500s
     serving.kserve.io/deploymentMode: RawDeployment
     {{- if .Values.model.progressDeadlineSeconds }}
     serving.kserve.io/deploymentSpec: |
