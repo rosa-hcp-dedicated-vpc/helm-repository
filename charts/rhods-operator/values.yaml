@@ -8,7 +8,7 @@ helper-operator:
       enabled: true
       # -- Syncwave for the operator deployment
       # @default -- 0
-      syncwave: '3'
+      syncwave: '0'
       namespace:
         # -- The Namespace the Operator should be installed in.
         # The OpenShift AI operator should be deployed into **redhat-ods-operator** Namespace
