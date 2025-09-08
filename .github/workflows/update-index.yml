@@ -60,6 +60,9 @@ jobs:
           git config user.name "root"
           git config user.email "root@users.noreply.github.com"
 
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
       - name: Validate version bump for ${{ matrix.chart }}
         id: validate-version
         run: |
@@ -96,21 +99,96 @@ jobs:
             echo "ℹ️ No changes detected for chart ${{ matrix.chart }}"
           fi
 
-      - name: Run chart-releaser for ${{ matrix.chart }}
+      - name: Package chart ${{ matrix.chart }}
         if: steps.validate-version.outcome == 'success'
-        uses: helm/chart-releaser-action@v1.7.0
+        run: |
+          echo "📦 Packaging chart: ${{ matrix.chart }}"
+          mkdir -p .cr-release-packages
+          helm package charts/${{ matrix.chart }} --destination .cr-release-packages/
+          ls -la .cr-release-packages/
+
+      - name: Upload packaged chart
+        if: steps.validate-version.outcome == 'success'
+        uses: actions/upload-artifact@v4
         with:
-          charts_dir: charts
-          config: cr.yaml
-        env:
-          CR_TOKEN: "${{ secrets.HELM }}"
-        continue-on-error: true
+          name: chart-${{ matrix.chart }}
+          path: .cr-release-packages/*.tgz
+          retention-days: 1
 
       - name: Report status
         if: always()
         run: |
           if [ "${{ steps.validate-version.outcome }}" != "success" ]; then
-            echo "❌ Chart ${{ matrix.chart }}: Version validation failed"
+            echo "❌ Chart ${{ matrix.chart }}: Version validation failed - SKIPPED"
           else
-            echo "✅ Chart ${{ matrix.chart }}: Processed successfully"
+            echo "✅ Chart ${{ matrix.chart }}: Validated and packaged successfully"
           fi
+
+  pages-build-deployment:
+    needs: [detect-changes, release]
+    if: needs.detect-changes.outputs.has-changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "root"
+          git config user.email "root@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Download successfully packaged charts
+        uses: actions/download-artifact@v4
+        with:
+          path: .cr-release-packages
+          pattern: chart-*
+          merge-multiple: true
+        continue-on-error: true
+
+      - name: List charts ready for release
+        run: |
+          echo "📦 Charts ready for release (only successfully validated ones):"
+          if [ -d ".cr-release-packages" ]; then
+            ls -la .cr-release-packages/ || echo "No successfully packaged charts found"
+            CHART_COUNT=$(ls .cr-release-packages/*.tgz 2>/dev/null | wc -l || echo "0")
+            echo "Total charts to release: $CHART_COUNT"
+          else
+            echo "No charts directory found - no charts passed validation"
+          fi
+
+      - name: Run chart-releaser
+        if: hashFiles('.cr-release-packages/*.tgz') != ''
+        uses: helm/chart-releaser-action@v1.7.0
+        with:
+          charts_dir: charts
+          packages_with_index: true
+        env:
+          CR_TOKEN: "${{ secrets.HELM }}"
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 📊 Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "### Charts Processed:" >> $GITHUB_STEP_SUMMARY
+          
+          # Count successful and failed charts
+          CHANGED_CHARTS='${{ needs.detect-changes.outputs.changed-charts }}'
+          echo "Changed charts: $CHANGED_CHARTS" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -d ".cr-release-packages" ]; then
+            RELEASED_COUNT=$(ls .cr-release-packages/*.tgz 2>/dev/null | wc -l || echo "0")
+            echo "- ✅ **Successfully released**: $RELEASED_COUNT charts" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- ✅ **Successfully released**: 0 charts" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "- ❌ **Failed validation**: Charts that failed version validation were skipped" >> $GITHUB_STEP_SUMMARY
