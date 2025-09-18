@@ -35,7 +35,7 @@ hyperConverged:
 # Helper status checker dependency - checks if operator is ready
 helper-status-checker:
   enabled: true
-  approver: false
+  approver: true
   operators:
     - operatorName: kubevirt-hyperconverged
       subscriptionName: hco-operatorhub
