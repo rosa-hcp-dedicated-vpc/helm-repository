@@ -1,0 +1,14 @@
+{{- if .Values.namespace.create }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.namespace.name }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/warn: privileged
+    security.openshift.io/scc.podSecurityLabelSync: "false"
+{{- end }}

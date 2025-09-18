@@ -1,0 +1,11 @@
+apiVersion: v2
+name: virtualization-operator
+description: Helm chart for deploying OpenShift Virtualization operator
+type: application
+version: 0.1.0
+appVersion: "4.16"
+dependencies:
+  - name: helper-status-checker
+    version: 4.3.7
+    repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+    condition: helper-status-checker.enabled

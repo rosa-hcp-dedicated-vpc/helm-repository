@@ -1,0 +1,45 @@
+# OpenShift Virtualization Operator Configuration
+
+# Operator configuration
+operator:
+  name: kubevirt-hyperconverged
+  namespace: openshift-cnv
+  channel: stable
+  startingCSV: ""  # Set via cluster-config values
+  installPlanApproval: Manual
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+
+# Namespace configuration
+namespace:
+  name: openshift-cnv
+  create: true
+
+# OperatorGroup configuration
+operatorGroup:
+  name: kubevirt-hyperconverged-group
+  create: true
+
+# Subscription configuration
+subscription:
+  name: hco-operatorhub
+  create: true
+
+# HyperConverged configuration (CNV main resource)
+hyperConverged:
+  name: kubevirt-hyperconverged
+  create: true
+  # Sync wave for HyperConverged resource (after operator is ready)
+  syncWave: 2
+
+# Helper status checker dependency - checks if operator is ready
+helper-status-checker:
+  enabled: true
+  operators:
+    - operatorName: kubevirt-hyperconverged
+      subscriptionName: hco-operatorhub
+      approver: false
+      namespace:
+        name: openshift-cnv
+      serviceAccount:
+        name: "cnv-install-check"

@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.model.name }}
   namespace: {{ .Values.namespace.name }}
   annotations:
-    argocd.argoproj.io/sync-options: ServerSideApply=true,Replace=false
+    argocd.argoproj.io/sync-options: ServerSideApply=true,Replace=false,Retry=true,SkipDryRunOnMissingResource=true,Validate=false
     argocd.argoproj.io/sync-wave: "{{ .Values.route.syncwave }}"
 spec:
   to:
