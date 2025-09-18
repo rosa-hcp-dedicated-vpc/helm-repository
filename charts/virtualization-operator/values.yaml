@@ -13,17 +13,17 @@ operator:
 # Namespace configuration
 namespace:
   name: openshift-cnv
-  create: true
+
 
 # OperatorGroup configuration
 operatorGroup:
   name: kubevirt-hyperconverged-group
-  create: true
+
 
 # Subscription configuration
 subscription:
   name: hco-operatorhub
-  create: true
+
 
 # HyperConverged configuration (CNV main resource)
 hyperConverged:
@@ -39,7 +39,6 @@ helper-status-checker:
   operators:
     - operatorName: kubevirt-hyperconverged
       subscriptionName: hco-operatorhub
-      approver: true
       namespace:
         name: openshift-cnv
       serviceAccount:
