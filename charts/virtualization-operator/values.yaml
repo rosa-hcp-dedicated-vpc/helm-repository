@@ -36,10 +36,10 @@ hyperConverged:
 helper-status-checker:
   enabled: true
   approver: true
-  operators:
+  checks:
     - operatorName: kubevirt-hyperconverged
       subscriptionName: hco-operatorhub
       namespace:
-        name: openshift-cnv
+        name: "openshift-cnv"
       serviceAccount:
         name: "cnv-install-check"
