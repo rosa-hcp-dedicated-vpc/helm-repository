@@ -2,7 +2,7 @@ apiVersion: v2
 name: virtualization-operator
 description: Helm chart for deploying OpenShift Virtualization operator
 type: application
-version: 0.1.6
+version: 0.1.7
 appVersion: "4.16"
 dependencies:
   - name: helper-status-checker
