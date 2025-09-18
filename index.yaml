@@ -5181,6 +5181,21 @@ entries:
   model-mistral:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-09-18T00:23:34.021429808Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying AI models using KServe and vLLM
+    digest: 60295ee4025b558b86f895261097b14004aa788b915468b43f6a1fc2c1748798
+    name: model-mistral
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/model-mistral-0.3.16/model-mistral-0.3.16.tgz
+    version: 0.3.16
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-09-10T00:31:24.189434307Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -8213,6 +8228,22 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.2.0/servicemesh-operator-0.2.0.tgz
     version: 0.2.0
+  virtualization-operator:
+  - apiVersion: v2
+    appVersion: "4.16"
+    created: "2025-09-18T00:23:34.255166793Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying OpenShift Virtualization operator
+    digest: cefa644eb01c823c23e099ce054d6d14d65d619ce80c25eaf07837ec623356c8
+    name: virtualization-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/virtualization-operator-0.1.0/virtualization-operator-0.1.0.tgz
+    version: 0.1.0
   web-terminal-operator:
   - apiVersion: v2
     appVersion: "1.9"
@@ -8232,4 +8263,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-09-10T00:31:24.190732333Z"
+generated: "2025-09-18T00:23:34.255960864Z"
