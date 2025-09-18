@@ -19,7 +19,6 @@ spec:
     
   # Storage configuration
   storageImport:
-    insecureRegistries: []
     
   # Live migration configuration
   liveMigrationConfig:
