@@ -6,6 +6,7 @@ metadata:
   namespace: {{ .Values.namespace.name }}
   annotations:
     argocd.argoproj.io/sync-wave: "{{ .Values.hyperConverged.syncWave }}"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true,Validate=false
 spec:
   # Basic configuration for OpenShift Virtualization
   infra: {}
