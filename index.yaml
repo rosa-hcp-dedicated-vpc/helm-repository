@@ -8276,6 +8276,21 @@ entries:
   virtualization-operator:
   - apiVersion: v2
     appVersion: "4.16"
+    created: "2025-10-01T07:21:58.979766367Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying OpenShift Virtualization operator
+    digest: 5fb492c42afddcb206602df4ef809003f738efdc60b5fe58b37da7a771f2a5ca
+    name: virtualization-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/virtualization-operator-0.2.1/virtualization-operator-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: "4.16"
     created: "2025-09-18T07:33:05.302405458Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -8458,4 +8473,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-01T03:28:14.5831256Z"
+generated: "2025-10-01T07:21:58.980775281Z"
