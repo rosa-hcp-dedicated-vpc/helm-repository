@@ -40,8 +40,8 @@ helper-status-checker:
   enabled: true
   approver: true
   checks:
-    - operatorName: hco-operatorhub
-      subscriptionName: hco-operatorhub
+    - operatorName: kubevirt-hyperconverged
+      subscriptionName: kubevirt-hyperconverged
       namespace:
         name: "openshift-cnv"
       serviceAccount:
