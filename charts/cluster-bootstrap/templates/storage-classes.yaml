@@ -10,7 +10,7 @@ provisioner: ebs.csi.aws.com
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
-
+---
 # apiVersion: storage.k8s.io/v1
 # kind: StorageClass
 # metadata:
@@ -24,3 +24,19 @@ allowVolumeExpansion: true
 # provisioner: ebs.csi.aws.com
 # reclaimPolicy: Delete
 # volumeBindingMode: Immediate
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: efs-sc
+  annotations:
+allowVolumeExpansion: true
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: {{ .Values.fileSystemId }}
+  directoryPerms: "700"
+  gidRangeStart: "1000"
+  gidRangeEnd: "2000"
+  basePath: "/dynamic_provisioning"
+---
