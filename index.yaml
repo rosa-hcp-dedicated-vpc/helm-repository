@@ -7911,6 +7911,24 @@ entries:
   servicemesh-operator:
   - apiVersion: v2
     appVersion: "2.5"
+    created: "2025-10-14T03:14:13.958142163Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: Helm chart for deploying Red Hat OpenShift Service Mesh Operator
+    digest: 0add98ab5c1740a54631e7dbff8842e91504045842ff15cca586b2c22d38086e
+    name: servicemesh-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.5.0/servicemesh-operator-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: "2.5"
     created: "2025-09-08T08:27:24.661834317Z"
     dependencies:
     - name: helper-operator
@@ -8603,4 +8621,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-14T02:39:30.615587799Z"
+generated: "2025-10-14T03:14:13.958924426Z"
