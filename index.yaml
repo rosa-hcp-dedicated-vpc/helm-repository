@@ -340,6 +340,14 @@ entries:
     version: 1.5.4
   app-of-apps-infrastructure:
   - apiVersion: v1
+    created: "2025-10-14T04:00:46.683886802Z"
+    description: Chart to generate argocd apps
+    digest: a519028b559461e732f75e0a2e207f0ddcb6749d22436e8108c626798cc066e0
+    name: app-of-apps-infrastructure
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-infrastructure-0.2.1/app-of-apps-infrastructure-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v1
     created: "2025-10-14T03:14:54.154304158Z"
     description: Chart to generate argocd apps
     digest: 967e507fc9e4e057cea963f6a9d697d16823a11a5cfe8b801a4387d565a42fe6
@@ -8644,4 +8652,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-14T03:37:36.953378521Z"
+generated: "2025-10-14T04:00:46.684702978Z"
