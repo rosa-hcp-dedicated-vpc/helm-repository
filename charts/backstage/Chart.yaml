@@ -18,11 +18,11 @@ description: |
 
   The telemetry data collection feature is enabled by default. Red Hat Developer Hub sends telemetry data to Red Hat by using the `backstage-plugin-analytics-provider-segment` plugin. To disable this and to learn what data is being collected, see https://docs.redhat.com/en/documentation/red_hat_developer_hub/1.6/html-single/telemetry_data_collection_and_analysis/index
 dependencies:
-  - name: common
-    repository: https://charts.bitnami.com/bitnami
-    tags:
-      - bitnami-common
-    version: "2.31.4"
+  # - name: common
+  #   repository: https://charts.bitnami.com/bitnami
+  #   tags:
+  #     - bitnami-common
+  #   version: "2.31.4"
   - name: backstage
     repository: https://backstage.github.io/charts
     version: "2.6.1"
