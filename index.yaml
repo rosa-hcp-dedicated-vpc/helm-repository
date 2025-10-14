@@ -6624,6 +6624,28 @@ entries:
       charts.openshift.io/provider: Red Hat Developer Hub Team
       charts.openshift.io/supportURL: https://issues.redhat.com/browse/RHIDP
     apiVersion: v2
+    created: "2025-10-14T05:06:31.71626642Z"
+    description: 'A Helm chart to install Openshift GitOps and Openshift Pipelines,
+      which are required operators for installing the Orchestrator Software Templates
+      to be available on RHDH. '
+    digest: 122155b8f4a15e04efebfd2a967082f53b770cc05e25656c4709c0a4e7577861
+    kubeVersion: '>= 1.25.0-0'
+    maintainers:
+    - name: Red Hat Developer Hub Team
+      url: https://github.com/redhat-developer/rhdh-chart
+    name: orchestrator-software-templates-infra
+    sources:
+    - https://github.com/redhat-developer/rhdh-software-templates-infrastructure
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/orchestrator-software-templates-infra-0.2.5/orchestrator-software-templates-infra-0.2.5.tgz
+    version: 0.2.5
+  - annotations:
+      charts.openshift.io/name: Orchestrator Software Templates Infrastructure for
+        Red Hat Developer Hub
+      charts.openshift.io/provider: Red Hat Developer Hub Team
+      charts.openshift.io/supportURL: https://issues.redhat.com/browse/RHIDP
+    apiVersion: v2
     created: "2025-10-14T00:08:58.034437281Z"
     description: 'A Helm chart to install Openshift GitOps and Openshift Pipelines,
       which are required operators for installing the Orchestrator Software Templates
@@ -8652,4 +8674,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-14T04:00:46.684702978Z"
+generated: "2025-10-14T05:06:31.71692219Z"
