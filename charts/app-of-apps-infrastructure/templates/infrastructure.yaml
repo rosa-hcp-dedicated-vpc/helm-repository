@@ -63,6 +63,12 @@ spec:
       kind: InferenceService
       jsonPointers:
       - /status
+    - group: operators.coreos.com
+      kind: Subscription
+      jsonPointers:
+      - /status
+      - /spec/installPlanApproval
+      - /spec/startingCSV
 ---
 {{ end }}
 ---
