@@ -6707,6 +6707,31 @@ entries:
       charts.openshift.io/name: Orchestrator Infrastructure for Red Hat Developer
         Hub
     apiVersion: v2
+    created: "2025-10-15T21:31:05.504967508Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.12.10
+    description: 'Helm chart to deploy the Orchestrator solution''s  '
+    digest: 176b11127a37767363d9c7489b660c41aa3ec52b6578557803438594e72eee0e
+    maintainers:
+    - name: Paul Foster
+      url: https://github.com/redhat-developer/rhdh-chart
+    name: orchestrator-operator
+    sources:
+    - https://github.com/redhat-developer/rhdh-chart
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/orchestrator-operator-1.0.1/orchestrator-operator-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      charts.openshift.io/name: Orchestrator Infrastructure for Red Hat Developer
+        Hub
+    apiVersion: v2
     created: "2025-10-15T10:23:08.917102989Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -8831,4 +8856,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-15T10:23:09.235756576Z"
+generated: "2025-10-15T21:31:05.505434019Z"
