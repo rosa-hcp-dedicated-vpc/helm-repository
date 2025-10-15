@@ -15,4 +15,5 @@ spec:
   name: {{ .Values.openshiftPipelines.subscription.spec.name }}
   source: {{ .Values.openshiftPipelines.subscription.spec.source | default "redhat-operators"  }}
   sourceNamespace: {{ .Values.openshiftPipelines.subscription.spec.sourceNamespace | default "openshift-marketplace" }}
+  startingCSV: {{ .Values.startingCSV | default "" }}
 {{- end }}

@@ -10,7 +10,7 @@ openshiftPipelines:
       # -- channel of an operator package to subscribe to
       channel: latest
       # --  whether the update should be installed automatically
-      installPlanApproval: Automatic
+      installPlanApproval: Manual
       # -- name of the operator package
       name: openshift-pipelines-operator-rh
       # --  name of the catalog source
@@ -19,7 +19,7 @@ openshiftPipelines:
 
 openshiftGitops:
   # -- whether the operator should be deployed by the chart
-  enabled: true
+  enabled: false
 
   # -- name of instances
   name: argocd
