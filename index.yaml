@@ -6683,6 +6683,51 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nvidia-gpu-operator-0.1.0/nvidia-gpu-operator-0.1.0.tgz
     version: 0.1.0
+  orcheserverless-logic-operator:
+  - annotations:
+      charts.openshift.io/name: serverless-logic-operator
+    apiVersion: v2
+    created: "2025-10-15T10:23:08.636149149Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: 'Helm chart to deploy the serverless logic operator '
+    digest: 883f917fa4172d7dcc232ddabd345348cc5e48848ac5146ed05a4ea41738c6aa
+    maintainers:
+    - name: Paul Foster
+    name: orcheserverless-logic-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/orcheserverless-logic-operator-1.0.0/orcheserverless-logic-operator-1.0.0.tgz
+    version: 1.0.0
+  orchestrator-operator:
+  - annotations:
+      charts.openshift.io/name: Orchestrator Infrastructure for Red Hat Developer
+        Hub
+    apiVersion: v2
+    created: "2025-10-15T10:23:08.917102989Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.12.10
+    description: 'Helm chart to deploy the Orchestrator solution''s  '
+    digest: 68e75ad459df5de2bd213c621144d6393267e3d96da3fa4c6c68ab92f7adffbb
+    maintainers:
+    - name: Paul Foster
+      url: https://github.com/redhat-developer/rhdh-chart
+    name: orchestrator-operator
+    sources:
+    - https://github.com/redhat-developer/rhdh-chart
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/orchestrator-operator-1.0.0/orchestrator-operator-1.0.0.tgz
+    version: 1.0.0
   orchestrator-software-templates:
   - annotations:
       charts.openshift.io/name: Orchestrator Software Templates Infrastructure for
@@ -6797,6 +6842,30 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/pipelines-operator-0.1.1/pipelines-operator-0.1.1.tgz
     version: 0.1.1
+  redhat-developer-hub:
+  - apiVersion: v2
+    created: "2025-10-15T10:23:09.235285544Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://charts.openshift.io
+      version: 1.7.1
+    description: Master chart to deploy developer hub
+    digest: de3703e03d9b98d39bfd158c495492861ea9670bde6a28441d3b0fd121a26b00
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: redhat-developer-hub
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/redhat-developer-hub-1.0.0/redhat-developer-hub-1.0.0.tgz
+    version: 1.0.0
   redhat-developer-hub-orchestrator-infra:
   - annotations:
       charts.openshift.io/name: Orchestrator Infrastructure for Red Hat Developer
@@ -8762,4 +8831,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-14T05:10:58.249658198Z"
+generated: "2025-10-15T10:23:09.235756576Z"
