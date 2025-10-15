@@ -6894,6 +6894,29 @@ entries:
     version: 0.1.1
   redhat-developer-hub:
   - apiVersion: v2
+    created: "2025-10-15T23:23:43.874120681Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://charts.openshift.io
+      version: 1.7.1
+    description: Master chart to deploy developer hub
+    digest: a4a7b0ee595dcc18f4f0f37680b5175a7d69906b333c8e3a6c5fccdbdf80c233
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: redhat-developer-hub
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/redhat-developer-hub-1.0.2/redhat-developer-hub-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2025-10-15T23:00:26.233729599Z"
     dependencies:
     - name: redhat-developer-hub
@@ -8904,4 +8927,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-15T23:00:26.234334326Z"
+generated: "2025-10-15T23:23:43.874616174Z"
