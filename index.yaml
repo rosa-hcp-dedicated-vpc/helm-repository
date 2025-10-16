@@ -7386,6 +7386,34 @@ entries:
       charts.openshift.io/provider: Red Hat Developer Hub Team
       charts.openshift.io/supportURL: https://issues.redhat.com/browse/RHIDP
     apiVersion: v2
+    created: "2025-10-16T06:16:48.731758822Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.9
+    description: 'Helm chart to deploy the Orchestrator solution''s required infrastructure
+      suite on OpenShift, including OpenShift Serverless Operator and OpenShift Serverless
+      Logic Operator, both required to configure Red Hat Developer Hub to use the
+      Orchestrator. '
+    digest: 3f56063e63c2ab350742afd7c79e24b0afb2e74f1abec7f589abafea1022db92
+    kubeVersion: '>= 1.25.0-0'
+    maintainers:
+    - name: Red Hat Developer Hub Team
+      url: https://github.com/redhat-developer/rhdh-chart
+    name: rhdh-orchestrator-infra
+    sources:
+    - https://github.com/redhat-developer/rhdh-chart
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-infra-2.0.5/rhdh-orchestrator-infra-2.0.5.tgz
+    version: 2.0.5
+  - annotations:
+      charts.openshift.io/name: Orchestrator Infrastructure for Red Hat Developer
+        Hub
+      charts.openshift.io/provider: Red Hat Developer Hub Team
+      charts.openshift.io/supportURL: https://issues.redhat.com/browse/RHIDP
+    apiVersion: v2
     created: "2025-10-16T05:56:15.654238178Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -7488,6 +7516,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-infra-0.2.3/rhdh-orchestrator-infra-0.2.3.tgz
     version: 0.2.3
   rhdh-orchestrator-workflows-greeting:
+  - apiVersion: v2
+    created: "2025-10-16T06:16:48.95185764Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.9
+    description: A Helm chart for the greeting serverless workflow
+    digest: 6619ffafb12e41fe00df0b6218bc6fb0056549ee0f54f0577a02b41cf8737640
+    icon: https://raw.githubusercontent.com/rhdhorchestrator/rhdhorchestrator.github.io/main/assets/images/WO_black.svg
+    name: rhdh-orchestrator-workflows-greeting
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-workflows-greeting-2.0.5/rhdh-orchestrator-workflows-greeting-2.0.5.tgz
+    version: 2.0.5
   - apiVersion: v2
     created: "2025-10-16T05:56:15.948382095Z"
     dependencies:
@@ -9278,4 +9321,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-16T05:56:15.949712962Z"
+generated: "2025-10-16T06:16:48.953001777Z"
