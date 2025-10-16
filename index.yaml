@@ -7288,6 +7288,29 @@ entries:
     version: 0.0.1
   rhdh-helm:
   - apiVersion: v2
+    created: "2025-10-16T05:56:15.445609352Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://charts.openshift.io
+      version: 1.7.1
+    description: Master chart to deploy developer hub
+    digest: ddc675646c5a375d731a67acf11e9b911de5294d20075f7b7d097fc999fc94c2
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhdh-helm
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-helm-1.0.5/rhdh-helm-1.0.5.tgz
+    version: 1.0.5
+  - apiVersion: v2
     created: "2025-10-16T00:47:50.306568326Z"
     dependencies:
     - name: redhat-developer-hub
@@ -7357,6 +7380,34 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-helm-1.0.2/rhdh-helm-1.0.2.tgz
     version: 1.0.2
   rhdh-orchestrator-infra:
+  - annotations:
+      charts.openshift.io/name: Orchestrator Infrastructure for Red Hat Developer
+        Hub
+      charts.openshift.io/provider: Red Hat Developer Hub Team
+      charts.openshift.io/supportURL: https://issues.redhat.com/browse/RHIDP
+    apiVersion: v2
+    created: "2025-10-16T05:56:15.654238178Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.9
+    description: 'Helm chart to deploy the Orchestrator solution''s required infrastructure
+      suite on OpenShift, including OpenShift Serverless Operator and OpenShift Serverless
+      Logic Operator, both required to configure Red Hat Developer Hub to use the
+      Orchestrator. '
+    digest: 5ec39dce9d5b622dc48a5276107390c63a1d9d8b76c6f1c290ac23047056e7e2
+    kubeVersion: '>= 1.25.0-0'
+    maintainers:
+    - name: Red Hat Developer Hub Team
+      url: https://github.com/redhat-developer/rhdh-chart
+    name: rhdh-orchestrator-infra
+    sources:
+    - https://github.com/redhat-developer/rhdh-chart
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-infra-2.0.4/rhdh-orchestrator-infra-2.0.4.tgz
+    version: 2.0.4
   - annotations:
       charts.openshift.io/name: Orchestrator Infrastructure for Red Hat Developer
         Hub
@@ -7437,6 +7488,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-infra-0.2.3/rhdh-orchestrator-infra-0.2.3.tgz
     version: 0.2.3
   rhdh-orchestrator-workflows-greeting:
+  - apiVersion: v2
+    created: "2025-10-16T05:56:15.948382095Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.9
+    description: A Helm chart for the greeting serverless workflow
+    digest: 21c9dc17697ad869c9599854a59ebe902b40fc60637a72697113284795c5e73a
+    icon: https://raw.githubusercontent.com/rhdhorchestrator/rhdhorchestrator.github.io/main/assets/images/WO_black.svg
+    name: rhdh-orchestrator-workflows-greeting
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-workflows-greeting-2.0.4/rhdh-orchestrator-workflows-greeting-2.0.4.tgz
+    version: 2.0.4
   - apiVersion: v2
     created: "2025-10-16T05:11:44.050062822Z"
     dependencies:
@@ -9212,4 +9278,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-16T05:11:44.050640559Z"
+generated: "2025-10-16T05:56:15.949712962Z"
