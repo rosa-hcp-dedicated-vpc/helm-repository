@@ -7375,6 +7375,21 @@ entries:
     version: 0.2.3
   rhdh-orchestrator-workflows-greeting:
   - apiVersion: v2
+    created: "2025-10-16T04:26:53.495680056Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    description: A Helm chart for the greeting serverless workflow
+    digest: 67e7d5b74ae2b76eeb115f9caf982fd58e69d520a57acf50cda8dc189347f9ee
+    icon: https://raw.githubusercontent.com/rhdhorchestrator/rhdhorchestrator.github.io/main/assets/images/WO_black.svg
+    name: rhdh-orchestrator-workflows-greeting
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-workflows-greeting-2.0.1/rhdh-orchestrator-workflows-greeting-2.0.1.tgz
+    version: 2.0.1
+  - apiVersion: v2
     created: "2025-10-16T04:12:38.257201834Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -9119,4 +9134,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-16T04:12:38.25827326Z"
+generated: "2025-10-16T04:26:53.496962842Z"
