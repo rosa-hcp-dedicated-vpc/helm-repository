@@ -7288,6 +7288,29 @@ entries:
     version: 0.0.1
   rhdh-helm:
   - apiVersion: v2
+    created: "2025-10-17T05:59:27.088923353Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://charts.openshift.io
+      version: 1.7.1
+    description: Master chart to deploy developer hub
+    digest: bfabcda9e921394c0d668ce5d9f3e9f420a339899a5da8af6f26204b0ca6e8cc
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhdh-helm
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-helm-1.0.8/rhdh-helm-1.0.8.tgz
+    version: 1.0.8
+  - apiVersion: v2
     created: "2025-10-16T06:49:54.102752978Z"
     dependencies:
     - name: redhat-developer-hub
@@ -8347,6 +8370,22 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhods-operator-1.0.0/rhods-operator-1.0.0.tgz
     version: 1.0.0
+  rhsso-janus:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-10-17T05:59:27.319211493Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.9
+    description: A Helm chart to deploy RHSSO for Janus-IDP-Demo on Kubernetes
+    digest: 98f1407745076578ee753ff89f5d60e0cecad2033be5ba18132f2062e94b8888
+    name: rhsso-janus
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhsso-janus-0.1.0/rhsso-janus-0.1.0.tgz
+    version: 0.1.0
   serverless-operator:
   - apiVersion: v2
     appVersion: "1.34"
@@ -9367,4 +9406,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-16T06:49:54.10330072Z"
+generated: "2025-10-17T05:59:27.319876482Z"
