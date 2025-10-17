@@ -8386,6 +8386,22 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhsso-janus-0.1.0/rhsso-janus-0.1.0.tgz
     version: 0.1.0
+  rhsso-operator:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-10-17T06:19:41.204810206Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.9
+    description: A Helm chart to deploy RHSSO for Janus-IDP-Demo on Kubernetes
+    digest: bb9bc408b95f63986b26fed7e88b879b64c9fb6b1d938ec07bef00eb00ca99e1
+    name: rhsso-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhsso-operator-0.1.0/rhsso-operator-0.1.0.tgz
+    version: 0.1.0
   serverless-operator:
   - apiVersion: v2
     appVersion: "1.34"
@@ -9406,4 +9422,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-17T05:59:27.319876482Z"
+generated: "2025-10-17T06:19:41.205556403Z"
