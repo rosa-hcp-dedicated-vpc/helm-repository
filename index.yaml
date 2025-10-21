@@ -7353,6 +7353,29 @@ entries:
     version: 0.0.1
   rhdh-helm:
   - apiVersion: v2
+    created: "2025-10-21T22:38:14.227072839Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://charts.openshift.io
+      version: 1.7.1
+    description: Master chart to deploy developer hub
+    digest: 0bb3358c82b559be0dce5a57d759457f66e478e5a57bb62e5490f5deb3e4435e
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhdh-helm
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-helm-1.1.2/rhdh-helm-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2025-10-20T06:37:11.961031914Z"
     dependencies:
     - name: redhat-developer-hub
@@ -7719,6 +7742,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-infra-0.2.3/rhdh-orchestrator-infra-0.2.3.tgz
     version: 0.2.3
   rhdh-orchestrator-workflows-greeting:
+  - apiVersion: v2
+    created: "2025-10-21T22:38:14.440559857Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.9
+    description: A Helm chart for the greeting serverless workflow
+    digest: 3f3cafb025301bb9a05f8035330a40ef88ff6d49d6b65e5ddd0a168fcb5736d9
+    icon: https://raw.githubusercontent.com/rhdhorchestrator/rhdhorchestrator.github.io/main/assets/images/WO_black.svg
+    name: rhdh-orchestrator-workflows-greeting
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-orchestrator-workflows-greeting-2.0.7/rhdh-orchestrator-workflows-greeting-2.0.7.tgz
+    version: 2.0.7
   - apiVersion: v2
     created: "2025-10-16T06:16:48.95185764Z"
     dependencies:
@@ -9691,4 +9729,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-10-20T06:37:11.961582839Z"
+generated: "2025-10-21T22:38:14.441426349Z"
