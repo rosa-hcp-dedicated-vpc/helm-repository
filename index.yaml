@@ -7607,6 +7607,22 @@ entries:
   rhbk-operator:
   - apiVersion: v2
     appVersion: 26.4.2-opr.1
+    created: "2025-11-11T02:38:21.052722861Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.0
+    description: A Helm chart to deploy Red Hat Build of Keycloak (RHBK) operator
+      for Janus-IDP-Demo on Kubernetes
+    digest: ae9eae5c9015c1e3dc5e03dca515bcf36be5542ba074968cd596bf9b49f3a53a
+    name: rhbk-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhbk-operator-0.1.6/rhbk-operator-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v2
+    appVersion: 26.4.2-opr.1
     created: "2025-11-11T01:41:30.832257852Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -10451,4 +10467,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-11T01:41:30.833032342Z"
+generated: "2025-11-11T02:38:21.053741494Z"
