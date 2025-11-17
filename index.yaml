@@ -7658,6 +7658,22 @@ entries:
   rhbk-operator:
   - apiVersion: v2
     appVersion: 26.4.2-opr.1
+    created: "2025-11-17T03:33:13.43836446Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.0
+    description: A Helm chart to deploy Red Hat Build of Keycloak (RHBK) operator
+      for Janus-IDP-Demo on Kubernetes
+    digest: 137358a40bbf318fae6cf28efdb572b36541609a340a1876f46c17f544a7d589
+    name: rhbk-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhbk-operator-0.2.6/rhbk-operator-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
+    appVersion: 26.4.2-opr.1
     created: "2025-11-17T03:07:03.859472875Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -7897,6 +7913,29 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhbk-operator-0.1.0/rhbk-operator-0.1.0.tgz
     version: 0.1.0
   rhdh-helm:
+  - apiVersion: v2
+    created: "2025-11-17T03:33:13.718997552Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 9.7.3
+    description: Master chart to deploy developer hub
+    digest: d8732f97bbc5820d8450e74d53ad40f1e1e6f438e5d6f71e386a20ee4adcfff8
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhdh-helm
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-helm-1.5.2/rhdh-helm-1.5.2.tgz
+    version: 1.5.2
   - apiVersion: v2
     created: "2025-11-17T03:07:04.206675461Z"
     dependencies:
@@ -11022,4 +11061,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-17T03:07:04.371283181Z"
+generated: "2025-11-17T03:33:13.720495336Z"
