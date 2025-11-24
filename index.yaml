@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   acm-operator:
   - apiVersion: v2
+    created: "2025-11-24T02:01:45.2067758Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.3.7
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy Red Hat Advanced Cluster Management (RHACM) with
+      ArgoCD ApplicationSets for spoke cluster management
+    digest: 5a053f6389e3451b8f721b82cd20eb3afbae2e142d51ba877bfa6fbcd1c66b99
+    name: acm-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/acm-operator-0.3.9/acm-operator-0.3.9.tgz
+    version: 0.3.9
+  - apiVersion: v2
     created: "2025-11-24T01:53:51.9731491Z"
     dependencies:
     - name: helper-status-checker
@@ -11557,4 +11573,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-24T01:53:52.469637153Z"
+generated: "2025-11-24T02:01:45.207601165Z"
