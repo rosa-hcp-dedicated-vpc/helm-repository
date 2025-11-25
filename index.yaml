@@ -1600,6 +1600,21 @@ entries:
     version: 0.5.6
   cluster-bootstrap-acm-spoke:
   - apiVersion: v2
+    created: "2025-11-25T22:52:14.444244496Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.3.8
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: 1b2d71bbabb9cd69a160b58db3409ffe759313fdb66b65f181288da37c0f4106
+    name: cluster-bootstrap-acm-spoke
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-acm-spoke-0.6.2/cluster-bootstrap-acm-spoke-0.6.2.tgz
+    version: 0.6.2
+  - apiVersion: v2
     created: "2025-11-25T06:51:57.11594518Z"
     dependencies:
     - name: helper-installplan-approver
@@ -11904,4 +11919,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-25T22:32:37.58156686Z"
+generated: "2025-11-25T22:52:14.445158853Z"
