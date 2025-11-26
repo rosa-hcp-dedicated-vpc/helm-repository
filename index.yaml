@@ -828,6 +828,21 @@ entries:
   authorino-operator:
   - apiVersion: v2
     appVersion: 1.2.3
+    created: "2025-11-26T01:34:02.870227677Z"
+    dependencies:
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.0
+    description: Helm chart for deploying Red Hat Authorino Operator
+    digest: 411a9a48bf0b3f359c806ddd9abe740b9766fa164b52bb05cc9f2b3a5acfd16e
+    name: authorino-operator
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/authorino-operator-0.1.2/authorino-operator-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.2.3
     created: "2025-11-18T02:14:49.579130129Z"
     dependencies:
     - condition: helper-status-checker.enabled
@@ -11986,4 +12001,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-26T00:43:45.960671014Z"
+generated: "2025-11-26T01:34:02.870985786Z"
