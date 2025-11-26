@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   acm-operator:
   - apiVersion: v2
+    created: "2025-11-26T00:37:24.934372965Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.0
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy Red Hat Advanced Cluster Management (RHACM) with
+      ArgoCD ApplicationSets for spoke cluster management
+    digest: 8f46b2bd8cfbe8064efc5c0902d66845c5acb6489132211bacc6b9f8013c358e
+    name: acm-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/acm-operator-0.5.7/acm-operator-0.5.7.tgz
+    version: 0.5.7
+  - apiVersion: v2
     created: "2025-11-25T22:32:37.580636882Z"
     dependencies:
     - name: helper-status-checker
@@ -628,6 +644,14 @@ entries:
     version: 1.5.4
   app-of-apps-application-acm:
   - apiVersion: v2
+    created: "2025-11-26T00:37:25.176383895Z"
+    description: Chart to generate argocd apps for each team and gitops set up
+    digest: 2c958ec647b0bccbd860cdbca8de78a05a2767376e289151709a63c741b93c94
+    name: app-of-apps-application-acm
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-application-acm-1.6.3/app-of-apps-application-acm-1.6.3.tgz
+    version: 1.6.3
+  - apiVersion: v2
     created: "2025-11-24T01:53:52.128372051Z"
     description: Chart to generate argocd apps for each team and gitops set up
     digest: 1c0c8eb896391604f3e3f537f69f0d3b3b50c0ef744c2e9c9eb6d7645dbea26c
@@ -710,6 +734,14 @@ entries:
     version: 0.1.2
   app-of-apps-infrastructure-acm:
   - apiVersion: v1
+    created: "2025-11-26T00:37:25.410598923Z"
+    description: Chart to generate argocd apps
+    digest: a8c9bee0d358ae7754a6b49dcb8a3a8e3e4d8eea15411bed7c1fa3237981d0ae
+    name: app-of-apps-infrastructure-acm
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-infrastructure-acm-0.2.6/app-of-apps-infrastructure-acm-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v1
     created: "2025-11-24T01:53:52.298470729Z"
     description: Chart to generate argocd apps
     digest: c886fd4c45e227702f39b7986c9865cdf2d0fd8a51161e3bd9c6af3149e560de
@@ -743,6 +775,14 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-namespaces-0.3.2/app-of-apps-namespaces-0.3.2.tgz
     version: 0.3.2
   app-of-apps-namespaces-acm:
+  - apiVersion: v1
+    created: "2025-11-26T00:37:25.670837962Z"
+    description: Chart to generate namespaces apps.
+    digest: 8b859958dfdb301f89b73dcc435edb168e668ce1d3f83a70377b09312ab6c12b
+    name: app-of-apps-namespaces-acm
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/app-of-apps-namespaces-acm-0.3.9/app-of-apps-namespaces-acm-0.3.9.tgz
+    version: 0.3.9
   - apiVersion: v1
     created: "2025-11-24T01:53:52.468775763Z"
     description: Chart to generate namespaces apps.
@@ -11930,4 +11970,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-25T23:43:57.537064999Z"
+generated: "2025-11-26T00:37:25.67175615Z"
