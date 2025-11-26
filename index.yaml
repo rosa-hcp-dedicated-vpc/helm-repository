@@ -2,6 +2,22 @@ apiVersion: v1
 entries:
   acm-operator:
   - apiVersion: v2
+    created: "2025-11-26T02:18:13.799196648Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.2
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.1.0
+    description: Chart to deploy Red Hat Advanced Cluster Management (RHACM) with
+      ArgoCD ApplicationSets for spoke cluster management
+    digest: 7c7675643656e32b9632edcff87f0ac08a474565acf71a4f0f99c0d9da25cfe9
+    name: acm-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/acm-operator-0.5.11/acm-operator-0.5.11.tgz
+    version: 0.5.11
+  - apiVersion: v2
     created: "2025-11-26T02:01:11.467287487Z"
     dependencies:
     - name: helper-status-checker
@@ -4347,6 +4363,41 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-operator-1.0.28/helper-operator-1.0.28.tgz
     version: 1.0.28
   helper-status-checker:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Signing Chart
+        - kind: added
+          description: "Version 4.0.0: It is now possible to use a range of status checks to verify multiple operators."
+        - kind: added
+          description: added new option subscriptionName in case the subscription name is different to the operator name
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/signKey: |
+        fingerprint: B677CB52F8358FA091044E375D24D6846DBA8F8A
+        url: https://keys.openpgp.org/vks/v1/by-fingerprint/B677CB52F8358FA091044E375D24D6846DBA8F8A
+    apiVersion: v2
+    created: "2025-11-26T02:18:14.039235394Z"
+    description: A helper Chart that creates a job to verify if the deployments of
+      an operator are running. To do so it creates a service account with a role to
+      read the status of the Deployments.
+    digest: 7af71c9bdd65ba5a7e89e7f14a035aa774f2cbe919dbf6f7c7f1d387f3bdde5e
+    home: https://github.com/tjungbauer/helm-charts/tree/main/charts/helper-status-checker
+    icon: https://github.com/tjungbauer/helm-charts/raw/gh-pages/images/helping.png
+    keywords:
+    - helper
+    - subchart
+    maintainers:
+    - email: tjungbau@redhat.com
+      name: tjungbauer
+      url: https://blog.stderr.at/
+    name: helper-status-checker
+    sources:
+    - https://github.com/tjungbauer/helm-charts
+    - https://charts.stderr.at/
+    - https://github.com/tjungbauer/openshift-clusterconfig-gitops
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/helper-status-checker-4.4.3/helper-status-checker-4.4.3.tgz
+    version: 4.4.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -12464,4 +12515,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-26T02:03:15.908208585Z"
+generated: "2025-11-26T02:18:14.041705947Z"
