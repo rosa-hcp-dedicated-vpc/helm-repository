@@ -8215,6 +8215,14 @@ entries:
     version: 0.1.0
   openshift-piplines-operators:
   - apiVersion: v2
+    created: "2025-11-30T22:58:09.999166549Z"
+    description: Chart to deploy OpenShift Pipelines (Tekton) operator
+    digest: 628afc45541c2106fbc2a002aeb00681a0afe92249ba8a78e0ea188c7c40987a
+    name: openshift-piplines-operators
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/openshift-piplines-operators-0.1.13/openshift-piplines-operators-0.1.13.tgz
+    version: 0.1.13
+  - apiVersion: v2
     created: "2025-11-30T11:31:01.427531166Z"
     description: Chart to deploy OpenShift Pipelines (Tekton) operator
     digest: 760300db60ec456da217079984c0440c834fccf9da3d8ea22f30d0f8e0ce0d9a
@@ -13306,4 +13314,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-30T11:31:01.43054967Z"
+generated: "2025-11-30T22:58:10.000141013Z"
