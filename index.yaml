@@ -8213,6 +8213,15 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/nvidia-gpu-operator-0.1.0/nvidia-gpu-operator-0.1.0.tgz
     version: 0.1.0
+  openshift-pipelines-operator:
+  - apiVersion: v2
+    created: "2025-11-30T23:35:39.886047188Z"
+    description: Chart to deploy OpenShift Pipelines (Tekton) operator
+    digest: de88e54bf677d1af6575fc90637f654ce3c270181defe9ddbc69fc402053964c
+    name: openshift-pipelines-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/openshift-pipelines-operator-0.1.13/openshift-pipelines-operator-0.1.13.tgz
+    version: 0.1.13
   openshift-piplines-operator:
   - apiVersion: v2
     created: "2025-11-30T23:00:38.088450781Z"
@@ -13323,4 +13332,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-30T23:00:38.089557035Z"
+generated: "2025-11-30T23:35:39.886900493Z"
