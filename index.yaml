@@ -858,6 +858,14 @@ entries:
   application-certificates: null
   application-gitops:
   - apiVersion: v1
+    created: "2025-11-30T11:02:16.92701949Z"
+    description: Chart to generate argocd apps
+    digest: 8b72f9442c62916ee17c2a869809f190c9d81149d3c4c99ccb8304ea97527c0b
+    name: application-gitops
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/application-gitops-1.4.0/application-gitops-1.4.0.tgz
+    version: 1.4.0
+  - apiVersion: v1
     created: "2025-08-21T01:52:07.173685782Z"
     description: Chart to generate argocd apps
     digest: 4faa89776c0a444eb021fadd4dd4496996e003988caae61bad395bd7a5c62007
@@ -9394,6 +9402,29 @@ entries:
     version: 0.1.0
   rhdh-helm:
   - apiVersion: v2
+    created: "2025-11-30T11:02:17.281983806Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 9.7.3
+    description: Master chart to deploy developer hub
+    digest: c75fbd631cce37ea6159a8f586386a1f82cfaae79490269ca5ccb29d520ab7df
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhdh-helm
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-helm-1.7.5/rhdh-helm-1.7.5.tgz
+    version: 1.7.5
+  - apiVersion: v2
     created: "2025-11-29T01:37:54.744945217Z"
     dependencies:
     - name: redhat-developer-hub
@@ -13236,4 +13267,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-29T01:37:54.745975242Z"
+generated: "2025-11-30T11:02:17.282755576Z"
