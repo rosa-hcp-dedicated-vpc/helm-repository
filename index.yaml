@@ -1218,6 +1218,21 @@ entries:
     version: 4.5.11
   cluster-bootstrap:
   - apiVersion: v2
+    created: "2025-11-30T11:22:46.386894906Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.4.0
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: 140dba40638b2e127ba19f6d68c0b71d1d15142487ac6bb625cc7f8cf466ce99
+    name: cluster-bootstrap
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-0.5.4/cluster-bootstrap-0.5.4.tgz
+    version: 0.5.4
+  - apiVersion: v2
     created: "2025-10-19T22:59:23.590174824Z"
     dependencies:
     - name: helper-installplan-approver
@@ -1752,6 +1767,21 @@ entries:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-acm-hub-registration-0.1.0/cluster-bootstrap-acm-hub-registration-0.1.0.tgz
     version: 0.1.0
   cluster-bootstrap-acm-spoke:
+  - apiVersion: v2
+    created: "2025-11-30T11:22:46.578019105Z"
+    dependencies:
+    - name: helper-installplan-approver
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 0.1.0
+    - name: application-gitops
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 1.4.0
+    description: Chart to kick off gitops installation and bootstrapping of blue print
+    digest: e09951a9a573e8bbc1c7db599079c18e36b70b7ca5434ac73eb1e7fa9002c782
+    name: cluster-bootstrap-acm-spoke
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-acm-spoke-0.6.3/cluster-bootstrap-acm-spoke-0.6.3.tgz
+    version: 0.6.3
   - apiVersion: v2
     created: "2025-11-25T22:52:14.444244496Z"
     dependencies:
@@ -13267,4 +13297,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-30T11:02:17.282755576Z"
+generated: "2025-11-30T11:22:46.579223135Z"
