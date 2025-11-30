@@ -8215,6 +8215,18 @@ entries:
     version: 0.1.0
   openshift-pipelines-operator:
   - apiVersion: v2
+    created: "2025-11-30T23:47:40.750919477Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.3
+    description: Chart to deploy OpenShift Pipelines (Tekton) operator
+    digest: 65986f7624db4deec5b06aa209ca30a8a7328e7d9e6c7c3d01deefc2c9934b7f
+    name: openshift-pipelines-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/openshift-pipelines-operator-0.1.14/openshift-pipelines-operator-0.1.14.tgz
+    version: 0.1.14
+  - apiVersion: v2
     created: "2025-11-30T23:35:39.886047188Z"
     description: Chart to deploy OpenShift Pipelines (Tekton) operator
     digest: de88e54bf677d1af6575fc90637f654ce3c270181defe9ddbc69fc402053964c
@@ -13332,4 +13344,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-11-30T23:35:39.886900493Z"
+generated: "2025-11-30T23:47:40.752380902Z"
