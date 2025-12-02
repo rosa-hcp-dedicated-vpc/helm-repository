@@ -1758,6 +1758,16 @@ entries:
   cluster-bootstrap-acm-hub-registration:
   - apiVersion: v2
     appVersion: "1.0"
+    created: "2025-12-02T00:29:29.268410082Z"
+    description: Helm chart to register spoke clusters with ACM hub
+    digest: c58ea32c1537ad4225cc085c577553e63b582342eba5c9647187efe28484b93a
+    name: cluster-bootstrap-acm-hub-registration
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-bootstrap-acm-hub-registration-0.1.1/cluster-bootstrap-acm-hub-registration-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: "1.0"
     created: "2025-11-25T23:43:57.536234791Z"
     description: Helm chart to register spoke clusters with ACM hub
     digest: 828214ebf52997b34bc6890222c0e665ff2f6c4c6d20e914cecd74b8953acfd9
@@ -9479,6 +9489,29 @@ entries:
     version: 0.1.0
   rhdh-helm:
   - apiVersion: v2
+    created: "2025-12-02T00:29:29.696797449Z"
+    dependencies:
+    - name: redhat-developer-hub
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 9.7.3
+    description: Master chart to deploy developer hub
+    digest: 60441285cf0a8fd4dee89ea6d8dd9c3136596c283b32b43a02d46d01ffbb1150
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    keywords:
+    - redhat-developer-hub
+    - backstage
+    - openshift
+    maintainers:
+    - email: pafoster@redhat.com
+      name: Paul Foster
+      url: https://github.com/rosa-hcp-dedicated-vpc
+    name: rhdh-helm
+    sources:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhdh-helm-1.11.0/rhdh-helm-1.11.0.tgz
+    version: 1.11.0
+  - apiVersion: v2
     created: "2025-12-01T07:59:28.203859068Z"
     dependencies:
     - name: redhat-developer-hub
@@ -13252,6 +13285,15 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/servicemesh-operator-0.2.0/servicemesh-operator-0.2.0.tgz
     version: 0.2.0
+  tekton-pipelines:
+  - apiVersion: v2
+    created: "2025-12-02T00:29:29.990684085Z"
+    description: Chart to deploy OpenShift Pipelines (Tekton) operator
+    digest: 8ee59187bdc335668a298538c7bb7b6c17fbb140201e97b1b4a0da367be652d1
+    name: tekton-pipelines
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/tekton-pipelines-0.1.0/tekton-pipelines-0.1.0.tgz
+    version: 0.1.0
   virtualization-operator:
   - apiVersion: v2
     appVersion: "4.16"
@@ -13482,4 +13524,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2025-12-01T07:59:28.204695892Z"
+generated: "2025-12-02T00:29:29.991534169Z"
