@@ -6539,6 +6539,25 @@ entries:
   maas-api:
   - apiVersion: v2
     appVersion: v3.0.0
+    created: "2026-01-09T05:44:57.3152802Z"
+    description: Model-as-a-Service (MaaS) API for managing LLM inference services
+    digest: 6a452f7d120166dd457e6dbf26fabe81122e6360491f11faf60ae2b1be8f6f44
+    keywords:
+    - maas
+    - models-as-a-service
+    - llm
+    - inference
+    - openshift-ai
+    - kuadrant
+    maintainers:
+    - name: Platform Team
+    name: maas-api
+    type: application
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/maas-api-0.1.1/maas-api-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v3.0.0
     created: "2026-01-09T05:05:24.692004218Z"
     description: Model-as-a-Service (MaaS) API for managing LLM inference services
     digest: 169053422b2f7464df36cd37003d4fa572f941cdc350abfbba603c9ac90e9892
@@ -13972,4 +13991,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2026-01-09T05:05:24.872739644Z"
+generated: "2026-01-09T05:44:57.316240678Z"
