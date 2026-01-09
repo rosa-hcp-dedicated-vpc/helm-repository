@@ -6523,6 +6523,19 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/loki-operator-0.1.5/loki-operator-0.1.5.tgz
     version: 0.1.5
+  lws-operator:
+  - apiVersion: v2
+    created: "2026-01-09T02:07:02.593565503Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.3
+    description: Chart to deploy Leader Worker Set (LWS) operator for OpenShift AI
+    digest: 8e7c4a110b31f0b7fa435e55c440170ad3853823037b50ad45711572f0e9e937
+    name: lws-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/lws-operator-0.1.0/lws-operator-0.1.0.tgz
+    version: 0.1.0
   milvus:
   - apiVersion: v1
     appVersion: 2.6.1
@@ -9533,6 +9546,20 @@ entries:
     type: application
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhbk-operator-0.1.0/rhbk-operator-0.1.0.tgz
+    version: 0.1.0
+  rhcl-operator:
+  - apiVersion: v2
+    created: "2026-01-09T02:07:02.831325552Z"
+    dependencies:
+    - name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.3
+    description: Chart to deploy Red Hat Connectivity Link (RHCL) operator for API
+      gateway and rate limiting
+    digest: 79d19cdc07d5d541fd72a46aab209651637e8ec8df63deefbb592cb0b5cb6dd4
+    name: rhcl-operator
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/rhcl-operator-0.1.0/rhcl-operator-0.1.0.tgz
     version: 0.1.0
   rhdh-helm:
   - apiVersion: v2
@@ -13863,4 +13890,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2026-01-09T00:19:04.674691534Z"
+generated: "2026-01-09T02:07:02.832271123Z"
