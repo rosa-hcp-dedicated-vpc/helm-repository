@@ -2640,6 +2640,28 @@ entries:
     version: 0.0.7
   cluster-logging:
   - apiVersion: v2
+    created: "2026-01-22T03:01:55.300183859Z"
+    dependencies:
+    - name: helper-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~1.1.0
+    - condition: helper-status-checker.enabled
+      name: helper-status-checker
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: 4.4.3
+    - condition: loki-operator.enabled
+      name: loki-operator
+      repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
+      version: ~0.1.5
+    digest: 9a6c8c24026b400276d2910d57406e40c60f6328f324f49da3437bc151a217ae
+    home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository/
+    maintainers:
+    - name: rh-mobb
+    name: cluster-logging
+    urls:
+    - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/cluster-logging-0.5.15/cluster-logging-0.5.15.tgz
+    version: 0.5.15
+  - apiVersion: v2
     created: "2026-01-14T21:56:49.259159587Z"
     dependencies:
     - name: helper-operator
@@ -14059,4 +14081,4 @@ entries:
     urls:
     - https://github.com/rosa-hcp-dedicated-vpc/helm-repository/releases/download/web-terminal-operator-0.1.1/web-terminal-operator-0.1.1.tgz
     version: 0.1.1
-generated: "2026-01-21T01:27:27.836598685Z"
+generated: "2026-01-22T03:01:55.302077657Z"
