@@ -1,5 +1,5 @@
 name: cluster-logging
-version: 0.5.14
+version: 0.5.15
 apiVersion: v2
 dependencies:
   - name: helper-operator
@@ -13,3 +13,7 @@ dependencies:
     version: ~0.1.5
     repository: https://rosa-hcp-dedicated-vpc.github.io/helm-repository/
     condition: loki-operator.enabled
+
+home: https://github.com/rosa-hcp-dedicated-vpc/helm-repository/
+maintainers:
+  - name: rh-mobb
